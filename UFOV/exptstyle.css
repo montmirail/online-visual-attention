@@ -1,0 +1,42 @@
+/* UFOV/practicestyle.css:
+ * Additional styling for main UFOV task page.
+ */
+
+body {
+background-color: black;
+color: white;
+font-family: Arial, sans-serif;
+font-size:12pt;
+margin:0px;
+}
+
+#exptCanvas {
+display: block;
+}
+
+#preexpt, #postexpt {
+text-align: center;
+}
+
+.ui-button {
+font-size:0.8em;
+}
+
+#reminder {
+font-size: 0.8em;
+}
+
+#reminderButton {
+position: absolute;
+right: 0%;
+bottom: 0%;
+}
+
+a {
+color: #FFCC00;
+font-weight: bold;
+}
+
+a:hover {
+color:white;
+}

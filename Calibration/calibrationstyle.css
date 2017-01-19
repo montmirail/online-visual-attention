@@ -1,0 +1,122 @@
+/* calibrationstyle.css:
+ * Additional styling for the calibration page.
+ */
+
+html, body {
+margin: 0;
+}
+
+body {
+font-family: Trebuchet MS, Helvetica, Arial, sans-serif;
+font-size:.75em;
+background: black;
+}
+
+#error {
+color: white;
+font-family: Arial, sans-serif;
+font-size:12pt;
+text-align: center;
+}
+
+.center-stuff {
+text-align: center;
+}
+
+.bottom-border {
+border-bottom: 1px black dotted;
+padding-bottom: 1em;
+}
+
+#content {
+background: rgb(128, 128, 128);
+width: 95%;
+margin-top: 1em;
+margin-bottom: 1em;
+margin-left: auto;
+margin-right: auto;
+overflow: auto;
+text-align: center;
+}
+
+#myCanvas {
+display: block;
+margin-left: auto;
+margin-right: auto;
+}
+
+.sidebar {
+width: 350px;
+float: left;
+height: 620px;
+text-align: left;
+border: 0;
+}
+
+.sidebar p {
+margin-left: 1em;
+margin-right: 1em;
+}
+
+.sidebar ul {
+margin-right: 1em;
+}
+
+#adjustBar, #startBar, #startButton {
+display: none;
+}
+
+.sidebar h3 {
+margin-top: 0;
+margin-bottom: 0;
+padding: .5em;
+}
+
+#header1, #header2, #header3 {
+border: 0;
+}
+
+.sliders {
+width: 300px;
+height: 5px;
+}
+
+.ui-slider .ui-slider-handle {
+width: 12px;
+margin-left: -6px;
+height: 12px;
+top: -4px;
+outline: none;
+}
+
+.slider-wrapper {
+display: block;
+margin-left: auto;
+margin-right: auto;
+text-align: center;
+width: 300px;
+}
+
+#helpDialog {
+font-size: .8em;
+}
+
+#startButton {
+margin-top: 15%;
+font-size: 2em;
+}
+
+#diagsize {
+font-weight: bold;
+font-size: 1.5em;
+color: #3366CC;
+margin: .5em;
+}
+
+#options {
+margin-top: 0.5em;
+}
+
+#nextButton, #prevButton {
+padding: 0;
+}

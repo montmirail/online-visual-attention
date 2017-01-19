@@ -1,0 +1,45 @@
+/* MOT/practicestyle.css:
+ * Additional styling for the MOT practice page.
+ */
+
+body {
+font-family: Arial, sans-serif;
+background: black;
+text-align: center;
+color: white;
+}
+
+#instructions {
+font-size:1em;
+margin: 0;
+text-align: left;
+height: 100px;
+}
+
+#backButton, #forwardButton {
+padding: 0;
+margin-bottom: 0.5em;
+margin-top: 0.5em;
+}
+
+#content {
+padding-bottom: 0.5em;
+width: 50%;
+margin: auto;
+}
+
+#reminder {
+font-size: 0.8em;
+text-align: left;
+}
+
+#reminderButton {
+position: absolute;
+right: 0%;
+bottom: 0%;
+}
+
+.highlight {
+color: #59E01B;
+font-weight: bold;
+}
