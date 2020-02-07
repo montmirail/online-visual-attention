@@ -80,7 +80,7 @@ if ($loggedin) { ?>
 	<p>Please choose the experiment you would like to participate in:</p>
 	<ul>
 	<li><a href="./Calibration/?task=ufov">Useful Field of View</a></li>
-	<li><a href="./Calibration/?task=mot">Multiple Object Tracking</a></li>
+	<li><a href="./Calibration/?task=mot>Multiple Object Tracking</a></li>
 	</ul>
 	<p><a href="<?php echo "./Calibration/?task=" . $task ?>">Or start the task you have been automatically assigned to.</a></p>
 <?php

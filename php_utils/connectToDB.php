@@ -8,5 +8,5 @@
  */
 
 //add in your own login information here!
-$bdd = new PDO('mysql:host=localhost;dbname=DATABASE_NAME;', 'USERNAME', 'PASSWORD');
+$bdd = new PDO('mysql:host=localhost;dbname=ova;', 'root', '');
 ?>
