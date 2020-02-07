@@ -4,6 +4,16 @@
  * to move onto the full task. The practice tria data is then saved to the database.
  */
 
+console.log("Start in practice mode.")
+
+document.addEventListener('DOMContentLoaded ', () => {
+	const page = document.querySelector('body');
+	page.requestFullscreen()
+		.catch(err => {
+			console.log(err);
+		});
+});
+
 // *********************** VARIABLES ************************ //
 var MOT = {}; //storage for all variables in this task
 
