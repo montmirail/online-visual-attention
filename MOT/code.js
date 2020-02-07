@@ -11,6 +11,42 @@
  * a cued dot or if it was a normal dot throughout the entire trial.
  */
 
+console.log("Start in real mode.")
+
+// ****************** FULL SCREEN UTILS *********************** //
+
+/* View in fullscreen */
+const openFullscreen = () => {
+    const page = document.documentElement;
+
+    if (page.requestFullscreen) {
+        page.requestFullscreen().then(() => console.log('fullscreen open'));
+    } else if (page.mozRequestFullScreen) { /* Firefox */
+        page.mozRequestFullScreen();
+    } else if (page.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+        page.webkitRequestFullscreen();
+    } else if (page.msRequestFullscreen) { /* IE/Edge */
+        page.msRequestFullscreen();
+    }
+};
+
+/* Close fullscreen */
+const closeFullscreen = () => {
+    const page = document.documentElement;
+
+    if (page.exitFullscreen) {
+        page.exitFullscreen();
+    } else if (page.mozCancelFullScreen) { /* Firefox */
+        page.mozCancelFullScreen();
+    } else if (page.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+        page.webkitExitFullscreen();
+    } else if (page.msExitFullscreen) { /* IE/Edge */
+        page.msExitFullscreen();
+    }
+};
+
+openFullscreen();
+
 // *********************** VARIABLES ************************ //
 var MOT = {}; //storage for all variables in this task
 
@@ -26,6 +62,7 @@ MOT.yesKey = 66; //b for blue
 MOT.noKey = 89; //y for yellow
 MOT.startKey = 32; //space bar
 MOT.resumeKey = 13; //enter
+MOT.quitKey = 27; //enter
 
 //stimuli, trial, and block variables ----------------------------------
 
@@ -34,11 +71,13 @@ MOT.pxperdeg = <?php echo $pxperdeg; ?>;
 MOT.monitorsize =  <?php echo $monitorsize; ?>;
 
 //setting up the stimuli images
-MOT.img = [new Image(), new Image(), new Image()];
-var imgDir = "./img/"; //image directory
-MOT.img[0].src = imgDir + "happy_face.jpg"; //yellow stimulus
-MOT.img[1].src = imgDir + "sad_face.jpg"; //blue stimulus
-MOT.img[2].src = imgDir + "query.jpg"; //probe/queried stimulus
+const imgDir = './img/'; //image directory
+const images = ['happy_face.png', 'sad_face.png', 'query.png'];
+MOT.img = images.map(src => {
+    const image = new Image();
+    image.src = `${imgDir}${src}`;
+    return image;
+})
 
 MOT.numDots = 16; //total number of dots in a trial
 MOT.numAttendDots = <?php echo json_encode($order); ?>; //number of dots to attend to per trial (obtained from MOT/code.php)
@@ -258,7 +297,6 @@ function updateFrame() {
     }
 }
 
-
 // ********************** DRAWING METHODS ************************** //
 
 // this is the main function for controlling what is drawn on the canvas during the trials
@@ -269,9 +307,9 @@ function drawContent() {
 
     //create the gray circle that the dots move within
     //(size is the extent of the canvas)
-    MOT.c.fillStyle = "rgb(128,128,128)";
+    MOT.c.fillStyle = "rgb(128, 128, 128)";
     MOT.c.beginPath();
-    MOT.c.arc(MOT.cx, MOT.cy, Math.floor(MOT.canvas.height / 2), 0, 2 * Math.PI);
+    MOT.c.arc(MOT.cx, MOT.cy, Math.floor(MOT.maxFix - 15), 0, 2 * Math.PI);
     MOT.c.fill();
 
     //draw on canvas based on state
@@ -459,7 +497,6 @@ function drawFix() {
     MOT.c.fillRect(MOT.cx - 1, MOT.cy - 1, 3, 3);
 }
 
-
 // ****************** INPUT TRACKER *********************** //
 
 //this function is triggered whenever a key is pressed on the keyboard
@@ -501,6 +538,10 @@ function keyResponse(event) {
             MOT.blockCorrect = 0; //reset number of correct trials for this block
             MOT.state = "fix"; //change state to start a new trial
             MOT.stateChange = true;
+        }
+
+        if(event.keyCode === MOT.quitKey) {
+            closeFullscreen();
         }
     }
 }
