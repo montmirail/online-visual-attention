@@ -53,3 +53,7 @@ font-size: 0.8em;
     display: block;
     margin: auto;
 }
+
+p {
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;!important;
+}

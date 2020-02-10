@@ -3,11 +3,11 @@
  */
 
 body {
-background-color: black;
-color: white;
-font-family: Arial, sans-serif;
-font-size:12pt;
-margin:0;
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 12pt;
+    margin:0;
 }
 
 #exptCanvas {
@@ -40,4 +40,8 @@ font-weight: bold;
 
 a:hover {
 color:white;
+}
+
+p {
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;!important;
 }

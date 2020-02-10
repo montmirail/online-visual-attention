@@ -37,6 +37,9 @@ if (isset($_SESSION["monitorsize"]) && isset($_SESSION["pxperdeg"])) {
 	<link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/black-tie/jquery-ui.css" type="text/css" rel="stylesheet" />
 	<link href="./exptstyle.css" type="text/css" rel="stylesheet" /> 
 
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+
+
 	<title>Multiple Object Tracking</title>
 	
 	<!-- JS libraries -->
