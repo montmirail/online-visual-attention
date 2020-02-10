@@ -48,11 +48,6 @@ if (isset($_SESSION["monitorsize"]) && isset($_SESSION["pxperdeg"])) {
 
 	<!-- This is code that applies a seed to the random number generator -->
 	<script type="text/javascript" src="../js_utils/seedrandom.js"></script>
-
-	<!-- PHP script connected to more JS code for controlling the page -->
-	<script type="text/javascript" src="./code.php"></script>
-
-	<?php } ?>
 </head>
 
 <body>
@@ -108,6 +103,12 @@ if (isset($_SESSION["monitorsize"]) && isset($_SESSION["pxperdeg"])) {
 	<?php } else if (!$calibrated) { ?>
 	<div> <a href="../calibration/index.php?task=mot">Please go through our calibration steps before starting the task</a></div> 
 	<?php } ?>
+
+	<!-- PHP script connected to more JS code for controlling the page -->
+    	<!-- script type="text/javascript" src="./code.php"></script -->
+    		<script type="text/javascript" src="./dist/bundle.js"></script>
+
+    	<?php } ?>
 </body>
 
 </html>
