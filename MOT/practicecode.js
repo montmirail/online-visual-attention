@@ -4,8 +4,6 @@
  * to move onto the full task. The practice tria data is then saved to the database.
  */
 
-console.log("Start in practice mode.")
-
 document.addEventListener('DOMContentLoaded ', () => {
 	const page = document.querySelector('body');
 	page.requestFullscreen()
@@ -51,8 +49,8 @@ MOT.startKey = 32; //space bar
 //stimuli and trial variables ----------------------------------
 
 //get variables from session information (via MOT/practicecode.php)
-MOT.pxperdeg = <?php echo $pxperdeg; ?>;
-MOT.monitorsize = <?php echo $monitorsize; ?>;
+MOT.pxperdeg = 31.5;
+MOT.monitorsize = 24;
 
 //setting up the stimuli images
 MOT.img = new Array(new Image(), new Image(), new Image());
