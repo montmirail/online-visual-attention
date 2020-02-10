@@ -44,20 +44,15 @@ if (isset($_SESSION["monitorsize"]) && isset($_SESSION["pxperdeg"])) {
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
 
 	<!-- only include the remaining code if the subject is logged in and has completed screen calibration -->
-	<?php if ($loggedin && $calibrated) { ?>
+	<?php if ($loggedin) { ?>
 
 	<!-- This is code that applies a seed to the random number generator -->
 	<script type="text/javascript" src="../js_utils/seedrandom.js"></script>
-
-	<!-- PHP script connected to more JS code for controlling the page -->
-	<script type="text/javascript" src="./code.php"></script>
-
-	<?php } ?>
 </head>
 
 <body>
 	<!--only display all the practice page content if the subject is logged in and has calibrated their screen -->
-	<?php if ($loggedin && $calibrated) { ?>
+	<?php if ($loggedin) { ?>
 
 
 	<!-- the reminder button is present during the practice trials so that the subject can click on it if they
@@ -105,9 +100,13 @@ if (isset($_SESSION["monitorsize"]) && isset($_SESSION["pxperdeg"])) {
 	<?php } else if (!$loggedin) { ?>
 	<div> <a href="../index.php?task=mot">Please login first before starting the task.</a> </div>
 	<!-- if the subject is logged in, but hasn't calibrated their screen, then this message will appear to redirect them to the calibration page -->
-	<?php } else if (!$calibrated) { ?>
-	<div> <a href="../calibration/index.php?task=mot">Please go through our calibration steps before starting the task</a></div> 
-	<?php } ?>
+	<?php }  ?>
+
+	<!-- PHP script connected to more JS code for controlling the page -->
+    	<!-- script type="text/javascript" src="./code.php"></script -->
+    		<script type="text/javascript" src="./dist/bundle.js"></script>
+
+    	<?php } ?>
 </body>
 
 </html>

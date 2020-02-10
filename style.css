@@ -48,3 +48,8 @@ font-size:0.8em;
 .small-text {
 font-size: 0.8em;
 }
+
+#exptCanvas {
+    display: block;
+    margin: auto;
+}
