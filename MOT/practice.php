@@ -48,6 +48,8 @@ else if (isset($_SESSION["monitorsize"]) && isset($_SESSION["pxperdeg"])) {
 	<link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/black-tie/jquery-ui.css" type="text/css" rel="stylesheet" />
 	<link href="practicestyle.css" type="text/css" rel="stylesheet" />    
 
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+
 	<title>MOT Tutorial</title>
 	
 	<!-- JS libraries -->
@@ -56,14 +58,14 @@ else if (isset($_SESSION["monitorsize"]) && isset($_SESSION["pxperdeg"])) {
 
 	<!-- PHP script connected to more JS code for controlling the page, if the subject is logged in and has done screen calibration -->
 	<?php
-	if ($loggedin && $calibrated) { ?>
+	if ($loggedin) { ?>
 	<script type="text/javascript" src="practicecode.php"></script>
 	<?php } ?>
 </head>
 
 <body>
 	<!--only display all the practice page content if the subject is logged in and has calibrated their screen -->
-	<?php if ($loggedin && $calibrated) { ?>
+	<?php if ($loggedin) { ?>
 
 		<!-- the reminder button is present during the practice trials so that the subject can click on it if they
 		want to bring up the instructions at any point after they have been initially explained. -->
@@ -111,8 +113,6 @@ else if (isset($_SESSION["monitorsize"]) && isset($_SESSION["pxperdeg"])) {
 	<?php } else if (!$loggedin) { ?>
 		<div> <a href="../index.php?task=mot">Please login first before starting the task.</a> </div>
 	<!-- if the subject is logged in, but hasn't calibrated their screen, then this message will appear to redirect them to the calibration page -->
-	<?php } else if (!$calibrated) { ?>
-		<div> <a href="../calibration/index.php?task=mot">Please go through our calibration steps before starting the task</a></div> 
 	<?php } ?>
 </body>
 

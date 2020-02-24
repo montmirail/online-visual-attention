@@ -56,4 +56,8 @@ p {
 #preexpt {
     max-width: 1024px;
     margin: 6rem auto 0;
+
+#exptCanvas {
+    display: block;
+    margin: auto;
 }

@@ -43,3 +43,7 @@ bottom: 0%;
 color: #59E01B;
 font-weight: bold;
 }
+
+p {
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;!important;
+}
