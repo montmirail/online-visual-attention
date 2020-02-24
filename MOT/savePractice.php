@@ -12,6 +12,7 @@ if (isset($_SESSION["sid"], $_SESSION["task"], $_POST["trial"], $_POST["numAtten
 
 	//store values sent
 	$sid = $_SESSION["sid"]; //subject ID (the number assigned when the subject logged in)
+	$username = $_SESSION["username"];
 	$trial = $_POST["trial"]; //current trial number
 	$numAttendDots = $_POST["numAttendDots"]; //number of cued dots for that trial
 	$probeTracked = $_POST["probeTracked"]; // if the queried dot was originally a cued dot
@@ -33,11 +34,12 @@ if (isset($_SESSION["sid"], $_SESSION["task"], $_POST["trial"], $_POST["numAtten
 	$localtime = date('Y-m-d H:i:s', $localsec);
 	
 	//add trial data to the mot practice table
-	$trialquery = $bdd->prepare("INSERT INTO motpractice (sid, time, loctime, trial, trialStart, numAttendDots, probeTracked, response, correct, rt, pxperdeg) " .
-		"VALUES (:sid, NOW(), :loctime, :trial, :trialStart, :numAttendDots, :probeTracked, :response, :correct, :rt, :pxperdeg)"); 
+	$trialquery = $bdd->prepare("INSERT INTO motpractice (sid, username, time, loctime, trial, trialStart, numAttendDots, probeTracked, response, correct, rt, pxperdeg) " .
+		"VALUES (:sid, :username, NOW(), :loctime, :trial, :trialStart, :numAttendDots, :probeTracked, :response, :correct, :rt, :pxperdeg)");
 		
 	//setup parameters		 
 	$trialquery->bindParam(":sid", $sid);
+	$trialquery->bindParam(":username", $username);
 	$trialquery->bindParam(":loctime", $localtime);
 	$trialquery->bindParam(":trial", $trial);
 	$trialquery->bindParam(":trialStart", $trialStart);

@@ -8,15 +8,40 @@
  * The final stage is attending to the center and peripheral targets, with peripheral distractors.
  */
 
+// *********************** CALIBRATION ************************** //
+const distance = 57; //cm, chosen distance from screen as this approximates to an arm's length
+const screenSize = 24;
+const pxDiagonal = Math.sqrt(Math.pow(screen.width,2) + Math.pow(screen.height,2)); //get the screen's diagonal size in pixels
+
+//slider parameters for changing the displayed object's size
+//the units are inches * 10 (the * 10 helps to elongate the slider's appearances)
+const screenMin = 10; //minimum screen size allowed for the task
+const screenMax = 40; //maximum screen size allowed for the task
+const min = screenMin * 10;
+const max = screenMax * 10;
+
+// first pixels per inch is converted to pixels per centimeter (used for drawing the brightness/contrast grayscale rectangles)
+const pxPerInch = pxDiagonal / screenSize;
+const pxPerCm = Math.round(pxPerInch / 2.54);
+
+//then calculate pixels per degree
+const angle = Math.atan(screen.height / screen.width);
+const diagCM = ((max - (max - screenSize*10 + min) + min) / 10) * 2.54;
+const screenWidthCM = diagCM * Math.cos(angle);
+const pxPerDeg = Math.PI / 180 * screen.width * distance / screenWidthCM;
+//get the subject's current local time
+const date = new Date();
+const localSec = Math.round(date.getTime() / 1000) - date.getTimezoneOffset() * 60;
+
 // *********************** VARIABLES ************************** //
-var UFOV = {};  //storage for all variables in this task
+const UFOV = {};  //storage for all variables in this task
 
 UFOV.exptLink = "index.php"; //link to main page of full task
 
 // stimuli setup -------------------------------------------------------
 
 //position of stimuli on screen
-UFOV.pxperdeg = <?php echo $pxperdeg; ?>; //pixels per degree from screen calibration (via UFOV/practicecode.php)
+UFOV.pxperdeg = pxPerDeg; //pixels per degree from screen calibration (via UFOV/practicecode.php)
 UFOV.distEcc = new Array(2,4); // distance of peripheral targets from center of circle (visual angle in degrees); inner and outer circles
 UFOV.thetaPos = new Array(45, 90, 135, 180, 225, 270, 315, 360); //position around the center of the circle (in degrees)
 
@@ -128,21 +153,21 @@ UFOV.cStim[UFOV.curTrial] = Math.round(Math.random()); //choose the first center
 UFOV.pPos[UFOV.curTrial] = Math.ceil(Math.random()*UFOV.thetaPos.length+UFOV.thetaPos.length)-1; //choose the first periphal target randomly
 
 //instruction text presented at each page
-UFOV.text = 
-["This task requires you to attend to objects presented on the screen. We will explain the process step by step.",
-"In the center of the screen, a smiley face will be quickly shown. It will either have short or long hair. You must determine which one is presented.",
-"When the question mark appears, press one of the following keys to report what you saw:<br/>S - Short Hair<br/>D - Long Hair",
-"There will also be a star that appears at one of 8 locations around the center. You will need to remember along which line it was displayed. All 8 locations are displayed below along with the corresponding line.",
-"After the star flashes, click on the line where it appeared. An X will appear where you clicked. If a question mark appears instead, it is unclear which line you selected. Re-click somewhere else along the line until an X appears.",
-"In the real task, both the face and star will be shown simultaneously. Make sure you can get both right! (If you need a reminder about the controls, click the icon in the bottom right corner.)",
-"For one last increase in difficulty, squares will also appear around the center. You will need to ignore them and pick out the location of the star.",
-"As before, click along the line where the star appeared and also report what face you saw.",
-"Make sure you are comfortable with the instructions and key/mouse responses before you begin. You can go back in the instructions if necessary. Once you're ready, click the Start button."];
+UFOV.text =
+	["This task requires you to attend to objects presented on the screen. We will explain the process step by step.",
+		"In the center of the screen, a smiley face will be quickly shown. It will either have short or long hair. You must determine which one is presented.",
+		"When the question mark appears, press one of the following keys to report what you saw:<br/>S - Short Hair<br/>D - Long Hair",
+		"There will also be a star that appears at one of 8 locations around the center. You will need to remember along which line it was displayed. All 8 locations are displayed below along with the corresponding line.",
+		"After the star flashes, click on the line where it appeared. An X will appear where you clicked. If a question mark appears instead, it is unclear which line you selected. Re-click somewhere else along the line until an X appears.",
+		"In the real task, both the face and star will be shown simultaneously. Make sure you can get both right! (If you need a reminder about the controls, click the icon in the bottom right corner.)",
+		"For one last increase in difficulty, squares will also appear around the center. You will need to ignore them and pick out the location of the star.",
+		"As before, click along the line where the star appeared and also report what face you saw.",
+		"Make sure you are comfortable with the instructions and key/mouse responses before you begin. You can go back in the instructions if necessary. Once you're ready, click the Start button."];
 
 //text presented for before and after each practice stage
-UFOV.noticeText = 
-["Try a few practice trials before continuing.",
-"Great! You can continue through the instructions."];
+UFOV.noticeText =
+	["Try a few practice trials before continuing.",
+		"Great! You can continue through the instructions."];
 
 // *********************** INITIALIZATION ************************** //
 
@@ -164,25 +189,25 @@ function init() {
 
 	//set up the reminder dialog that appears with short instructions
 	$("#reminder").dialog({
-	autoOpen: false,
-	modal: true,
-	title: "Instructions & Controls",
-	width: 400
+		autoOpen: false,
+		modal: true,
+		title: "Instructions & Controls",
+		width: 400
 	});
-	
+
 	//set up the reminder button which brings up short instructions in a dialog box
 	$("#reminderButton").button({
-	icons: { primary: "ui-icon-info"},
-	text: false
+		icons: { primary: "ui-icon-info"},
+		text: false
 	});
 	$("#reminderButton").click( function() {
-	$("#reminder").dialog("open");
+		$("#reminder").dialog("open");
 	});
-			
+
 	//practice button that starts practice trials
 	$("#pracButton").button();
 	$("#pracButton").click(runPractice);
-	
+
 
 	//navigation buttons:
 	//back button to go to previous instruction page
@@ -192,14 +217,14 @@ function init() {
 	});
 	$("#backButton").button( "option", "disabled", true );
 	$("#backButton").click(goBack);
-	
+
 	//forward button to go to next instruction page
 	$("#forwardButton").button({
 		icons: {primary: "ui-icon-triangle-1-e"},
 		text: false
 	});
 	$("#forwardButton").click(goForward);
-	
+
 
 	//set instructions for the current page
 	$("#instructions").html(UFOV.text[UFOV.curPage]);
@@ -223,11 +248,11 @@ function initCanvas() {
 	UFOV.cx = Math.round(UFOV.canvas.width/2); //get center x coordinate of canvas
 	UFOV.cy = Math.round(UFOV.canvas.height/2); //get center y coordinate of canvas
 	convertDeg2Px(); //figure out peripheral stimuli position
- 	createMask(); //create mask
- 	
- 	UFOV.startTime = new Date().getTime(); //get start time of practice session
- 	$("#exptCanvas").click(mouseUpdate); //add mouse listener for the canvas
- 	$("#exptCanvas").mousemove(mouseHover); //add mouse listener for hovering over the canvas
+	createMask(); //create mask
+
+	UFOV.startTime = new Date().getTime(); //get start time of practice session
+	$("#exptCanvas").click(mouseUpdate); //add mouse listener for the canvas
+	$("#exptCanvas").mousemove(mouseHover); //add mouse listener for hovering over the canvas
 }
 
 
@@ -263,7 +288,7 @@ function updatePage() {
 
 	//set the instruction text for the current page
 	$("#instructions").html(UFOV.text[UFOV.curPage]);
-	
+
 	//if the subject is on the first page
 	if (UFOV.curPage == 0) {
 		//disable back button
@@ -276,8 +301,8 @@ function updatePage() {
 	}
 	//else if the subject is on one of the pages with practice trials
 	else if (UFOV.highestPage == UFOV.curPage &&
-	(UFOV.curPage == 2 || UFOV.curPage == 4 ||
-	UFOV.curPage == 5 || UFOV.curPage == 7)) { 
+		(UFOV.curPage == 2 || UFOV.curPage == 4 ||
+			UFOV.curPage == 5 || UFOV.curPage == 7)) {
 		//disable forward button
 		$("#forwardButton").button( "option", "disabled", true );
 
@@ -291,25 +316,25 @@ function updatePage() {
 		$("#backButton").button( "option", "disabled", false );
 		$("#forwardButton").button( "option", "disabled", false );
 	}
-	
+
 	//check page and update practice stage type if need be
 	switch (UFOV.curPage) {
-	case 2:
-		UFOV.mode = 1; //only center target
-		break;
-	case 4:
-		UFOV.mode = 2; //only peripheral target
-		break;
-	case 5:
-		UFOV.mode = 3; //center and peripheral target
-		break;
-	case 7:
-		UFOV.mode = 4; //center and peripheral target, with distractors
-		break;
-	default:
+		case 2:
+			UFOV.mode = 1; //only center target
+			break;
+		case 4:
+			UFOV.mode = 2; //only peripheral target
+			break;
+		case 5:
+			UFOV.mode = 3; //center and peripheral target
+			break;
+		case 7:
+			UFOV.mode = 4; //center and peripheral target, with distractors
+			break;
+		default:
 		//nothing
 	}
-	
+
 }
 
 
@@ -319,91 +344,91 @@ function updatePage() {
 // (triggered by clicking one of the navigation buttons)
 function updateContent() {
 	clearInterval(UFOV.intervalID); //clear current animation timer
-	
-		//update page based on current page number
-		if (UFOV.curPage == 0) {
-			//hide practice button and canvas
-			$("#pracButton").hide();
+
+	//update page based on current page number
+	if (UFOV.curPage == 0) {
+		//hide practice button and canvas
+		$("#pracButton").hide();
+		$("#exptCanvas").hide();
+	}
+	else if (UFOV.curPage == 1) {
+		$("#pracButton").hide(); //hide pratice button
+		drawFaceDemo(); //show example of the center targets
+		$("#exptCanvas").show();
+	}
+	else if (UFOV.curPage == 2) {
+		$("#pracButton").show(); //show practice button
+		if (!UFOV.isPractice) { //if the practice trials haven't started yet, hide canvas
 			$("#exptCanvas").hide();
 		}
-		else if (UFOV.curPage == 1) {
-			$("#pracButton").hide(); //hide pratice button
-			drawFaceDemo(); //show example of the center targets
-			$("#exptCanvas").show();
+	}
+	else if (UFOV.curPage == 3) {
+		drawBlank(); //clear canvas
+		$("#exptCanvas").show();
+		$("#pracButton").hide(); //hide practice button
+		UFOV.demo = true; //set that we are just doing a demo, not practice trials
+		drawPeriphDemo(); //show all possible locations of peripheral targets
+	}
+	else if (UFOV.curPage == 6) {
+		$("#exptCanvas").show();
+		$("#pracButton").hide(); //hide practice button
+		drawDistractDemo(); //show what the distractors look like as an example
+	}
+	//for pages 4, 5, and 7, these are all practice trial pages, so set them up for practice trials
+	else if (UFOV.curPage >= 4 && UFOV.curPage <= 7 && UFOV.curPage != 6) {
+		if (UFOV.curPage == 4) {
+			UFOV.demo = false; //turn off demo mode
 		}
-		else if (UFOV.curPage == 2) {
-			$("#pracButton").show(); //show practice button
-			if (!UFOV.isPractice) { //if the practice trials haven't started yet, hide canvas
-				$("#exptCanvas").hide();
-			}
+		if (UFOV.highestPage > 7) {
+			//reset button label to Practice if the subject went backwards after reaching the last page
+			$("#pracButton").button("option", "label", "Practice");
 		}
-		else if (UFOV.curPage == 3) {
-			drawBlank(); //clear canvas
-			$("#exptCanvas").show();
-			$("#pracButton").hide(); //hide practice button
-			UFOV.demo = true; //set that we are just doing a demo, not practice trials
-			drawPeriphDemo(); //show all possible locations of peripheral targets
+		if (UFOV.curPage != 4) {
+			$("#reminderButton").show(); //show reminder button after the second practice stage
 		}
-		else if (UFOV.curPage == 6) {
-			$("#exptCanvas").show();
-			$("#pracButton").hide(); //hide practice button
-			drawDistractDemo(); //show what the distractors look like as an example
-		}
-		//for pages 4, 5, and 7, these are all practice trial pages, so set them up for practice trials
-		else if (UFOV.curPage >= 4 && UFOV.curPage <= 7 && UFOV.curPage != 6) {
-			if (UFOV.curPage == 4) {
-				UFOV.demo = false; //turn off demo mode
-			}
-			if (UFOV.highestPage > 7) {
-				//reset button label to Practice if the subject went backwards after reaching the last page
-				$("#pracButton").button("option", "label", "Practice");
-			}
-			if (UFOV.curPage != 4) {
-				$("#reminderButton").show(); //show reminder button after the second practice stage
-			}
 
-			$("#pracButton").show(); //show practice button
+		$("#pracButton").show(); //show practice button
 
-			//if subject is done with practice trials, then hide the canvas
-			if (!UFOV.isPractice) {
-				$("#exptCanvas").hide();
-			}
-		}
-		//for the last page, change the practice button to the start button for the full task
-		else if (UFOV.curPage == 8) {
-			$("#pracButton").button("option", "label", "Start!");
-			$("#pracButton").show();
+		//if subject is done with practice trials, then hide the canvas
+		if (!UFOV.isPractice) {
 			$("#exptCanvas").hide();
 		}
+	}
+	//for the last page, change the practice button to the start button for the full task
+	else if (UFOV.curPage == 8) {
+		$("#pracButton").button("option", "label", "Start!");
+		$("#pracButton").show();
+		$("#exptCanvas").hide();
+	}
 
-		else {
-			//not on any valid page
-		}
+	else {
+		//not on any valid page
+	}
 }
 
 // Callback for the practice button. When the practice button is pressed, run the practice trials
 //(if the subject is on the last page and clicks the button, then redirect subject to the full task)
 function runPractice() {
 	UFOV.isPractice = true; //turn on practice mode
-	
+
 	if (UFOV.curPage != UFOV.text.length-1) {
 		//reset practice variables
 		UFOV.done = false;
 		UFOV.numCorrect = 0;
 		UFOV.state = "start";
 		UFOV.stateChange = true;
-		
+
 		//clear canvas to black
 		UFOV.c.fillStyle="rgb(0, 0, 0)";
 		UFOV.c.fillRect(0,0,UFOV.canvas.width,UFOV.canvas.height);
 		$("#exptCanvas").show();
-		
+
 		$("#pracButton").hide(); //hide practice button
 		UFOV.intervalID = setInterval(updateFrame, UFOV.speed); //update frame by using setInterval at the desired frame rate
- 	}
- 	else { //go onto full task since the subject is at the last page
+	}
+	else { //go onto full task since the subject is at the last page
 		document.location.href = UFOV.exptLink;
- 	}
+	}
 }
 
 //At each frame for the practice trial, the frame is redrawn based on the current state
@@ -431,12 +456,12 @@ function updateFrame() {
 		}
 		//wait for space bar...	
 	}
-	
+
 	else if (UFOV.state == "delay") { //delay before stimuli presentation
 		if (UFOV.stateChange) {
 			UFOV.startWait = new Date().getTime(); //get start time of the delay period
 			UFOV.stateChange = false;
-			
+
 			drawPractice(); //update content displayed
 		}
 		//if the set amount of time for the delay period has passed, then switch to stim state and display stimuli
@@ -445,12 +470,12 @@ function updateFrame() {
 			UFOV.stateChange = true;
 		}
 	}
-	
+
 	else if (UFOV.state == "stim") { //stimulus presentation
 		if (UFOV.stateChange) {
 			UFOV.startWait = new Date().getTime(); //get start time of stimulus presentation
 			UFOV.startTimes[UFOV.curTrial] = UFOV.startWait; //record this presentation start time
-			
+
 			UFOV.stateChange = false;
 			drawPractice(); //update content displayed
 		}
@@ -462,7 +487,7 @@ function updateFrame() {
 			UFOV.endTimes[UFOV.curTrial] = curTime; //record end time of presentation
 		}
 	}
-	
+
 	else if (UFOV.state == "mask") { //mask presentation
 		if (UFOV.stateChange) {
 			UFOV.startWait = new Date().getTime(); //get start time of mask period
@@ -475,7 +500,7 @@ function updateFrame() {
 			UFOV.stateChange = true;
 		}
 	}
-	
+
 	else if (UFOV.state == "response") { //wait for subject's response
 		if (UFOV.stateChange) {
 			UFOV.startWait = new Date().getTime(); //get start time of response period
@@ -486,25 +511,25 @@ function updateFrame() {
 		//there are different response conditions required for each practice stage
 		//(e.g., the first stage only requires a center target response)
 		if ((UFOV.mode == 1 && UFOV.cResp[UFOV.curTrial] != -1)
-		|| (UFOV.mode == 2 && UFOV.pResp[UFOV.curTrial] >= 0)
-		|| (UFOV.mode > 2 && UFOV.cResp[UFOV.curTrial] != -1 && UFOV.pResp[UFOV.curTrial] >= 0)) {
+			|| (UFOV.mode == 2 && UFOV.pResp[UFOV.curTrial] >= 0)
+			|| (UFOV.mode > 2 && UFOV.cResp[UFOV.curTrial] != -1 && UFOV.pResp[UFOV.curTrial] >= 0)) {
 			UFOV.state = "feedback-delay"; //switch to feedback-delay state
 			UFOV.stateChange = true;
 		}
 	}
-	
+
 	else if (UFOV.state == "feedback-delay") { //delay before feedback
 		if (UFOV.stateChange) {
 			UFOV.startWait = new Date().getTime(); //get start time of feedback delay period
 			UFOV.stateChange = false;
 		}
 		//once the set amount of time for the feedback delay has passed, switch to the feedback state and display feedback
-		if (new Date().getTime() >= UFOV.startWait + UFOV.feedbackDelay) {		
+		if (new Date().getTime() >= UFOV.startWait + UFOV.feedbackDelay) {
 			UFOV.state = "feedback";
 			UFOV.stateChange = true;
 		}
 	}
-	
+
 	else if (UFOV.state == "feedback") { //feedback given
 		if (UFOV.stateChange) {
 			UFOV.startWait = new Date().getTime(); //get start time of feedback display
@@ -548,11 +573,11 @@ function keyResponse(event) {
 	if (UFOV.isPractice && !UFOV.dialogOpen) {
 		//if it's time for the subject to respond, and we're waiting for a response to the center target (practice modes 1, 3, and 4)
 		if (UFOV.state == "response" && (UFOV.mode == 1 || UFOV.mode > 2)
-		&& UFOV.cResp[UFOV.curTrial] == -1) {
+			&& UFOV.cResp[UFOV.curTrial] == -1) {
 			if (event.keyCode == UFOV.shortKey) {
 				UFOV.cRT[UFOV.curTrial] = new Date().getTime()-UFOV.startWait; //calculate response time
 				UFOV.cResp[UFOV.curTrial] = 0; //record that they responded the center target had short hair
-				
+
 				drawPractice(); //update content displayed
 
 				//Indicate which key the subject pressed by drawing the letter in the center of the screen (S)
@@ -565,7 +590,7 @@ function keyResponse(event) {
 			else if (event.keyCode == UFOV.longKey) {
 				UFOV.cRT[UFOV.curTrial] = new Date().getTime()-UFOV.startWait; //calculate response time
 				UFOV.cResp[UFOV.curTrial] = 1; //record that they responded the center target had long hair
-				
+
 				drawPractice(); //update content displayed
 
 				//Indicate which key the subject pressed by drawing the letter in the center of the screen (D)
@@ -581,19 +606,19 @@ function keyResponse(event) {
 		//draw a question mark if the location they selected was not a valid spot to select
 		if (UFOV.pResp[UFOV.curTrial] == -2) {
 			UFOV.c.drawImage(UFOV.response[0], Math.round(UFOV.x-UFOV.respsz/2),
-			Math.round(UFOV.y-UFOV.respsz/2), UFOV.respsz, UFOV.respsz);
+				Math.round(UFOV.y-UFOV.respsz/2), UFOV.respsz, UFOV.respsz);
 		}
 		//if there is already a response to the peripheral target, need to redraw the location they selected
-		else if (UFOV.pResp[UFOV.curTrial] != -1) { 
+		else if (UFOV.pResp[UFOV.curTrial] != -1) {
 			UFOV.c.drawImage(UFOV.response[1], Math.round(UFOV.x-UFOV.respsz/2),
-			Math.round(UFOV.y-UFOV.respsz/2), UFOV.respsz, UFOV.respsz);
+				Math.round(UFOV.y-UFOV.respsz/2), UFOV.respsz, UFOV.respsz);
 		}
 
 		//if they pressed the start key at the beginning of a trial, then start the trial
 		if (event.keyCode == UFOV.startKey &&
 			(UFOV.state == "start" || UFOV.state == "fix")) {
 			UFOV.trialStart[UFOV.curTrial] = new Date().getTime() - UFOV.startTime;
-			
+
 			UFOV.state = "delay";
 			UFOV.stateChange = true;
 		}
@@ -610,9 +635,9 @@ function mouseUpdate(event) {
 			//get mouse coordinates in relation to the canvas
 			UFOV.x = event.pageX - this.offsetLeft;
 			UFOV.y = event.pageY - this.offsetTop;
-			
+
 			drawPractice(); //update content displayed
-			
+
 			//if it's a practice mode that includes the center stimulus and the subject already gave a response
 			//for the center, make sure to redraw their response
 			if (UFOV.mode > 2 && UFOV.cResp[UFOV.curTrial] != -1) {
@@ -636,32 +661,32 @@ function mouseUpdate(event) {
 					choice = i;
 				}
 			}
-			
+
 			//check if the subject's click was close enough to a line, based on the accepted range parameters
 			if (r >= UFOV.respDegMin && r <= UFOV.cy && respDeg <= UFOV.respDegLim) {
 
 				//if so, record the response time and the line selected
 				UFOV.pRT[UFOV.curTrial] = new Date().getTime()-UFOV.startWait;
 				UFOV.pResp[UFOV.curTrial] = choice;
-				
+
 				//record the peripheral target's location and specifically where the subject clicked
 				UFOV.pTargetX[UFOV.curTrial] = UFOV.pxxPos[UFOV.pPos[UFOV.curTrial]]-UFOV.cx;
 				UFOV.pTargetY[UFOV.curTrial] = -(UFOV.pxyPos[UFOV.pPos[UFOV.curTrial]]-UFOV.cy);
 				UFOV.pX[UFOV.curTrial] = UFOV.x - UFOV.cx;
 				UFOV.pY[UFOV.curTrial] = UFOV.y - UFOV.cy;
-				
+
 				//draw an X where the subject clicked 
 				UFOV.c.drawImage(UFOV.response[1], Math.round(UFOV.x-UFOV.respsz/2),
-				Math.round(UFOV.y-UFOV.respsz/2), UFOV.respsz, UFOV.respsz);
+					Math.round(UFOV.y-UFOV.respsz/2), UFOV.respsz, UFOV.respsz);
 			}
 			//otherwise, if the click point is outside of the accepted range, display a
 			//question mark and have the subject reselect a peripheral line 
 			else {
 				UFOV.pResp[UFOV.curTrial] = -2; //this response means they need to give a new response to the peripheral target
-			
+
 				UFOV.c.drawImage(UFOV.response[0], Math.round(UFOV.x-UFOV.respsz/2),
-				Math.round(UFOV.y-UFOV.respsz/2), UFOV.respsz, UFOV.respsz);
-			}	
+					Math.round(UFOV.y-UFOV.respsz/2), UFOV.respsz, UFOV.respsz);
+			}
 		}
 	}
 }
@@ -690,38 +715,38 @@ function mouseHover(event) {
 					choice = i;
 				}
 			}
-			
+
 			var hoveredLine = -1;
 
 			//if they are within range of a nearby line, then mark it as the one they are hovering over
 			if (r >= UFOV.respDegMin && r <= UFOV.cy && respDeg <= UFOV.respDegLim) {
 				hoveredLine = choice;
 			}
-			
+
 			drawBlank(); //clear canvas
-	
+
 			//Highlight the line the subject is hovering over in a different color
 			UFOV.c.strokeStyle="rgb(255,255,0)";
 			UFOV.c.lineWidth = 3;
-			UFOV.c.beginPath();	 	
+			UFOV.c.beginPath();
 			UFOV.c.moveTo(UFOV.cx+0.5, UFOV.cy+0.5);
 			//draws highlighted spoke
 			UFOV.c.lineTo(0.5+UFOV.pxxSpoke[hoveredLine], 0.5+UFOV.pxySpoke[hoveredLine]);
 			UFOV.c.stroke();
-			
+
 			//redraw all the other peripheral lines since they were cleared out
 			UFOV.c.strokeStyle="rgb(255,255,255)";
 			UFOV.c.lineWidth = 1;
 			UFOV.c.beginPath();
-			for (var i = 0; i < UFOV.thetaPos.length; i++) {	
-				if (i != hoveredLine) { 	
+			for (var i = 0; i < UFOV.thetaPos.length; i++) {
+				if (i != hoveredLine) {
 					UFOV.c.moveTo(UFOV.cx+0.5, UFOV.cy+0.5);
 					//draws spoke edge to the edge of the circle
 					UFOV.c.lineTo(0.5+UFOV.pxxSpoke[i], 0.5+UFOV.pxySpoke[i]);
 				}
 			}
 			UFOV.c.stroke();
-			
+
 			UFOV.c.fillStyle="white";
 			//add back any marker (letter) about what the subject responded for the center target
 			if (UFOV.mode != 2 && UFOV.cResp[UFOV.curTrial] != -1) {
@@ -730,7 +755,7 @@ function mouseHover(event) {
 			//otherwise, add back a question mark to the center of the screen since the subject hasn't responded yet
 			else if (UFOV.mode != 2 && UFOV.cResp[UFOV.curTrial] == -1) {
 				UFOV.c.drawImage(UFOV.response[0], Math.round(UFOV.cx-UFOV.respsz/2),
-				Math.round(UFOV.cy-UFOV.respsz/2), UFOV.respsz, UFOV.respsz);
+					Math.round(UFOV.cy-UFOV.respsz/2), UFOV.respsz, UFOV.respsz);
 			}
 
 			//check if a question mark needs to be drawn if the subject clicked on an invalid spot for the peripheral target
@@ -739,7 +764,7 @@ function mouseHover(event) {
 					Math.round(UFOV.y-UFOV.respsz/2), UFOV.respsz, UFOV.respsz);
 			}
 		}
- 	}
+	}
 }
 
 
@@ -747,16 +772,16 @@ function mouseHover(event) {
 
 //draw practice demo based on current state
 function drawPractice() {
- 	//check if the canvas is currently scaling (i.e., increasing the size) of what is drawn
+	//check if the canvas is currently scaling (i.e., increasing the size) of what is drawn
 	if (UFOV.isScaled) {
 		UFOV.c.scale(1/UFOV.maskDensity,1/UFOV.maskDensity); //set scaling back to original value
 		UFOV.isScaled = false; //turn off scaling
 		UFOV.c.fillStyle="rgb(0, 0, 0)"; //reset background to black
 		UFOV.c.fillRect(0,0,UFOV.canvas.width,UFOV.canvas.height);
 	}
-	
+
 	drawBlank(); //clear canvas
-	
+
 	if (UFOV.state == "start" || UFOV.state == "fix") { //at the start of a trial
 		drawFix(); //draw fixation point
 
@@ -771,10 +796,10 @@ function drawPractice() {
 	}
 	else if (UFOV.state == "stim") { //stimulus presentation
 		if (UFOV.mode != 2) { //if it's a practice mode with the center target, then draw it
-		drawFace();
+			drawFace();
 		}
 		if (UFOV.mode != 1) { //if it's a practice mode with the peripheral target, then draw it
-		drawPeriph();
+			drawPeriph();
 		}
 	}
 	else if (UFOV.state == "mask") { //mask presentation
@@ -783,7 +808,7 @@ function drawPractice() {
 	else if (UFOV.state == "response") { //response period
 		//if it's a practice mode with the peripheral target, 
 		//draw lines to represent the possible locations of the target
-		if (UFOV.mode > 1) { 
+		if (UFOV.mode > 1) {
 			drawSpokes();
 		}
 
@@ -791,7 +816,7 @@ function drawPractice() {
 		//to the center target yet
 		if (UFOV.mode != 2 && UFOV.cResp[UFOV.curTrial] == -1) {
 			UFOV.c.drawImage(UFOV.response[0], Math.round(UFOV.cx-UFOV.respsz/2),
-			Math.round(UFOV.cy-UFOV.respsz/2), UFOV.respsz, UFOV.respsz);
+				Math.round(UFOV.cy-UFOV.respsz/2), UFOV.respsz, UFOV.respsz);
 		}
 	}
 	else if (UFOV.state == "feedback") { //give subject feedback about their responses
@@ -826,7 +851,7 @@ function drawPractice() {
 				UFOV.c.drawImage(UFOV.feedback[0], Math.round(UFOV.cx-UFOV.respsz/2),
 					Math.round(UFOV.cy-UFOV.respsz/2), UFOV.respsz, UFOV.respsz); //display red X
 			}
-		}	
+		}
 	}
 	else if (UFOV.state == "endPractice") { //done with all practice trials for this block
 		//let subject know that they're done via a message at the center of the screen
@@ -844,11 +869,11 @@ function drawFaceDemo() {
 	UFOV.c.fillStyle="rgb(128,128,128)";
 	UFOV.c.fillRect(0,0,UFOV.canvas.width,UFOV.canvas.height);
 	UFOV.c.drawImage(UFOV.cimg[0], Math.round(UFOV.cx/2-UFOV.cimgsz/2),
-	Math.round(UFOV.cy-UFOV.cimgsz/2), UFOV.cimgsz, UFOV.cimgsz);
-	
+		Math.round(UFOV.cy-UFOV.cimgsz/2), UFOV.cimgsz, UFOV.cimgsz);
+
 	UFOV.c.drawImage(UFOV.cimg[1], Math.round(UFOV.cx+UFOV.cx/2-UFOV.cimgsz/2),
-	Math.round(UFOV.cy-UFOV.cimgsz/2), UFOV.cimgsz, UFOV.cimgsz);
-	
+		Math.round(UFOV.cy-UFOV.cimgsz/2), UFOV.cimgsz, UFOV.cimgsz);
+
 	UFOV.c.fillStyle="black";
 	UFOV.c.font="16pt Arial";
 	UFOV.c.textAlign="center";
@@ -863,13 +888,13 @@ function drawBlank() {
 	UFOV.c.fillStyle="rgb(128,128,128)";
 	UFOV.c.beginPath();
 	UFOV.c.arc(UFOV.cx, UFOV.cy, Math.floor(UFOV.canvas.height/2),0, 2*Math.PI);
-	UFOV.c.fill();	
+	UFOV.c.fill();
 }
 
 //draw the center target, based on what the trial calls for
 function drawFace() {
 	UFOV.c.drawImage(UFOV.cimg[UFOV.cStim[UFOV.curTrial]], Math.round(UFOV.cx-UFOV.cimgsz/2),
-	Math.round(UFOV.cy-UFOV.cimgsz/2), UFOV.cimgsz, UFOV.cimgsz);
+		Math.round(UFOV.cy-UFOV.cimgsz/2), UFOV.cimgsz, UFOV.cimgsz);
 }
 
 //draw the mask after stimulus presentation
@@ -894,15 +919,15 @@ function drawPeriph() {
 	if (UFOV.demo) {
 		UFOV.c.drawImage(UFOV.ptarget, Math.round(UFOV.pxxPos[(UFOV.thetaPos.length*2)-1]-UFOV.pimgsz/2),
 			Math.round(UFOV.pxyPos[(UFOV.thetaPos.length*2)-1]-UFOV.pimgsz/2),
-			UFOV.pimgsz, UFOV.pimgsz);	
+			UFOV.pimgsz, UFOV.pimgsz);
 	}
 	//if we're in practice mode, then draw the peripheral target where it has been decided to go for the trial
 	else {
 		UFOV.c.drawImage(UFOV.ptarget, Math.round(UFOV.pxxPos[UFOV.pPos[UFOV.curTrial]]-UFOV.pimgsz/2),
 			Math.round(UFOV.pxyPos[UFOV.pPos[UFOV.curTrial]]-UFOV.pimgsz/2),
-			UFOV.pimgsz, UFOV.pimgsz);		
+			UFOV.pimgsz, UFOV.pimgsz);
 	}
-	
+
 	//if we're in the last practice mode with distractors, then draw all the distractors at all
 	//locations where the target is not
 	if (UFOV.mode == 4) {
@@ -923,7 +948,7 @@ function drawDistractDemo() {
 	//draw an example peripheral target at location 10 (randomly chosen)
 	UFOV.c.drawImage(UFOV.ptarget, Math.round(UFOV.pxxPos[10]-UFOV.pimgsz/2),
 		Math.round(UFOV.pxyPos[10]-UFOV.pimgsz/2), UFOV.pimgsz, UFOV.pimgsz);
-				
+
 	//draw distractors at every other available position for a peripheral target
 	for (var i = 0; i < UFOV.pxxPos.length; i++) {
 		if (i != 10) {
@@ -931,7 +956,7 @@ function drawDistractDemo() {
 				Math.round(UFOV.pxyPos[i]-UFOV.pimgsz/2), UFOV.pimgsz, UFOV.pimgsz);
 		}
 	}
-	
+
 	//add an example center target as well
 	UFOV.c.drawImage(UFOV.cimg[0], Math.round(UFOV.cx-UFOV.cimgsz/2),
 		Math.round(UFOV.cy-UFOV.cimgsz/2), UFOV.cimgsz, UFOV.cimgsz);
@@ -939,15 +964,15 @@ function drawDistractDemo() {
 
 //draw spoke lines that represent the locations where the peripheral target can appear
 //(used during the response period of a trial)
-function drawSpokes() {		
+function drawSpokes() {
 	UFOV.c.strokeStyle="rgb(255,255,255)";
 	UFOV.c.beginPath();
-	for (var i = 0; i < UFOV.thetaPos.length; i++) {	 	
+	for (var i = 0; i < UFOV.thetaPos.length; i++) {
 		UFOV.c.moveTo(UFOV.cx+0.5, UFOV.cy+0.5);
 		//draws spoke edge to the edge of the circle
 		UFOV.c.lineTo(0.5+UFOV.pxxSpoke[i], 0.5+UFOV.pxySpoke[i]);
- 	}
- 	UFOV.c.stroke();
+	}
+	UFOV.c.stroke();
 }
 
 //create random black/white dot array for mask after stimulus presentation
@@ -979,9 +1004,9 @@ function labelSpokes() {
 	UFOV.c.font="bold 20pt Arial";
 	//start labeling them in reverse order so that they are going clockwise, starting from
 	//the position of 3 o'clock
-	for (var i = 0; i < UFOV.thetaPos.length; i++) {	
+	for (var i = 0; i < UFOV.thetaPos.length; i++) {
 		UFOV.c.fillText(UFOV.thetaPos.length-i, 0.5+UFOV.pxxPos[i],
-		0.5+UFOV.pxyPos[i]);
+			0.5+UFOV.pxyPos[i]);
 	}
 }
 
@@ -1002,23 +1027,23 @@ function drawPeriphDemo() {
 function convertDeg2Px() {
 	UFOV.pxxPos = new Array();
 	UFOV.pxyPos = new Array();
- 	var posCount = 0;
- 	//determine position of peripheral stimuli
- 	for (var d = 0; d < UFOV.distEcc.length; d++) { //calculate for each of the eccentricities listed (inner and outer circles)
- 		for (var i = 0; i < UFOV.thetaPos.length; i++) {
- 		UFOV.pxxPos[posCount] = UFOV.cx+Math.round(UFOV.pxperdeg*UFOV.distEcc[d]*Math.cos(Math.PI*UFOV.thetaPos[i]/180)); //x-xoordinate
- 		UFOV.pxyPos[posCount] = UFOV.cy-Math.round(UFOV.pxperdeg*UFOV.distEcc[d]*Math.sin(Math.PI*UFOV.thetaPos[i]/180)); //y-coordinate
- 		posCount++;	
- 		}
- 	}
- 	
- 	//determine spoke outer point positions so that the lines extend all the way to the edge of the circle
- 	UFOV.pxxSpoke = new Array();
+	var posCount = 0;
+	//determine position of peripheral stimuli
+	for (var d = 0; d < UFOV.distEcc.length; d++) { //calculate for each of the eccentricities listed (inner and outer circles)
+		for (var i = 0; i < UFOV.thetaPos.length; i++) {
+			UFOV.pxxPos[posCount] = UFOV.cx+Math.round(UFOV.pxperdeg*UFOV.distEcc[d]*Math.cos(Math.PI*UFOV.thetaPos[i]/180)); //x-xoordinate
+			UFOV.pxyPos[posCount] = UFOV.cy-Math.round(UFOV.pxperdeg*UFOV.distEcc[d]*Math.sin(Math.PI*UFOV.thetaPos[i]/180)); //y-coordinate
+			posCount++;
+		}
+	}
+
+	//determine spoke outer point positions so that the lines extend all the way to the edge of the circle
+	UFOV.pxxSpoke = new Array();
 	UFOV.pxySpoke = new Array();
- 	for (var i = 0; i < UFOV.thetaPos.length; i++) {
- 		UFOV.pxxSpoke[i] = UFOV.cx+Math.floor(UFOV.canvas.width/2*Math.cos(Math.PI*UFOV.thetaPos[i]/180));
- 		UFOV.pxySpoke[i] = UFOV.cy-Math.floor(UFOV.canvas.width/2*Math.sin(Math.PI*UFOV.thetaPos[i]/180));
- 	}
+	for (var i = 0; i < UFOV.thetaPos.length; i++) {
+		UFOV.pxxSpoke[i] = UFOV.cx+Math.floor(UFOV.canvas.width/2*Math.cos(Math.PI*UFOV.thetaPos[i]/180));
+		UFOV.pxySpoke[i] = UFOV.cy-Math.floor(UFOV.canvas.width/2*Math.sin(Math.PI*UFOV.thetaPos[i]/180));
+	}
 }
 
 //update number of correct answers per practice mode and setup for the next trial
@@ -1028,14 +1053,14 @@ function updateCount() {
 	}
 	else if (UFOV.mode == 2 && UFOV.pCorrect[UFOV.curTrial] == 1) {
 		UFOV.numCorrect++;
-	} 
+	}
 	else if (UFOV.mode > 2 && UFOV.cCorrect[UFOV.curTrial] == 1 && UFOV.pCorrect[UFOV.curTrial] == 1) {
 		UFOV.numCorrect++;
 	}
 	else {
 		UFOV.numCorrect = 0; //reset the count to 0 if the response was wrong
 	}
-	
+
 	//send trial data to the database
 	sendTrialData();
 
@@ -1052,14 +1077,14 @@ function updateCount() {
 	UFOV.pY[UFOV.curTrial] = -1;
 	UFOV.pTargetX[UFOV.curTrial] = -1;
 	UFOV.pTargetY[UFOV.curTrial] = -1;
-	
+
 	//randomly choose the center stimulus to present
 	UFOV.cStim[UFOV.curTrial] = Math.round(Math.random());
-	
+
 	//ensure that the same center target doesn't appear more than twice in a row
 	//(force the target to be different for the trial after two trials that are the same)
 	if (UFOV.curTrial >= 2) {
-		if (UFOV.cStim[UFOV.curTrial-1] == UFOV.cStim[UFOV.curTrial-2]) { 
+		if (UFOV.cStim[UFOV.curTrial-1] == UFOV.cStim[UFOV.curTrial-2]) {
 			if (UFOV.cStim[UFOV.curTrial-1] == 1) {
 				UFOV.cStim[UFOV.curTrial] = 0;
 			}
@@ -1071,7 +1096,7 @@ function updateCount() {
 
 	//randomly choose a peripheral target location
 	UFOV.pPos[UFOV.curTrial] = Math.ceil(Math.random()*(UFOV.thetaPos.length)+UFOV.thetaPos.length)-1;
-	
+
 	//check if the subject has reached the end of a practice mode;
 	//they need to have either gotten the indicated number of trials correct consecutively,
 	//or they reached the maximum trials to complete
@@ -1098,25 +1123,25 @@ function sendTrialData() {
 		type: "POST",
 		url: "savePractice.php",
 		data: {trial: t+1, //MOT.trial starts at 0, so just shifting trials to start at 1
-		 duration: UFOV.durations[t], //planned duration of stimulus presentation
-		 actualDuration: UFOV.actualDurations[t], //actual duration that occurred during the trial
-		 cStim: UFOV.cStim[t], //which center target was presented
-		 cResp: UFOV.cResp[t], //what the subject's response was to the center target
-		 cRT: UFOV.cRT[t], //subject's response time for the center target
-		 cCorrect: UFOV.cCorrect[t], //if the subject was correct for the center target
-		 pPos: UFOV.pPos[t] - UFOV.thetaPos.length, //where the peripheral target was presented
-		 											//(subtracting in order to get the values to be from 0-7, rather than 8-15, as we're ignoring inner circle positions)
-		 pTargetX: UFOV.pTargetX[t], //the corresponding x-coordinate on the canvas for the peripheral target location
-		 pTargetY: UFOV.pTargetY[t], //the corresponding y-coordinate on the canvas for the peripheral target location
-		 pResp: UFOV.pResp[t], //which section of the circle the subject selected as where they saw the peripheral target
-		 pX: UFOV.pX[t], //the corresponding x-coordinate where the subject clicked for their peripheral target response
-		 pY: UFOV.pY[t], //the corresponding y-coordinate where the subject clicked for their peripheral target response
-		 pRT: UFOV.pRT[t], //subject's response time for the peripheral target location
-		 pCorrect: UFOV.pCorrect[t], //if the subject was correct for the peripheral target location
-		 trialStart: UFOV.trialStart[t], //when the trial started
-		 trialType: UFOV.trialType[t], //which practice mode the subject was in
-		 pxperdeg: UFOV.pxperdeg, //the pixels per degree used for determining stimuli size
-		 localsec: localsec //the subject's current local time
+			duration: UFOV.durations[t], //planned duration of stimulus presentation
+			actualDuration: UFOV.actualDurations[t], //actual duration that occurred during the trial
+			cStim: UFOV.cStim[t], //which center target was presented
+			cResp: UFOV.cResp[t], //what the subject's response was to the center target
+			cRT: UFOV.cRT[t], //subject's response time for the center target
+			cCorrect: UFOV.cCorrect[t], //if the subject was correct for the center target
+			pPos: UFOV.pPos[t] - UFOV.thetaPos.length, //where the peripheral target was presented
+			//(subtracting in order to get the values to be from 0-7, rather than 8-15, as we're ignoring inner circle positions)
+			pTargetX: UFOV.pTargetX[t], //the corresponding x-coordinate on the canvas for the peripheral target location
+			pTargetY: UFOV.pTargetY[t], //the corresponding y-coordinate on the canvas for the peripheral target location
+			pResp: UFOV.pResp[t], //which section of the circle the subject selected as where they saw the peripheral target
+			pX: UFOV.pX[t], //the corresponding x-coordinate where the subject clicked for their peripheral target response
+			pY: UFOV.pY[t], //the corresponding y-coordinate where the subject clicked for their peripheral target response
+			pRT: UFOV.pRT[t], //subject's response time for the peripheral target location
+			pCorrect: UFOV.pCorrect[t], //if the subject was correct for the peripheral target location
+			trialStart: UFOV.trialStart[t], //when the trial started
+			trialType: UFOV.trialType[t], //which practice mode the subject was in
+			pxperdeg: UFOV.pxperdeg, //the pixels per degree used for determining stimuli size
+			localsec: localsec //the subject's current local time
 		}
 	});
 

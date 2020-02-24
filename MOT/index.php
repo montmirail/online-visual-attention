@@ -37,8 +37,16 @@ if (isset($_SESSION["monitorsize"]) && isset($_SESSION["pxperdeg"])) {
 	<link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/black-tie/jquery-ui.css" type="text/css" rel="stylesheet" />
 	<link href="./exptstyle.css" type="text/css" rel="stylesheet" /> 
 
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+
+
 	<title>Multiple Object Tracking</title>
-	
+
+	<!-- Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+
+	<link href="../style.css" rel="stylesheet">
+
 	<!-- JS libraries -->
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
@@ -74,14 +82,17 @@ if (isset($_SESSION["monitorsize"]) && isset($_SESSION["pxperdeg"])) {
 	gives them a reminder to keep their browser fullscreened during the task. -->
 	<div id="preexpt">
 		<p>If you need to review the instructions, you can click on the icon in the bottom right corner or <a href=./practice.php>return to the tutorial</a>.</p>
-		<p id="fs-check">Please fullscreen your browser window before continuing the study. (It is typically F11 for Windows or Command-Shift-F for Mac. 
-				You can also check your browser's menu bar.)</p>
+		<p>You will not receive feedback on whether your answer is correct on the main task.</p>
+		<p>The experiment is divided in 3 blocks of 15 trials with a small break between each block</p>
+		<br />
+	    <p>The experience works better in fullscreen. When you click on the continue button, your browser will automatically go in fullscreen mode.</p>
+	    <p>You can quit fullscreen at any time by using the escape key or by clicking on the close button that will appear when you move your mouse cursor at the top of the screen.</p>
 
 		<!-- button for confirming they read the above message -->
 		<button id="cButton">Continue</button>
 	</div>
 	
-	<div>
+	<div id="exptcomponent">
 		<!-- HTML5 canvas which displays the task -->
 		<canvas id="exptCanvas">
 			Your browser does not support the canvas element.
@@ -91,7 +102,7 @@ if (isset($_SESSION["monitorsize"]) && isset($_SESSION["pxperdeg"])) {
 	<!-- message that appears after the subject is done with the task, suggests they complete the UFOV task if they haven't already -->
 	<div id="postexpt">
 		<p id="postexpt-result"></p>
-		<p>Thank you for participating!</p>
+		<p>Thank you for participating – please call the experimenter</p>
 		<p>If you haven't completed the Useful Field of View task yet, you can start it by 
 			<a href="../UFOV/practice.php">clicking here.</a></p>
 	</div>

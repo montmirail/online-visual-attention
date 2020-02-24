@@ -41,9 +41,14 @@ else if (isset($_SESSION["monitorsize"]) && isset($_SESSION["pxperdeg"])) {
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
 
+    <!-- Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+
 	<!-- CSS styling -->
 	<link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/black-tie/jquery-ui.css" type="text/css" rel="stylesheet" />
 	<link href="practicestyle.css" type="text/css" rel="stylesheet" />    
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 
 	<title>MOT Tutorial</title>
 	
@@ -79,8 +84,9 @@ else if (isset($_SESSION["monitorsize"]) && isset($_SESSION["pxperdeg"])) {
 		
 		<!-- This message appears before the subject starts the practice section, as a reminder to keep their browser fullscreened during the task. -->
 		<div id="preexpt">
-			<p id="fs-check">Please fullscreen your browser window before continuing the study. (It is typically F11 for Windows or Command-Shift-F for Mac. 
-			You can also check your browser's menu bar.)</p>
+			<p id="fs-check">
+			    When you are ready to start the trial, click on Continue.
+			</p>
 
 			<!-- button for confirming they read the above message -->
 			<button id="cButton">Continue</button>

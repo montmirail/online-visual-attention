@@ -3,11 +3,11 @@
  */
 
 body {
-background-color: black;
-color: white;
-font-family: Arial, sans-serif;
-font-size:12pt;
-margin:0;
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 12pt;
+    margin:0;
 }
 
 #exptCanvas {
@@ -16,7 +16,18 @@ margin:0;
 }
 
 #preexpt, #postexpt {
-text-align: center;
+    margin: 0 auto!important;
+    height: 100vh;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
 }
 
 .ui-button {
@@ -40,4 +51,16 @@ font-weight: bold;
 
 a:hover {
 color:white;
+}
+
+p {
+    font-size: 18px;
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;!important;
+}
+
+#exptcomponent {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

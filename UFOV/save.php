@@ -14,6 +14,7 @@ if (isset($_SESSION["sid"], $_SESSION["task"], $_POST["frames"], $_POST["duratio
 
 	//store values sent, putting the values for each trial into arrays
 	$sid = $_SESSION["sid"]; //subject ID (the number assigned when the subject logged in)
+	$username = $_SESSION["username"];
 	$frames = explode(";", $_POST["frames"]); //number of frames to use for the stimulus presentation duration per trial
 	$duration = explode(";", $_POST["duration"]); //planned duration of stimulus presentation
 	$actualDuration = explode(";", $_POST["actualDuration"]); //actual duration that occurred during the trial
@@ -47,8 +48,8 @@ if (isset($_SESSION["sid"], $_SESSION["task"], $_POST["frames"], $_POST["duratio
 	$localtime = date('Y-m-d H:i:s', $localsec);
 	
 	//add trial data to the ufov table
-	$trialquery = $bdd->prepare("INSERT INTO ufov (sid, time, loctime, trial, trialStart, frames, duration, actualDuration, cStim, cResp, cRT, cCorrect, pPos, pTargetX, pTargetY, pResp, pX, pY, pRT, pCorrect, reversals, pxperdeg) " .
-  			"VALUES (:sid,NOW(),:loctime,:trial,:trialStart,:frames,:duration,:actualDuration,:cStim,:cResp,:cRT,:cCorrect,:pPos,:pTargetX,:pTargetY,:pResp,:pX,:pY,:pRT,:pCorrect,:reversals, :pxperdeg)");
+	$trialquery = $bdd->prepare("INSERT INTO ufov (sid, username, time, loctime, trial, trialStart, frames, duration, actualDuration, cStim, cResp, cRT, cCorrect, pPos, pTargetX, pTargetY, pResp, pX, pY, pRT, pCorrect, reversals, pxperdeg) " .
+  			"VALUES (:sid,:username,NOW(),:loctime,:trial,:trialStart,:frames,:duration,:actualDuration,:cStim,:cResp,:cRT,:cCorrect,:pPos,:pTargetX,:pTargetY,:pResp,:pX,:pY,:pRT,:pCorrect,:reversals, :pxperdeg)");
 	
 	//setup parameters
 	$trial_i = -1;
@@ -71,6 +72,7 @@ if (isset($_SESSION["sid"], $_SESSION["task"], $_POST["frames"], $_POST["duratio
 	$reversals_i = -1;
 	
 	$trialquery->bindParam(":sid", $sid);
+	$trialquery->bindParam(":username", $username);
 	$trialquery->bindParam(":loctime", $localtime);
 	$trialquery->bindParam(":trial", $trial_i);
 	$trialquery->bindParam(":trialStart", $trialStart_i);

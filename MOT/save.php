@@ -14,6 +14,7 @@ if (isset($_SESSION["sid"], $_SESSION["task"], $_POST["numAttendDots"], $_POST["
 
 	//store values sent, putting the values for each trial into arrays
 	$sid = $_SESSION["sid"]; //subject ID (the number assigned when the subject logged in)
+	$username = $_SESSION["username"];
 	$numAttendDots = explode(";", $_POST["numAttendDots"]); //number of cued dots for each trial
 	$probeTracked = explode(";", $_POST["probeTracked"]); // if the queried dot was originally a cued dot for each trial
 	$response = explode(";", $_POST["response"]); //subject's response for each trial
@@ -42,8 +43,8 @@ if (isset($_SESSION["sid"], $_SESSION["task"], $_POST["numAttendDots"], $_POST["
 	$localtime = date('Y-m-d H:i:s', $localsec);
 	
 	//add trial data to the mot table
-	$trialquery = $bdd->prepare("INSERT INTO mot (sid, time, loctime, trial, trialStart, numAttendDots, probeTracked, response, correct, rt, targetSeed, trialSeed, numDrawCalls, canvasWidth, canvasHeight, pxperdeg) " .
-		"VALUES (:sid, NOW(), :loctime, :trial, :trialStart, :numAttendDots, :probeTracked, :response, :correct, :rt, :targetSeed, :trialSeed, :numDrawCalls, :canvasWidth, :canvasHeight, :pxperdeg )"); 
+	$trialquery = $bdd->prepare("INSERT INTO mot (sid, username, time, loctime, trial, trialStart, numAttendDots, probeTracked, response, correct, rt, targetSeed, trialSeed, numDrawCalls, canvasWidth, canvasHeight, pxperdeg) " .
+		"VALUES (:sid, :username, NOW(), :loctime, :trial, :trialStart, :numAttendDots, :probeTracked, :response, :correct, :rt, :targetSeed, :trialSeed, :numDrawCalls, :canvasWidth, :canvasHeight, :pxperdeg )");
 		
 	//setup parameters
 	$trial_i = -1;
@@ -58,6 +59,7 @@ if (isset($_SESSION["sid"], $_SESSION["task"], $_POST["numAttendDots"], $_POST["
 		
 		 
 	$trialquery->bindParam(":sid", $sid);
+	$trialquery->bindParam(":username", $username);
 	$trialquery->bindParam(":loctime", $localtime);
 	$trialquery->bindParam(":trial", $trial_i);
 	$trialquery->bindParam(":trialStart", $trialStart_i);
