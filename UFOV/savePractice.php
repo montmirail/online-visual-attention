@@ -14,6 +14,7 @@ if (isset($_SESSION["sid"], $_SESSION["task"], $_POST["trial"], $_POST["duration
 
 	//store values sent
 	$sid = $_SESSION["sid"]; //subject ID (the number assigned when the subject logged in)
+	$username = $_SESSION["username"];
 	$trial = $_POST["trial"]; //current trial number
 	$duration = $_POST["duration"]; //planned duration of stimulus presentation
 	$actualDuration = $_POST["actualDuration"]; //actual duration that occurred during the trial
@@ -46,11 +47,12 @@ if (isset($_SESSION["sid"], $_SESSION["task"], $_POST["trial"], $_POST["duration
 	$localtime = date('Y-m-d H:i:s', $localsec);
 	
 	//add trial data to the ufov practice table
-	$trialquery = $bdd->prepare("INSERT INTO ufovpractice (sid, time, loctime, trial, trialStart, trialType, duration, actualDuration, cStim, cResp, cRT, cCorrect, pPos, pTargetX, pTargetY, pResp, pX, pY, pRT, pCorrect, pxperdeg) " .
-  			"VALUES (:sid,NOW(),:loctime,:trial,:trialStart,:trialType,:duration,:actualDuration,:cStim,:cResp,:cRT,:cCorrect,:pPos,:pTargetX,:pTargetY,:pResp,:pX,:pY,:pRT,:pCorrect, :pxperdeg)");
+	$trialquery = $bdd->prepare("INSERT INTO ufovpractice (sid, username, time, loctime, trial, trialStart, trialType, duration, actualDuration, cStim, cResp, cRT, cCorrect, pPos, pTargetX, pTargetY, pResp, pX, pY, pRT, pCorrect, pxperdeg) " .
+  			"VALUES (:sid,:username,NOW(),:loctime,:trial,:trialStart,:trialType,:duration,:actualDuration,:cStim,:cResp,:cRT,:cCorrect,:pPos,:pTargetX,:pTargetY,:pResp,:pX,:pY,:pRT,:pCorrect, :pxperdeg)");
 	
 	//setup parameters	
 	$trialquery->bindParam(":sid", $sid);
+	$trialquery->bindParam(":username", $username);
 	$trialquery->bindParam(":loctime", $localtime);
 	$trialquery->bindParam(":trial", $trial);
 	$trialquery->bindParam(":trialStart", $trialStart);

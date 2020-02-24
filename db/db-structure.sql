@@ -54,6 +54,7 @@ CREATE TABLE IF NOT EXISTS `calibration` (
 CREATE TABLE IF NOT EXISTS `mot` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sid` varchar(30) CHARACTER SET latin1 DEFAULT NULL,
+  `username` varchar(50) DEFAULT NULL,
   `time` datetime DEFAULT NULL,
   `loctime` datetime DEFAULT NULL,
   `trial` int(11) DEFAULT NULL,
@@ -81,6 +82,7 @@ CREATE TABLE IF NOT EXISTS `mot` (
 CREATE TABLE IF NOT EXISTS `motpractice` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sid` varchar(30) CHARACTER SET latin1 DEFAULT NULL,
+  `username` varchar(50) DEFAULT NULL,
   `time` datetime DEFAULT NULL,
   `loctime` datetime DEFAULT NULL,
   `trial` int(11) DEFAULT NULL,
@@ -117,6 +119,7 @@ CREATE TABLE IF NOT EXISTS `subjects` (
 CREATE TABLE IF NOT EXISTS `ufov` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sid` varchar(30) CHARACTER SET latin1 DEFAULT NULL,
+  `username` varchar(50) DEFAULT NULL,
   `time` datetime DEFAULT NULL,
   `loctime` datetime DEFAULT NULL,
   `trial` int(11) DEFAULT NULL,
@@ -150,6 +153,7 @@ CREATE TABLE IF NOT EXISTS `ufov` (
 CREATE TABLE IF NOT EXISTS `ufovpractice` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sid` varchar(30) CHARACTER SET latin1 DEFAULT NULL,
+  `username` varchar(50) DEFAULT NULL,
   `time` datetime DEFAULT NULL,
   `loctime` datetime DEFAULT NULL,
   `trial` int(11) DEFAULT NULL,
