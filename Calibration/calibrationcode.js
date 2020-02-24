@@ -14,7 +14,7 @@ $(window).ready(initPage);
 var widthLimit = 1000;
 $(window).resize(function() {
 	if ($(window).width() <= widthLimit) {
-	  $("body").css("width", widthLimit+"px");
+		$("body").css("width", widthLimit+"px");
 	}
 	else {
 		$("body").css("width","100%");
@@ -41,8 +41,13 @@ var cardRatio = 0; //this will store the card's ratio of width to height
 var curStep = 1; //this keeps track of the step the subject is currently on
 var nextStep = 0; //this keeps track of what step will be next
 var objectChosen = "none"; //this will store which object the subject chose as their calibration object
+var screenMin = 10; //minimum screen size allowed for the task
+var screenMax = 40; //maximum screen size allowed for the task
 
-
+//slider parameters for changing the displayed object's size
+//the units are inches * 10 (the * 10 helps to elongate the slider's appearances)
+var sliderMin = screenMin * 10;
+var sliderMax = screenMax * 10;
 
 //once the card image is done loading, calculate the card ratio
 cardimg.onload = setCardRatio;
@@ -54,6 +59,7 @@ function setCardRatio() {
 
 //get the current value of the slider
 function getSliderValue() {
+	console.log($("#slider").slider("value"));
 	return sliderMax - $("#slider").slider("value") + sliderMin;
 }
 
@@ -63,8 +69,8 @@ function initPage() {
 	//set the size of the content container to be no more than the width limit
 	//(mainly for aesthetic purposes)
 	if($(window).width() <= widthLimit) {
-    	$("body").css("width", widthLimit + "px");
-    }
+		$("body").css("width", widthLimit + "px");
+	}
 	else {
 		$("body").css("width","100%");
 	}
@@ -96,11 +102,11 @@ function initPage() {
 
 	//setup slider for controlling the resizing of the calibration object image
 	$("#slider").slider({
-	min: sliderMin,
-	max: sliderMax,
-	value: 250,
-	slide: updateNumbers,
-	stop: updateNumbers
+		min: sliderMin,
+		max: sliderMax,
+		value: 250,
+		slide: updateNumbers,
+		stop: updateNumbers
 	});
 
 	//set the starting value for the pixel per inch parameter
@@ -113,123 +119,123 @@ function initPage() {
 
 	//this warning dialog appears if an invalid screen size is input
 	$("#warningDialog").dialog({
-	autoOpen: false,
-	modal: true,
-	title: "Invalid Input",
-	width: 400,
-	height: 100
+		autoOpen: false,
+		modal: true,
+		title: "Invalid Input",
+		width: 400,
+		height: 100
 	});
 
 	//this dialog appears so that the user can confirm the screen size they input after step 1
 	$("#confirmDialog").dialog({
-	autoOpen: false,
-	modal: true,
-	title: "Confirm Monitor Size",
-	buttons: {
-	"Yes, let's continue.": function() {
-		//close the dialog box after they confirm
-		$(this).dialog("close");
+		autoOpen: false,
+		modal: true,
+		title: "Confirm Monitor Size",
+		buttons: {
+			"Yes, let's continue.": function() {
+				//close the dialog box after they confirm
+				$(this).dialog("close");
 
-		//do the calculations for pixels/degree
-		getConversion();
+				//do the calculations for pixels/degree
+				getConversion();
 
-		//if they are moving onto step 2 now, then setup all the navigation buttons
-		//and display step 2's content
-		if (nextStep == 2) {
-			$("#radio2").prop("checked", true).button("refresh");
-			$("#prevButton").button( "option", "disabled", false );
-			$("#nextButton").button( "option", "disabled", false );
-			$("#screenBar").hide(); //hide step 1's content
-			$("#adjustBar").show(); //show step 2's content
+				//if they are moving onto step 2 now, then setup all the navigation buttons
+				//and display step 2's content
+				if (nextStep == 2) {
+					$("#radio2").prop("checked", true).button("refresh");
+					$("#prevButton").button( "option", "disabled", false );
+					$("#nextButton").button( "option", "disabled", false );
+					$("#screenBar").hide(); //hide step 1's content
+					$("#adjustBar").show(); //show step 2's content
 
-			//display grayscale boxes
-			grayscale();
+					//display grayscale boxes
+					grayscale();
 
-			//don't let them move onto step 3 yet
-			$("#radio3").prop("disabled", false).button("refresh");
+					//don't let them move onto step 3 yet
+					$("#radio3").prop("disabled", false).button("refresh");
 
-			//update the current step
-			curStep = 2;
-		}
+					//update the current step
+					curStep = 2;
+				}
 
-		//if the next step they are moving onto is step 3 (this is only the case if they
-		//completed step 2, but then decided to go back to step 1 and then selected step 3
-		//from the top navigation bar), then update the navigation buttons and display
-		//step 3's content
-		else if (nextStep == 3) {
-			$("#radio3").prop("checked", true).button("refresh");
-			$("#prevButton").button( "option", "disabled", false );
-			$("#nextButton").button( "option", "disabled", true );
-			$("#screenBar").hide(); //hide step 1's content
-			$("#startBar").show(); //show step 3's content
-			$("#myCanvas").hide(); //hide the HTML5 canvas
-			$("#startButton").show(); //show the start button that takes the subject to the tasks
+				//if the next step they are moving onto is step 3 (this is only the case if they
+				//completed step 2, but then decided to go back to step 1 and then selected step 3
+				//from the top navigation bar), then update the navigation buttons and display
+				//step 3's content
+				else if (nextStep == 3) {
+					$("#radio3").prop("checked", true).button("refresh");
+					$("#prevButton").button( "option", "disabled", false );
+					$("#nextButton").button( "option", "disabled", true );
+					$("#screenBar").hide(); //hide step 1's content
+					$("#startBar").show(); //show step 3's content
+					$("#myCanvas").hide(); //hide the HTML5 canvas
+					$("#startButton").show(); //show the start button that takes the subject to the tasks
 
-			//update the current step
-			curStep = 3;
-		}
+					//update the current step
+					curStep = 3;
+				}
 
-	},
-	"No, let me fix it.": function() {
-		$(this).dialog("close"); //close the dialog box and stay on step 1
-	}},
-	width: 400
+			},
+			"No, let me fix it.": function() {
+				$(this).dialog("close"); //close the dialog box and stay on step 1
+			}},
+		width: 400
 	});
 
 	//this dialog box appears after the subject has finished adjusting their screen's brightness/constrast (step 2)
 	$("#confirmDialog2").dialog({
-	autoOpen: false,
-	modal: true,
-	title: "Confirm Brightness/Contrast",
-	buttons: {
-	"Yes, let's continue.": function() {
-		//close the dialog box after they confirm
-		$(this).dialog("close");
+		autoOpen: false,
+		modal: true,
+		title: "Confirm Brightness/Contrast",
+		buttons: {
+			"Yes, let's continue.": function() {
+				//close the dialog box after they confirm
+				$(this).dialog("close");
 
-		//If they are moving backwards to step 1, then set up all the navigation buttons to reflect the new state
-		//and show step 1's content
-		if (nextStep == 1) {
-			$("#radio1").prop("checked", true).button("refresh");
-			$("#radio2").prop("disabled", false).button("refresh");
-			$("#prevButton").button( "option", "disabled", true );
-			$("#nextButton").button( "option", "disabled", false );
-			$("#adjustBar").hide(); //hide step 2's content
-			$("#screenBar").show(); //show step 1's content
-			drawObject(); //draw the calibration object that may have been selected previously
+				//If they are moving backwards to step 1, then set up all the navigation buttons to reflect the new state
+				//and show step 1's content
+				if (nextStep == 1) {
+					$("#radio1").prop("checked", true).button("refresh");
+					$("#radio2").prop("disabled", false).button("refresh");
+					$("#prevButton").button( "option", "disabled", true );
+					$("#nextButton").button( "option", "disabled", false );
+					$("#adjustBar").hide(); //hide step 2's content
+					$("#screenBar").show(); //show step 1's content
+					drawObject(); //draw the calibration object that may have been selected previously
 
-			//update the current step
-			curStep = 1;
+					//update the current step
+					curStep = 1;
 
-		}
+				}
 
-		//Else if they're moving forward to step 3, then set up the navigation buttons to reflect that state
-		//and show step 3's content
-		else if (nextStep == 3) {
-			$("#radio3").prop("checked", true).button("refresh");
-			$("#prevButton").button( "option", "disabled", false );
-			$("#nextButton").button( "option", "disabled", true );
-			$("#adjustBar").hide(); //hide step 2's content
-			//$("#screenBar").hide();
-			$("#startBar").show(); //show step 3's content
-			$("#myCanvas").hide(); //hide the HTML5 canvas
-			$("#startButton").show(); //show the start button that takes the subject to the task
-			curStep = 3;
-		}
+				//Else if they're moving forward to step 3, then set up the navigation buttons to reflect that state
+				//and show step 3's content
+				else if (nextStep == 3) {
+					$("#radio3").prop("checked", true).button("refresh");
+					$("#prevButton").button( "option", "disabled", false );
+					$("#nextButton").button( "option", "disabled", true );
+					$("#adjustBar").hide(); //hide step 2's content
+					//$("#screenBar").hide();
+					$("#startBar").show(); //show step 3's content
+					$("#myCanvas").hide(); //hide the HTML5 canvas
+					$("#startButton").show(); //show the start button that takes the subject to the task
+					curStep = 3;
+				}
 
-	},
-	"No, let me fix it.": function() {
-		$(this).dialog("close"); //close the dialog box and stay on step 2
-	}},
-	width: 400
+			},
+			"No, let me fix it.": function() {
+				$(this).dialog("close"); //close the dialog box and stay on step 2
+			}},
+		width: 400
 	});
 
 
 	//Setup the dialog box for the help instructions for adjusting brightness/contrast
 	//(The actual instructions are written in Calibration/index.php)
 	$("#helpDialog").dialog({
-	autoOpen: false,
-	title: "Adjusting Monitor Brightness/Contrast",
-	width: 400
+		autoOpen: false,
+		title: "Adjusting Monitor Brightness/Contrast",
+		width: 400
 	});
 
 	//setup the button that brings up the above help dialog window
@@ -353,62 +359,62 @@ function drawContent() {
 function drawObject() {
 	//get the HTML% canvas and determine its center coordinates
 	var canvas=document.getElementById("myCanvas");
- 	var c=canvas.getContext("2d");
- 	var centerX = canvas.width/2;
- 	var centerY = canvas.height/2;
+	var c=canvas.getContext("2d");
+	var centerX = canvas.width/2;
+	var centerY = canvas.height/2;
 
- 	//clear the canvas and set a gray background
- 	c.fillStyle="rgb(128, 128, 128)";
-  	c.fillRect(0,0,canvas.width,canvas.height);
+	//clear the canvas and set a gray background
+	c.fillStyle="rgb(128, 128, 128)";
+	c.fillRect(0,0,canvas.width,canvas.height);
 
-  	//if the selected image is a credit card, then update the card size based on the calculated
-  	//pixels per inch, and then redraw the card to display to the subject
-  	if (objectChosen == "card") {
-  		var cardWidth = Math.round(window.pxperinch*cardinch);
-  		var cardHeight = Math.round(cardWidth/cardRatio);
+	//if the selected image is a credit card, then update the card size based on the calculated
+	//pixels per inch, and then redraw the card to display to the subject
+	if (objectChosen == "card") {
+		var cardWidth = Math.round(window.pxperinch*cardinch);
+		var cardHeight = Math.round(cardWidth/cardRatio);
 		c.drawImage(cardimg, 0, 10, cardWidth, cardHeight);
-  	}
+	}
 
-  	//if the CD was chosen, then update the CD size and redraw it
-  	else if (objectChosen == "cd") {
-	  	var cdDiam = Math.round(window.pxperinch*cdinch);
-	  	//the CD is bigger than the credit card, so it tends to go past the HTML5 canvas limits if the screen
-	  	//size is particularly small; when this happens, the canvas needs to be resized so that the CD image
-	  	//does not get cropped
-	  	if (cdDiam > canvas.width - 10) {
-	  		//increase canvas size
-	  		canvas.width = cdDiam+10;
+	//if the CD was chosen, then update the CD size and redraw it
+	else if (objectChosen == "cd") {
+		var cdDiam = Math.round(window.pxperinch*cdinch);
+		//the CD is bigger than the credit card, so it tends to go past the HTML5 canvas limits if the screen
+		//size is particularly small; when this happens, the canvas needs to be resized so that the CD image
+		//does not get cropped
+		if (cdDiam > canvas.width - 10) {
+			//increase canvas size
+			canvas.width = cdDiam+10;
 			canvas.height = cdDiam+10;
 
 			//update what the center coordinates are of the canvas
-	  	 	centerX = canvas.width/2;
-	 		centerY = canvas.height/2;
+			centerX = canvas.width/2;
+			centerY = canvas.height/2;
 
-	 		//update sidebar height so that it is the same size as the canvas's height
-	 		$(".sidebar").css("height", canvas.height);
-	 		widthLimit = canvas.width+500; //update the width limit of the main content container
-	 		if($(window).width() <= widthLimit) {
-	    		$("body").css("width", widthLimit+"px");
-	    	}
-	  	}
+			//update sidebar height so that it is the same size as the canvas's height
+			$(".sidebar").css("height", canvas.height);
+			widthLimit = canvas.width+500; //update the width limit of the main content container
+			if($(window).width() <= widthLimit) {
+				$("body").css("width", widthLimit+"px");
+			}
+		}
 
-	  	//now redraw the CD at the newly determined size
-	  	c.drawImage(cdimg, centerX-cdDiam/2, centerY-cdDiam/2, cdDiam, cdDiam);
-  	}
-  	//if no object is currently selected, then draw a black question mark in the middle of the canvas
-  	else {
-  		c.fillStyle = "black";
-  		c.textAlign = "center";
-  		c.font = "bold 6em sans-serif";
-  		c.fillText("?", centerX, centerY);
-  	}
+		//now redraw the CD at the newly determined size
+		c.drawImage(cdimg, centerX-cdDiam/2, centerY-cdDiam/2, cdDiam, cdDiam);
+	}
+	//if no object is currently selected, then draw a black question mark in the middle of the canvas
+	else {
+		c.fillStyle = "black";
+		c.textAlign = "center";
+		c.font = "bold 6em sans-serif";
+		c.fillText("?", centerX, centerY);
+	}
 }
 
 //This checks the screen size input field to make sure a value has been input
 function checkValue() {
 	var inchDiagonal = parseFloat($("#screenInput").val()); //get the screen size value input by subject
 
-	//if the screen output is the default value, they did not enter anything in the screen size input field 
+	//if the screen output is the default value, they did not enter anything in the screen size input field
 	//nor did they use the slider to estimate their screen size.
 	//Display a warning dialog box if this is the case.
 	if ($("#diagsize").text() == "???") {
@@ -420,7 +426,7 @@ function checkValue() {
 	//a confirmation dialog window
 	else {
 		$("#confirmDialog").text("You have indicated your screen size is " +
-		inchDiagonal.toFixed(1) + "\". Is this OK?");
+			inchDiagonal.toFixed(1) + "\". Is this OK?");
 		$("#confirmDialog").dialog("open");
 	}
 }
@@ -459,7 +465,7 @@ function grayscale() {
 	var centerX = Math.round(canvas.width/2);
 	var centerY = Math.round(canvas.height/2);
 
-	//now draw each box			
+	//now draw each box
 	for (var i=0; i < calibSteps; i++) {
 		var grayColor = Math.round(i*(255/(calibSteps-1))); //incrementally increase the color of the box (from black to white)
 		if (i == calibSteps-1) {
@@ -471,7 +477,7 @@ function grayscale() {
 	}
 }
 
-// This is the callback function for the help button in step 2 when the subject 
+// This is the callback function for the help button in step 2 when the subject
 // requests help to know how to adjust their screen's brightness/contrast
 function showHelp() {
 	$("#helpDialog").dialog("open");
@@ -515,8 +521,8 @@ function updateStep() {
 
 	//show step 2's content
 	else if (goTo == 2) {
-		 //if going from step 1 to step 2, need to first confirm that the subject
-		 //input a valid value for screen size
+		//if going from step 1 to step 2, need to first confirm that the subject
+		//input a valid value for screen size
 		if (curStep == 1) {
 			nextStep = 2; //store where the subject wants to go next
 			$("#radio1").prop("checked", true).button("refresh");
@@ -568,16 +574,16 @@ function addCalibration() {
 
 	//now send all the calibration info to the addcalibration.php script
 	$.ajax({
-			type: "POST",
-			url: "addcalibration.php",
-			data: {
-				monitorsize: monitorSize, //screen size in inches
-				pxwidth: screen.width, //screen width in pixels
-				pxheight: screen.height, //screen height in pixels
-				pxperdeg: window.pxperdeg, //pixels per degree conversion value for this screen
-				localsec: localsec //subject's current time
-			}
-		}).done(function(message) {
-				$("#go2expt").submit(); //submit the HTML form to the task page
-		});
+		type: "POST",
+		url: "addcalibration.php",
+		data: {
+			monitorsize: monitorSize, //screen size in inches
+			pxwidth: screen.width, //screen width in pixels
+			pxheight: screen.height, //screen height in pixels
+			pxperdeg: window.pxperdeg, //pixels per degree conversion value for this screen
+			localsec: localsec //subject's current time
+		}
+	}).done(function(message) {
+		$("#go2expt").submit(); //submit the HTML form to the task page
+	});
 }

@@ -16,7 +16,18 @@ body {
 }
 
 #preexpt, #postexpt {
-text-align: center;
+    margin: 0 auto!important;
+    height: 100vh;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
 }
 
 .ui-button {
@@ -43,5 +54,13 @@ color:white;
 }
 
 p {
+    font-size: 18px;
     font-family: 'Open Sans', Helvetica, Arial, sans-serif;!important;
+}
+
+#exptcomponent {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

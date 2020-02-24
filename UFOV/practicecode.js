@@ -8,15 +8,40 @@
  * The final stage is attending to the center and peripheral targets, with peripheral distractors.
  */
 
+// *********************** CALIBRATION ************************** //
+const distance = 57; //cm, chosen distance from screen as this approximates to an arm's length
+const screenSize = 24;
+const pxDiagonal = Math.sqrt(Math.pow(screen.width,2) + Math.pow(screen.height,2)); //get the screen's diagonal size in pixels
+
+//slider parameters for changing the displayed object's size
+//the units are inches * 10 (the * 10 helps to elongate the slider's appearances)
+const screenMin = 10; //minimum screen size allowed for the task
+const screenMax = 40; //maximum screen size allowed for the task
+const min = screenMin * 10;
+const max = screenMax * 10;
+
+// first pixels per inch is converted to pixels per centimeter (used for drawing the brightness/contrast grayscale rectangles)
+const pxPerInch = pxDiagonal / screenSize;
+const pxPerCm = Math.round(pxPerInch / 2.54);
+
+//then calculate pixels per degree
+const angle = Math.atan(screen.height / screen.width);
+const diagCM = ((max - (max - screenSize*10 + min) + min) / 10) * 2.54;
+const screenWidthCM = diagCM * Math.cos(angle);
+const pxPerDeg = Math.PI / 180 * screen.width * distance / screenWidthCM;
+//get the subject's current local time
+const date = new Date();
+const localSec = Math.round(date.getTime() / 1000) - date.getTimezoneOffset() * 60;
+
 // *********************** VARIABLES ************************** //
-var UFOV = {};  //storage for all variables in this task
+const UFOV = {};  //storage for all variables in this task
 
 UFOV.exptLink = "index.php"; //link to main page of full task
 
 // stimuli setup -------------------------------------------------------
 
 //position of stimuli on screen
-UFOV.pxperdeg = <?php echo $pxperdeg; ?>; //pixels per degree from screen calibration (via UFOV/practicecode.php)
+UFOV.pxperdeg = pxPerDeg; //pixels per degree from screen calibration (via UFOV/practicecode.php)
 UFOV.distEcc = new Array(2,4); // distance of peripheral targets from center of circle (visual angle in degrees); inner and outer circles
 UFOV.thetaPos = new Array(45, 90, 135, 180, 225, 270, 315, 360); //position around the center of the circle (in degrees)
 

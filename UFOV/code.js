@@ -11,13 +11,66 @@
  * via a staircase procedure: the duration decreases as the subject gets trials correct, and increases when the subject gets them wrong.
  */
 
+const openFullscreen = () => {
+  const page = document.documentElement;
+
+  if (page.requestFullscreen) {
+    page.requestFullscreen()
+  } else if (page.mozRequestFullScreen) { /* Firefox */
+    page.mozRequestFullScreen();
+  } else if (page.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+    page.webkitRequestFullscreen();
+  } else if (page.msRequestFullscreen) { /* IE/Edge */
+    page.msRequestFullscreen();
+  }
+};
+
+const closeFullscreen = () => {
+  const page = document.documentElement;
+
+  if (page.exitFullscreen) {
+    page.exitFullscreen();
+  } else if (page.mozCancelFullScreen) { /* Firefox */
+    page.mozCancelFullScreen();
+  } else if (page.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+    page.webkitExitFullscreen();
+  } else if (page.msExitFullscreen) { /* IE/Edge */
+    page.msExitFullscreen();
+  }
+};
+
+// *********************** CALIBRATION ************************** //
+const distance = 57; //cm, chosen distance from screen as this approximates to an arm's length
+const screenSize = 24;
+const pxDiagonal = Math.sqrt(Math.pow(screen.width,2) + Math.pow(screen.height,2)); //get the screen's diagonal size in pixels
+
+//slider parameters for changing the displayed object's size
+//the units are inches * 10 (the * 10 helps to elongate the slider's appearances)
+const screenMin = 10; //minimum screen size allowed for the task
+const screenMax = 40; //maximum screen size allowed for the task
+const min = screenMin * 10;
+const max = screenMax * 10;
+
+// first pixels per inch is converted to pixels per centimeter (used for drawing the brightness/contrast grayscale rectangles)
+const pxPerInch = pxDiagonal / screenSize;
+const pxPerCm = Math.round(pxPerInch / 2.54);
+
+//then calculate pixels per degree
+const angle = Math.atan(screen.height / screen.width);
+const diagCM = ((max - (max - screenSize*10 + min) + min) / 10) * 2.54;
+const screenWidthCM = diagCM * Math.cos(angle);
+const pxPerDeg = Math.PI / 180 * screen.width * distance / screenWidthCM;
+//get the subject's current local time
+const date = new Date();
+const localSec = Math.round(date.getTime() / 1000) - date.getTimezoneOffset() * 60;
+
 // *********************** VARIABLES ************************** //
 var UFOV = {}; //storage for all variables in this task
 
 // stimuli setup -------------------------------------------------------
 
 //position of stimuli on screen
-UFOV.pxperdeg = <?php echo $pxperdeg; ?>; //pixels per degree from screen calibration (via UFOV/code.php)
+UFOV.pxperdeg = pxPerDeg; //pixels per degree from screen calibration (via UFOV/code.php)
 UFOV.monitorsize = <?php echo $monitorsize; ?>; //monitor size from screen calibration (via UFOV/code.php)
 UFOV.ecc = new Array(3, 7); //distance of peripheral targets from center of circle (visual angle in degrees); inner and outer circles
 UFOV.outerOnly = true; //originally this experiment was setup to present the target at both the inner and outer circles; if this is set to true, then only use the outer circle
@@ -272,6 +325,8 @@ function initCanvas() {
   //hide fullscreen message
   $("#preexpt").hide();
 
+  openFullscreen();
+
   //initialize canvas
   UFOV.canvas = document.getElementById("exptCanvas");
   UFOV.c = UFOV.canvas.getContext("2d");
@@ -478,6 +533,10 @@ function keyResponse(event) {
       UFOV.trialStart[UFOV.curSC][UFOV.scTrial[UFOV.curSC]] = new Date().getTime()-UFOV.startTime;
       UFOV.state = "delay";
       UFOV.stateChange = true;
+    }
+
+    if (event.keyCode === 27) {
+      closeFullscreen();
     }
   }
 }

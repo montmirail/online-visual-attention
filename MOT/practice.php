@@ -84,8 +84,9 @@ else if (isset($_SESSION["monitorsize"]) && isset($_SESSION["pxperdeg"])) {
 		
 		<!-- This message appears before the subject starts the practice section, as a reminder to keep their browser fullscreened during the task. -->
 		<div id="preexpt">
-			<p id="fs-check">Please fullscreen your browser window before continuing the study. (It is typically F11 for Windows or Command-Shift-F for Mac. 
-			You can also check your browser's menu bar.)</p>
+			<p id="fs-check">
+			    When you are ready to start the trial, click on Continue.
+			</p>
 
 			<!-- button for confirming they read the above message -->
 			<button id="cButton">Continue</button>

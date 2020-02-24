@@ -43,7 +43,7 @@ if (isset($_SESSION["monitorsize"]) && isset($_SESSION["pxperdeg"])) {
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
 
 	<!-- only include the remaining code if the subject is logged in and has completed screen calibration -->
-	<?php if ($loggedin && $calibrated) { ?>
+	<?php if ($loggedin) { ?>
 
 	<!-- PHP script connected to more JS code for controlling the page -->
 	<script type="text/javascript" src="./code.php"></script>
@@ -52,7 +52,7 @@ if (isset($_SESSION["monitorsize"]) && isset($_SESSION["pxperdeg"])) {
 
 <body>
 	<!--only display all the practice page content if the subject is logged in and has calibrated their screen -->
-	<?php if ($loggedin && $calibrated) { ?>
+	<?php if ($loggedin) { ?>
 	
 	<!-- the reminder button is present during the practice trials so that the subject can click on it if they
 	want to bring up the instructions at any point after they have been initially explained. -->
@@ -86,29 +86,26 @@ if (isset($_SESSION["monitorsize"]) && isset($_SESSION["pxperdeg"])) {
 		<button id="cButton">Continue</button>
 	</div>
 	
-	<div>
-		<!-- message that appears after the subject is done with the task, suggests they complete the MOT task if they haven't already -->
-		<div id="postexpt">
-			<p>Thank you for participating!</p>
+    <!-- message that appears after the subject is done with the task, suggests they complete the MOT task if they haven't already -->
+    <div id="postexpt">
+        <p>Thank you for participating!</p>
 
-			<p>If you haven't completed the Multiple Object Tracking task yet, you can start it by 
-				<a href="../MOT/practice.php">clicking here.</a></p>
-		</div>
-		
-		<!-- HTML5 canvas which displays the task -->
-		<canvas id="exptCanvas">
-		Your browser does not support the canvas element.
-		</canvas>
-	</div>
+        <p>If you haven't completed the Multiple Object Tracking task yet, you can start it by
+            <a href="../MOT/practice.php">clicking here.</a></p>
+    </div>
+
+    <!-- HTML5 canvas which displays the task -->
+    <div id="exptcomponent">
+        <canvas id="exptCanvas">
+            Your browser does not support the canvas element.
+        </canvas>
+    </div>
 
 	<!-- if the subject hasn't logged in, then this message will appear -->
 	<?php } else if (!$loggedin) { ?>
 	<div> <a href="../index.php?task=ufov">Please login first before starting the task.</a> </div>
 	<!-- if the subject is logged in, but hasn't calibrated their screen, then this message will appear to redirect them to the calibration page -->
-	<?php } else if (!$calibrated) { ?>
-	<div> <a href="../Calibration/index.php?task=ufov">Please go through our calibration steps before starting the task</a></div> 
-	<?php } ?>
-
+	<?php }  ?>
 </body>
 
 </html>
