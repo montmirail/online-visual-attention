@@ -12,7 +12,7 @@ Install Apache, MySQL and PHP following this procedure https://doc.ubuntu-fr.org
 
 ## For OSX
 
-Install MAMP from http://www.ampps.com/download
+Install MAMP from http://www.mamp.info/en/downloads
 
 The *amp should be running after install, you can try by navigating to http://localhost inside your browser (Chrome or Firefox).
 If you do not have the *amp welcome page, find the executable and start it.
@@ -28,7 +28,9 @@ By default:
 
 # Create a db
 
-- Go to phpmyadmin (htp://localhost/phpmyadmin/) and login, default Username: ***root***, no password.
+- Go to phpmyadmin (http://localhost/phpmyadmin/) and login, default Username: ***root***, no password.
+    - Windows: http://localhost/phpmyadmin
+    - OSX: http://localhost:8888/phpmyadmin
 - Create a new database from the new command on the left pane.
 - Add a name and Select ***utf8_general_ci*** 
 - Inside your new DB, go to the SQL tab (second from the left)

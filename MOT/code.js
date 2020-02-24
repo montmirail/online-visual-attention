@@ -3,8 +3,8 @@
  * The trial order is determined by a text file (trialorder.txt) read in by MOT/code.php.
  * The calibration information from the subject's calibration is used to determine the size of the stimuli
  * on the screen.
- * 
- * During a trial, there are several dots that move around the screen. At the beginning of a trial, 1 or more dots are chosen 
+ *
+ * During a trial, there are several dots that move around the screen. At the beginning of a trial, 1 or more dots are chosen
  * as the dots the subject should attend to (cued dots, which appear as blue sad faces). After a set amount of time, these dots change
  * to appear like the other dots (yellow happy faces) and continue to move around with the other dots. Then after another set amount
  * of time, all the dots stop and one dot is highlighted (queried dot). The subject must respond whether the queried dot was originally
@@ -164,7 +164,10 @@ function init() {
 
     //set up the continue button that allows the subject to start the task
     $("#cButton").button();
-    $("#cButton").click(initCanvas);
+    $("#cButton").click(() => {
+        openFullscreen();
+        initCanvas()
+    });
     $("#cButton").button("option", "disabled", true);
 
     //set up the reminder button which brings up short instructions in a dialog box
@@ -561,7 +564,7 @@ function updateTrial() {
 
 // ***********************MISCELLANEOUS FUNCTIONS ***************************** //
 
-//Once the subject is done with all the trials, send all the data at once to the database 
+//Once the subject is done with all the trials, send all the data at once to the database
 //via the MOT/save.php script; data is passed with semicolons separating each trial's data
 function submitResults() {
     //get the subject's current local time
