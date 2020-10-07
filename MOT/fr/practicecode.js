@@ -20,15 +20,15 @@ MOT.exptLink = "index.php"; //link to main page of full task
 // instruction variables --------------------------------
 
 //instruction text per page
-MOT.text = 
-[
-	"This task requires you to attend to moving objects presented on the screen. We will explain the process step by step.",
-"At the beginning of each trial, there will be multiple faces within a gray area. There are two types: yellow happy faces and blue sad faces.",
-"These faces will be moving around the gray area throughout the trial. Track the blue sad faces amongst the other faces.",
-"After a short period of time, the sad faces will change to yellow happy faces. You will need to keep tracking the faces that were initially blue.", 
-"When the trial ends, one face will appear with a question mark. If you think this face started as a blue face, press the <strong>B</strong> key. Otherwise, if it was always a yellow face, press the <strong>Y</strong> key.",
-"Now try a few practice trials. If you need a reminder about the controls, click the \"i\" icon in the bottom right corner.",
-"Make sure you are comfortable with the instructions and key responses before you begin. You can go back in the instructions if necessary. When you're ready, click the Start button."];
+MOT.text = [
+	"Cette tâche demande que vous soyez attentif/ve aux objets mouvants présentés à l’écran. Nous allons vous expliquer la procédure étape par étape.",
+	"Au début de chaque essai, il y aura plusieurs smileys à l'intérieur d'une aire grise. Il y en a deux types: les smileys heureux jaunes et les smiley tristes bleus.",
+	"Ces smiley vont bouger à l'intérieur de l'aire grise tout au long de l'essai. Suivez les smiley tristes bleus parmi les autres smileys.",
+	"Après une courte période de temps, les smileys tristes bleus vont se changer en smileys heureux jaunes. Vous devrez continuer de suivre les smileys qui étaient initialement bleus.",
+	"Lorsque l'essai finira, un smiley apparaîtra avec un point d'interrogation. Si vous pensez que ce smiley était un smiley bleu au début, appuyez sur la touche <strong>B</strong>. Sinon, si il a toujours été un smiley jaune, appuyez sur a touche <strong>J</strong>.",
+	"Maintenant, à vous d'essayer quelques essais d'entraînement. Si vous souhaitez vous rappeler des touches, cliquez sur l'icône \"i\" en bas à droite.",
+	"Assurez-vous que vous êtes à l'aise avec les consignes et les touches de réponse avant de commencer. Vous pouvez revenir aux consignes à tout moment. Lorsque vous êtes prêt(e), cliquez sur le bouton Commencer."
+];
 
 //reference label for each instruction page
 MOT.pageLabels = ["start", "faces", "cue", "move", "query", "practice", "end"];
@@ -38,7 +38,7 @@ MOT.curPage = 0; //keeps track of current page
 MOT.highestPage = 0; //keeps track of the highest page the subject has gotten to
 
 //text after practice trial completion
-MOT.noticeText = "Great! You can now continue through the instructions.";
+MOT.noticeText = "Bien! Vous pouvez maintenant continuer avec les consignes.";
 
 
 // keyboard control variables ---------------------------------
@@ -493,7 +493,7 @@ function drawContent() {
 	clearCanvas();
 	
 	//draw on canvas based on state
-	if (MOT.state == "start" || MOT.state == "fix") {
+	if (MOT.state === "start" || MOT.state === "fix") {
 		drawFix(); //draw fixation point
 
 		//set font parameters
@@ -502,7 +502,7 @@ function drawContent() {
 		MOT.c.textAlign="center";
 
 		//update feedback text 
-		if (MOT.state == "start") { //if starting a trial
+		if (MOT.state === "start") { //if starting a trial
 			MOT.c.fillText("Press the space bar to start.", MOT.cx, MOT.cy+25);
 		}
 		else if (MOT.correct[MOT.trial-1]) { //if the response to the trial was correct
@@ -513,7 +513,7 @@ function drawContent() {
 		}
 		
 	}
-	else if (MOT.state == "cue" || MOT.state == "move") {
+	else if (MOT.state === "cue" || MOT.state === "move") {
 		drawFix(); //draw fixation point
 	
 		if (MOT.initState) { //it's the initialization state, so set up all the dots

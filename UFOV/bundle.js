@@ -1,4 +1,4 @@
-var MOT =
+var UFOV =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -1900,129 +1900,6 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js!./src/style.css":
-/*!*************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./src/style.css ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-exports = ___CSS_LOADER_API_IMPORT___(false);
-// Module
-exports.push([module.i, "/* style.css:\r\n * Makes additional style modifications to index.php\r\n */\r\n\r\nhtml, body {\r\n    margin: 0;\r\n    color: white;\r\n}\r\n\r\nbody {\r\n    font-family: Helvetica, Arial, sans-serif;\r\n    background-color: black;\r\n    text-align: center;\r\n    color: white;\r\n}\r\n\r\n.ui-widget-content {\r\ncolor: white;\r\n}\r\n\r\n#content {\r\nbackground: rgb(128, 128, 128);\r\nwidth: 50%;\r\nmargin: 1rem auto;\r\npadding: 1em 2em;\r\noverflow: auto;\r\n}\r\n\r\n#error {\r\ncolor: #FFCC00;\r\npadding-bottom: 0.5em;\r\nfont-size: 0.8em;\r\n}\r\n\r\n.ui-widget-content a {\r\ntext-decoration: none;\r\nfont-weight: bold;\r\n}\r\n\r\na:hover {\r\ncolor: white;\r\n}\r\n\r\n.ui-button {\r\nfont-size: 16px;\r\n}\r\n\r\n.small-text {\r\nfont-size: 0.8em;\r\n}\r\n\r\np {\r\n    font-family: \"Open Sans\", sans-serif;\r\n}\r\n\r\n#preexpt {\r\n    max-width: 1024px;\r\n    margin: 6rem auto 0;\r\n}\r\n\r\n#instructions {\r\n    font-size:1em;\r\n    margin: 0;\r\n    text-align: left;\r\n    height: 100px;\r\n}\r\n\r\n#backButton, #forwardButton {\r\n    padding: 0;\r\n    margin-bottom: 0.5em;\r\n    margin-top: 0.5em;\r\n}\r\n\r\n#content {\r\n    padding-bottom: 0.5em;\r\n    width: 50%;\r\n    margin: auto;\r\n}\r\n\r\n#reminder {\r\n    font-size: 0.8em;\r\n    text-align: left;\r\n}\r\n\r\n#reminderButton {\r\n    position: absolute;\r\n    right: 0%;\r\n    bottom: 0%;\r\n}\r\n\r\n.highlight {\r\n    color: #59E01B;\r\n    font-weight: bold;\r\n}\r\n", ""]);
-// Exports
-module.exports = exports;
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/runtime/api.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/css-loader/dist/runtime/api.js ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-// eslint-disable-next-line func-names
-module.exports = function (useSourceMap) {
-  var list = []; // return the list of modules as css string
-
-  list.toString = function toString() {
-    return this.map(function (item) {
-      var content = cssWithMappingToString(item, useSourceMap);
-
-      if (item[2]) {
-        return "@media ".concat(item[2], " {").concat(content, "}");
-      }
-
-      return content;
-    }).join('');
-  }; // import a list of modules into the list
-  // eslint-disable-next-line func-names
-
-
-  list.i = function (modules, mediaQuery, dedupe) {
-    if (typeof modules === 'string') {
-      // eslint-disable-next-line no-param-reassign
-      modules = [[null, modules, '']];
-    }
-
-    var alreadyImportedModules = {};
-
-    if (dedupe) {
-      for (var i = 0; i < this.length; i++) {
-        // eslint-disable-next-line prefer-destructuring
-        var id = this[i][0];
-
-        if (id != null) {
-          alreadyImportedModules[id] = true;
-        }
-      }
-    }
-
-    for (var _i = 0; _i < modules.length; _i++) {
-      var item = [].concat(modules[_i]);
-
-      if (dedupe && alreadyImportedModules[item[0]]) {
-        // eslint-disable-next-line no-continue
-        continue;
-      }
-
-      if (mediaQuery) {
-        if (!item[2]) {
-          item[2] = mediaQuery;
-        } else {
-          item[2] = "".concat(mediaQuery, " and ").concat(item[2]);
-        }
-      }
-
-      list.push(item);
-    }
-  };
-
-  return list;
-};
-
-function cssWithMappingToString(item, useSourceMap) {
-  var content = item[1] || ''; // eslint-disable-next-line prefer-destructuring
-
-  var cssMapping = item[3];
-
-  if (!cssMapping) {
-    return content;
-  }
-
-  if (useSourceMap && typeof btoa === 'function') {
-    var sourceMapping = toComment(cssMapping);
-    var sourceURLs = cssMapping.sources.map(function (source) {
-      return "/*# sourceURL=".concat(cssMapping.sourceRoot || '').concat(source, " */");
-    });
-    return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-  }
-
-  return [content].join('\n');
-} // Adapted from convert-source-map (MIT)
-
-
-function toComment(sourceMap) {
-  // eslint-disable-next-line no-undef
-  var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-  var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
-  return "/*# ".concat(data, " */");
-}
-
-/***/ }),
-
 /***/ "./node_modules/process/browser.js":
 /*!*****************************************!*\
   !*** ./node_modules/process/browser.js ***!
@@ -2218,305 +2095,6 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js ***!
-  \****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var isOldIE = function isOldIE() {
-  var memo;
-  return function memorize() {
-    if (typeof memo === 'undefined') {
-      // Test for IE <= 9 as proposed by Browserhacks
-      // @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
-      // Tests for existence of standard globals is to allow style-loader
-      // to operate correctly into non-standard environments
-      // @see https://github.com/webpack-contrib/style-loader/issues/177
-      memo = Boolean(window && document && document.all && !window.atob);
-    }
-
-    return memo;
-  };
-}();
-
-var getTarget = function getTarget() {
-  var memo = {};
-  return function memorize(target) {
-    if (typeof memo[target] === 'undefined') {
-      var styleTarget = document.querySelector(target); // Special case to return head of iframe instead of iframe itself
-
-      if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
-        try {
-          // This will throw an exception if access to iframe is blocked
-          // due to cross-origin restrictions
-          styleTarget = styleTarget.contentDocument.head;
-        } catch (e) {
-          // istanbul ignore next
-          styleTarget = null;
-        }
-      }
-
-      memo[target] = styleTarget;
-    }
-
-    return memo[target];
-  };
-}();
-
-var stylesInDom = [];
-
-function getIndexByIdentifier(identifier) {
-  var result = -1;
-
-  for (var i = 0; i < stylesInDom.length; i++) {
-    if (stylesInDom[i].identifier === identifier) {
-      result = i;
-      break;
-    }
-  }
-
-  return result;
-}
-
-function modulesToDom(list, options) {
-  var idCountMap = {};
-  var identifiers = [];
-
-  for (var i = 0; i < list.length; i++) {
-    var item = list[i];
-    var id = options.base ? item[0] + options.base : item[0];
-    var count = idCountMap[id] || 0;
-    var identifier = "".concat(id, " ").concat(count);
-    idCountMap[id] = count + 1;
-    var index = getIndexByIdentifier(identifier);
-    var obj = {
-      css: item[1],
-      media: item[2],
-      sourceMap: item[3]
-    };
-
-    if (index !== -1) {
-      stylesInDom[index].references++;
-      stylesInDom[index].updater(obj);
-    } else {
-      stylesInDom.push({
-        identifier: identifier,
-        updater: addStyle(obj, options),
-        references: 1
-      });
-    }
-
-    identifiers.push(identifier);
-  }
-
-  return identifiers;
-}
-
-function insertStyleElement(options) {
-  var style = document.createElement('style');
-  var attributes = options.attributes || {};
-
-  if (typeof attributes.nonce === 'undefined') {
-    var nonce =  true ? __webpack_require__.nc : undefined;
-
-    if (nonce) {
-      attributes.nonce = nonce;
-    }
-  }
-
-  Object.keys(attributes).forEach(function (key) {
-    style.setAttribute(key, attributes[key]);
-  });
-
-  if (typeof options.insert === 'function') {
-    options.insert(style);
-  } else {
-    var target = getTarget(options.insert || 'head');
-
-    if (!target) {
-      throw new Error("Couldn't find a style target. This probably means that the value for the 'insert' parameter is invalid.");
-    }
-
-    target.appendChild(style);
-  }
-
-  return style;
-}
-
-function removeStyleElement(style) {
-  // istanbul ignore if
-  if (style.parentNode === null) {
-    return false;
-  }
-
-  style.parentNode.removeChild(style);
-}
-/* istanbul ignore next  */
-
-
-var replaceText = function replaceText() {
-  var textStore = [];
-  return function replace(index, replacement) {
-    textStore[index] = replacement;
-    return textStore.filter(Boolean).join('\n');
-  };
-}();
-
-function applyToSingletonTag(style, index, remove, obj) {
-  var css = remove ? '' : obj.media ? "@media ".concat(obj.media, " {").concat(obj.css, "}") : obj.css; // For old IE
-
-  /* istanbul ignore if  */
-
-  if (style.styleSheet) {
-    style.styleSheet.cssText = replaceText(index, css);
-  } else {
-    var cssNode = document.createTextNode(css);
-    var childNodes = style.childNodes;
-
-    if (childNodes[index]) {
-      style.removeChild(childNodes[index]);
-    }
-
-    if (childNodes.length) {
-      style.insertBefore(cssNode, childNodes[index]);
-    } else {
-      style.appendChild(cssNode);
-    }
-  }
-}
-
-function applyToTag(style, options, obj) {
-  var css = obj.css;
-  var media = obj.media;
-  var sourceMap = obj.sourceMap;
-
-  if (media) {
-    style.setAttribute('media', media);
-  } else {
-    style.removeAttribute('media');
-  }
-
-  if (sourceMap && btoa) {
-    css += "\n/*# sourceMappingURL=data:application/json;base64,".concat(btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))), " */");
-  } // For old IE
-
-  /* istanbul ignore if  */
-
-
-  if (style.styleSheet) {
-    style.styleSheet.cssText = css;
-  } else {
-    while (style.firstChild) {
-      style.removeChild(style.firstChild);
-    }
-
-    style.appendChild(document.createTextNode(css));
-  }
-}
-
-var singleton = null;
-var singletonCounter = 0;
-
-function addStyle(obj, options) {
-  var style;
-  var update;
-  var remove;
-
-  if (options.singleton) {
-    var styleIndex = singletonCounter++;
-    style = singleton || (singleton = insertStyleElement(options));
-    update = applyToSingletonTag.bind(null, style, styleIndex, false);
-    remove = applyToSingletonTag.bind(null, style, styleIndex, true);
-  } else {
-    style = insertStyleElement(options);
-    update = applyToTag.bind(null, style, options);
-
-    remove = function remove() {
-      removeStyleElement(style);
-    };
-  }
-
-  update(obj);
-  return function updateStyle(newObj) {
-    if (newObj) {
-      if (newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap) {
-        return;
-      }
-
-      update(obj = newObj);
-    } else {
-      remove();
-    }
-  };
-}
-
-module.exports = function (list, options) {
-  options = options || {}; // Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-  // tags it will allow on a page
-
-  if (!options.singleton && typeof options.singleton !== 'boolean') {
-    options.singleton = isOldIE();
-  }
-
-  list = list || [];
-  var lastIdentifiers = modulesToDom(list, options);
-  return function update(newList) {
-    newList = newList || [];
-
-    if (Object.prototype.toString.call(newList) !== '[object Array]') {
-      return;
-    }
-
-    for (var i = 0; i < lastIdentifiers.length; i++) {
-      var identifier = lastIdentifiers[i];
-      var index = getIndexByIdentifier(identifier);
-      stylesInDom[index].references--;
-    }
-
-    var newLastIdentifiers = modulesToDom(newList, options);
-
-    for (var _i = 0; _i < lastIdentifiers.length; _i++) {
-      var _identifier = lastIdentifiers[_i];
-
-      var _index = getIndexByIdentifier(_identifier);
-
-      if (stylesInDom[_index].references === 0) {
-        stylesInDom[_index].updater();
-
-        stylesInDom.splice(_index, 1);
-      }
-    }
-
-    lastIdentifiers = newLastIdentifiers;
-  };
-};
-
-/***/ }),
-
-/***/ "./src/config/bavelier.ts":
-/*!********************************!*\
-  !*** ./src/config/bavelier.ts ***!
-  \********************************/
-/*! exports provided: config */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "config", function() { return config; });
-var config = {
-    numDots: 16,
-    straightProb: 0.4,
-    angSD: 0.2,
-};
-
-
-/***/ }),
-
 /***/ "./src/enums/keys.ts":
 /*!***************************!*\
   !*** ./src/enums/keys.ts ***!
@@ -2534,7 +2112,29 @@ var Keys;
     Keys[Keys["START"] = 32] = "START";
     Keys[Keys["RESUME"] = 13] = "RESUME";
     Keys[Keys["QUIT"] = 27] = "QUIT";
+    Keys[Keys["SHORT"] = 83] = "SHORT";
+    Keys[Keys["LONG"] = 68] = "LONG";
 })(Keys || (Keys = {}));
+
+
+/***/ }),
+
+/***/ "./src/enums/mode.ts":
+/*!***************************!*\
+  !*** ./src/enums/mode.ts ***!
+  \***************************/
+/*! exports provided: Mode */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Mode", function() { return Mode; });
+var Mode;
+(function (Mode) {
+    Mode[Mode["CENTER"] = 1] = "CENTER";
+    Mode[Mode["PERIPHERAL"] = 2] = "PERIPHERAL";
+    Mode[Mode["BOTH"] = 3] = "BOTH";
+})(Mode || (Mode = {}));
 
 
 /***/ }),
@@ -2558,6 +2158,11 @@ var State;
     State["BREAK"] = "break";
     State["MOVE"] = "move";
     State["DONE"] = "done";
+    State["DELAY"] = "delay";
+    State["STIM"] = "stim";
+    State["MASK"] = "mask";
+    State["FEEDBACK"] = "feedback";
+    State["FEEDBACK_DELAY"] = "feedback-delay";
 })(State || (State = {}));
 
 
@@ -2567,26 +2172,19 @@ var State;
 /*!**********************!*\
   !*** ./src/index.ts ***!
   \**********************/
-/*! exports provided: init, keyboardResponse */
+/*! exports provided: init */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "init", function() { return init; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "keyboardResponse", function() { return keyboardResponse; });
-/* harmony import */ var _config_bavelier__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./config/bavelier */ "./src/config/bavelier.ts");
-/* harmony import */ var _enums_keys__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./enums/keys */ "./src/enums/keys.ts");
-/* harmony import */ var _enums_state__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./enums/state */ "./src/enums/state.ts");
-/* harmony import */ var _mot__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./mot */ "./src/mot.ts");
-/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./style.css */ "./src/style.css");
-/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_style_css__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _ui__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ui */ "./src/ui.ts");
-/* harmony import */ var _utils_calibration__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./utils/calibration */ "./src/utils/calibration.ts");
-/* harmony import */ var _utils_fullscreen__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./utils/fullscreen */ "./src/utils/fullscreen.ts");
-/* harmony import */ var _utils_submit_results__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./utils/submit-results */ "./src/utils/submit-results.ts");
-// import $ from 'jquery';
-
-
+/* harmony import */ var _enums_keys__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./enums/keys */ "./src/enums/keys.ts");
+/* harmony import */ var _enums_state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./enums/state */ "./src/enums/state.ts");
+/* harmony import */ var _ufov__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ufov */ "./src/ufov.ts");
+/* harmony import */ var _ui__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ui */ "./src/ui.ts");
+/* harmony import */ var _utils_calibration__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils/calibration */ "./src/utils/calibration.ts");
+/* harmony import */ var _utils_fullscreen__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./utils/fullscreen */ "./src/utils/fullscreen.ts");
+/* harmony import */ var _utils_submit_results__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./utils/submit-results */ "./src/utils/submit-results.ts");
 
 
 
@@ -2598,9 +2196,8 @@ __webpack_require__.r(__webpack_exports__);
  * This experience is calibrated to work on Viewpixx screen of 24 inch
  */
 var monitorSize = 24;
-var mot, ui, pxPerDeg;
+var ufov, ui, pxPerDeg;
 // *********************** DRAWING CONTROL ************************ //
-// for efficient redraw calls (from Paul Irish - http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/)
 // @ts-ignore
 window.requestAnimFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || function (callback) {
     window.setTimeout(callback, 1000 / 60);
@@ -2611,19 +2208,20 @@ var draw = function () {
     requestAnimFrame(draw);
     updateFrame();
 };
+//this function sets up buttons amd dialog windows, and the keyboard listener
 var init = function (options) {
     var continueButton = $('#cButton');
-    var reminderButton = $('#reminderButton');
-    var reminderDialog = $('#reminder');
     if (!options.pxPerDeg) {
-        var calibration = Object(_utils_calibration__WEBPACK_IMPORTED_MODULE_6__["getCalibration"])(monitorSize);
+        var calibration = Object(_utils_calibration__WEBPACK_IMPORTED_MODULE_4__["getCalibration"])(monitorSize);
         pxPerDeg = calibration.pxPerDeg;
     }
     else {
         pxPerDeg = options.pxPerDeg;
     }
-    mot = new _mot__WEBPACK_IMPORTED_MODULE_3__["Mot"](_config_bavelier__WEBPACK_IMPORTED_MODULE_0__["config"], pxPerDeg, options.dots);
-    ui = new _ui__WEBPACK_IMPORTED_MODULE_5__["Ui"](mot);
+    ufov = new _ufov__WEBPACK_IMPORTED_MODULE_2__["Ufov"](pxPerDeg);
+    ui = new _ui__WEBPACK_IMPORTED_MODULE_3__["Ui"](ufov);
+    //hide content before the subject starts the task
+    $("#postexpt").hide();
     //hide content before subject starts
     $('#postexpt').hide();
     /**
@@ -2632,333 +2230,496 @@ var init = function (options) {
     // @ts-ignore
     continueButton.button();
     continueButton.click(function () {
-        Object(_utils_fullscreen__WEBPACK_IMPORTED_MODULE_7__["openFullscreen"])();
+        Object(_utils_fullscreen__WEBPACK_IMPORTED_MODULE_5__["openFullscreen"])();
         ui.init();
     });
+    //set up the reminder dialog that appears with short instructions
     // @ts-ignore
-    continueButton.button('option', 'disabled', true);
-    /**
-     * Set up the reminder button which brings up short instructions in a dialog box
-     */
-    // @ts-ignore
-    reminderButton.button({
-        icons: {
-            primary: 'ui-icon-info',
-        },
-        text: false,
-    });
-    reminderButton.click(function () {
-        // @ts-ignore
-        reminderDialog.dialog('open');
-    });
-    /**
-     * set up the reminder dialog that appears with short instructions
-     */
-    // @ts-ignore
-    reminderDialog.dialog({
+    $("#reminder").dialog({
         autoOpen: false,
         modal: true,
-        title: 'Instructions & Controls',
-        width: 400,
+        title: "Instructions & Controls",
+        width: 400
+    });
+    //set up the reminder button which brings up short instructions in a dialog box
+    // @ts-ignore
+    $("#reminderButton").button({
+        icons: { primary: "ui-icon-info" },
+        text: false
+    });
+    $("#reminderButton").click(function () {
+        // @ts-ignore
+        $("#reminder").dialog("open");
     });
     //add keyboard listener to keep track of keys the subject presses
-    window.addEventListener('keydown', keyboardResponse, true);
-    //subject can now move on, now that everything is setup, so enable continue button
-    // @ts-ignore
-    continueButton.button('option', 'disabled', false);
+    window.addEventListener("keydown", keyResponse, true);
     /**
      * Start the task
      */
-    draw(); //start the task
+    draw(); //start the task};
 };
 // ************************* STATE UPDATES *************************** //
 //At each frame, the frame is redrawn based on the current state
 function updateFrame() {
     //check if dialog window for instructions is open
-    if (mot) {
-        // @ts-ignore
-        mot.dialogOpen = !!$('#reminder').dialog('isOpen');
+    // @ts-ignore
+    if ($("#reminder").dialog("isOpen")) {
+        ufov.dialogOpen = true;
     }
-    if (mot.state === _enums_state__WEBPACK_IMPORTED_MODULE_2__["State"].START || mot.state === _enums_state__WEBPACK_IMPORTED_MODULE_2__["State"].FIX) { //start of task or start of trial
-        if (mot.stateChange) {
-            mot.stateChange = false; //turn off state change
-            mot.trialSeed[mot.trial] = mot.trial; //set trial seed
-            // @ts-ignore
-            Math.seedrandom(mot.trial); //create random number generator based on seed
-            ui.drawContent(); //draw updated content
+    else {
+        ufov.dialogOpen = false;
+    }
+    if (ufov.state === _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].START) { //first trial of the task
+        if (ufov.stateChange) {
+            ufov.stateChange = false;
+            ui.drawContent(); //update content displayed
         }
         //wait for space bar
     }
-    else if (mot.state === _enums_state__WEBPACK_IMPORTED_MODULE_2__["State"].BREAK) { //break between blocks
-        if (mot.stateChange) {
-            mot.stateChange = false; //turn off state change
-            ui.drawContent(); //draw updated content
+    else if (ufov.state === _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].FIX) { //start of a trial (that's not the first one)
+        if (ufov.stateChange) {
+            ufov.stateChange = false;
+            ui.drawContent(); //update content displayed
         }
         //wait for space bar
     }
-    else if (mot.state === _enums_state__WEBPACK_IMPORTED_MODULE_2__["State"].CUE) { //display dots that should be tracked while moving all dots around
-        if (mot.stateChange) {
-            mot.startWait = performance.now(); //get start time of cue period
-            mot.stateChange = false; //turn off state change
-            mot.initState = true; //note that the trial needs to be set up
-            ui.drawContent(); //draw updated content
+    else if (ufov.state === _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].DELAY) { //delay before stimuli presentation
+        if (ufov.stateChange) {
+            ufov.startWait = new Date().getTime(); //get start time of the delay period
+            ufov.curDelay = ufov.delays[ufov.trial]; //store current delay duration
+            ufov.stateChange = false;
+            ui.drawContent(); //update content displayed
         }
-        //check how much time has passed; if the full time for the cue period has passed, move onto the "move" state
-        if (performance.now() >= mot.startWait + mot.tCue) {
-            mot.state = _enums_state__WEBPACK_IMPORTED_MODULE_2__["State"].MOVE;
-            mot.stateChange = true;
-        }
-        else {
-            //keep updating movement of dots
-            ui.drawContent();
+        //if the set amount of time for the delay period has passed, then switch to stim state and display stimuli
+        else if (new Date().getTime() >= ufov.startWait + ufov.curDelay) {
+            ufov.state = _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].STIM;
+            ufov.stateChange = true;
         }
     }
-    else if (mot.state === _enums_state__WEBPACK_IMPORTED_MODULE_2__["State"].MOVE) { //change the target dots to normal color (dots still moving)
-        if (mot.stateChange) {
-            mot.startWait = performance.now(); //get start time of move period
-            mot.stateChange = false; //turn off state change
-            ui.drawContent(); //draw updated content
-        }
-        //check how much time has passed; if the full time for the cue period has passed, move onto the "response" state
-        if (performance.now() >= mot.startWait + mot.tMove) {
-            mot.state = _enums_state__WEBPACK_IMPORTED_MODULE_2__["State"].RESPONSE;
-            mot.stateChange = true;
+    else if (ufov.state === _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].STIM) { //stimuli presentation
+        if (ufov.stateChange) {
+            ufov.startWait = new Date().getTime(); //get start time of stimulus presentation
+            ufov.stateChange = false;
+            ufov.startTimes[ufov.trial] = ufov.startWait; //record this presentation start time
+            ui.drawContent(); //update content displayed
         }
         else {
-            //keep updating movement of dots
-            ui.drawContent();
+            var curTime = new Date().getTime(); //get current time
+            //if the set amount of time for the presentation period has passed, then switch to mask state and display mask
+            if (curTime >= ufov.startWait + ufov.duration[ufov.curSC][ufov.scTrial[ufov.curSC]]) {
+                ufov.state = _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].MASK;
+                ufov.stateChange = true;
+                ufov.endTimes[ufov.trial] = curTime; //record end time of presentation
+            }
         }
     }
-    else if (mot.state === _enums_state__WEBPACK_IMPORTED_MODULE_2__["State"].RESPONSE) { //wait for subject response to the probed dot
-        if (mot.stateChange) {
-            mot.startWait = performance.now(); //get start time of response period
-            mot.stateChange = false; //turn off state change
-            //choose randomly (~50/50) whether or not the dot selected will be an originally cued dot or not
-            ui.probeTracked[mot.trial] = Math.round(mot.targetRandomizer());
-            if (ui.probeTracked[mot.trial]) { //if it is, then randomly select one of the cued dots as the queried dot
-                ui.probedDot[mot.trial] = Math.floor(mot.targetRandomizer() * mot.numAttendDots[mot.trial]);
-            }
-            else { //otherwise, choose any of the other dots as the queried dot
-                ui.probedDot[mot.trial] = Math.floor(mot.targetRandomizer() * (mot.numDots - mot.numAttendDots[mot.trial])) + mot.numAttendDots[mot.trial];
-            }
-            ui.drawContent(); //update the content
+    else if (ufov.state === _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].MASK) { //mask presentation
+        if (ufov.stateChange) {
+            ufov.startWait = new Date().getTime(); //get start time of mask period
+            ufov.stateChange = false;
+            ui.drawContent(); //update content displayed
+        }
+        //if the set amount of time for the mask period has passed, then switch to reponse state
+        else if (new Date().getTime() >= ufov.startWait + ufov.maskDur) {
+            ufov.state = _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].RESPONSE;
+            ufov.stateChange = true;
+        }
+    }
+    else if (ufov.state === _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].RESPONSE) { //wait for subject's response
+        if (ufov.stateChange) {
+            ufov.startWait = new Date().getTime(); //get start time of response period
+            ufov.stateChange = false;
+            ui.drawContent(); //update content displayed
         }
         //once the subject has given a response for the trial, then move on
-        if (mot.response[mot.trial] !== -1) {
-            mot.updateTrial(); //update trial data
-            if (mot.done) { //if this was the last trial, then take the participant to the end of the task
-                mot.state = _enums_state__WEBPACK_IMPORTED_MODULE_2__["State"].DONE;
-                Object(_utils_submit_results__WEBPACK_IMPORTED_MODULE_8__["submitResults"])(mot, ui, mot.pxPerDeg)
+        //(check if the subject needs to respond to only the center (mode = 1), only the peripheral (mode = 2) or both (mode = 3))
+        if ((ufov.mode == 1 && ufov.cResp[ufov.curSC][ufov.scTrial[ufov.curSC]] != -1) ||
+            (ufov.mode == 2 && ufov.pResp[ufov.curSC][ufov.scTrial[ufov.curSC]] >= 0) ||
+            (ufov.mode == 3 && ufov.cResp[ufov.curSC][ufov.scTrial[ufov.curSC]] != -1 &&
+                ufov.pResp[ufov.curSC][ufov.scTrial[ufov.curSC]] >= 0)) {
+            ufov.state = _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].FEEDBACK_DELAY; //switch to feedback-delay state
+            ufov.stateChange = true;
+        }
+        //if enough time has passed where the subject hasn't responded to all of the required targets,
+        //then display a message to note that they need to respond to both the center and peripheral targets
+        else if (!ufov.displayPrompt && new Date().getTime() >= ufov.startWait + ufov.promptTime) {
+            ufov.displayPrompt = true; //enable prompt message
+            ui.displayPrompt(); //now display prompt message
+        }
+    }
+    else if (ufov.state == "feedback-delay") { //delay before feedback
+        if (ufov.stateChange) {
+            ufov.displayPrompt = false;
+            ufov.startWait = new Date().getTime(); //get start time of feedback delay period
+            ufov.stateChange = false;
+        }
+        //once the set amount of time for the feedback delay has passed, switch to the feedback state and display feedback
+        else if (new Date().getTime() >= ufov.startWait + ufov.feedbackDelay) {
+            ufov.state = _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].FEEDBACK;
+            ufov.stateChange = true;
+        }
+    }
+    else if (ufov.state === _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].FEEDBACK) { //feedback given
+        if (ufov.stateChange) {
+            ufov.startWait = new Date().getTime(); //get start time of feedback display
+            ufov.stateChange = false;
+            ui.drawContent(); //update content displayed
+        }
+        //once the set amount of time for the feedback period has passed, check if the subject is done with all the trials
+        else if (new Date().getTime() >= ufov.startWait + ufov.feedbackTime) {
+            ufov.updateStaircase(); //update the staircase based on the subject's performance
+            if (ufov.done) { //if done, then start wrapping up the task
+                ufov.state = _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].DONE;
+                Object(_utils_submit_results__WEBPACK_IMPORTED_MODULE_6__["submitResults"])(ufov)
                     .then(function () {
-                    $('#exptCanvas').hide();
-                    var percentCorrect = Math.round(mot.blockCorrect / mot.trialsPerBlock * 100);
-                    var finalText = 'Done! You got ' + percentCorrect + '% correct for this final block.';
-                    $('#postexpt-result').text(finalText);
-                    $('#postexpt').show();
+                    $("#exptCanvas").hide();
+                    $("#postexpt").show();
                 }); //send data to database
             }
-            else if (mot.trial % mot.trialsPerBlock === 0) { //if this was the last trial of a block, then let the subject take a break
-                mot.state = _enums_state__WEBPACK_IMPORTED_MODULE_2__["State"].BREAK;
+            else {
+                ufov.state = _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].FIX; //otherwise, move onto the next trial
             }
-            else { //otherwise, move onto the next trial
-                mot.state = _enums_state__WEBPACK_IMPORTED_MODULE_2__["State"].FIX;
-            }
-            mot.stateChange = true;
+            ufov.stateChange = true;
         }
     }
 }
-var keyboardResponse = function (event) {
-    //only respond to any key presses if the dialog window for instructions is not open
-    if (mot.dialogOpen)
-        return;
-    //if we're in the response state and the subject has yet to give a response to the trial
-    if (mot.state === _enums_state__WEBPACK_IMPORTED_MODULE_2__["State"].RESPONSE && mot.response[mot.trial] === -1) {
-        if (event.keyCode == _enums_keys__WEBPACK_IMPORTED_MODULE_1__["Keys"].NO) { //the subject has indicated that the queried dot was not a cued dot
-            mot.rt[mot.trial] = performance.now() - mot.startWait; //get response time
-            mot.response[mot.trial] = 0; //set response given by subject
+// ****************** INPUT TRACKERS *********************** //
+//this function is triggered whenever a key is pressed on the keyboard
+function keyResponse(event) {
+    //only respond to any key presses if the dialog window is not open
+    if (!ufov.dialogOpen) {
+        //if it's time for the subject to respond, and we're waiting for a response to the center target
+        if (ufov.state === _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].RESPONSE && (ufov.mode == 1 || ufov.mode == 3)
+            && ufov.cResp[ufov.curSC][ufov.scTrial[ufov.curSC]] == -1) {
+            if (event.keyCode == _enums_keys__WEBPACK_IMPORTED_MODULE_0__["Keys"].SHORT) {
+                ufov.cRT[ufov.curSC][ufov.scTrial[ufov.curSC]] = new Date().getTime() - ufov.startWait; //calculate response time
+                ufov.cResp[ufov.curSC][ufov.scTrial[ufov.curSC]] = 0; //record that they responded the center target had short hair
+                ui.drawContent(); //update content displayed
+                //Indicate which key the subject pressed by drawing the letter in the center of the screen (S)
+                ui.writeLetter(ui.cText[0]);
+            }
+            else if (event.keyCode == _enums_keys__WEBPACK_IMPORTED_MODULE_0__["Keys"].LONG) {
+                ufov.cRT[ufov.curSC][ufov.scTrial[ufov.curSC]] = new Date().getTime() - ufov.startWait; //calculate response time
+                ufov.cResp[ufov.curSC][ufov.scTrial[ufov.curSC]] = 1; //record that they responded the center target had long hair
+                ui.drawContent(); //update content displayed
+                //Indicate which key the subject pressed by drawing the letter in the center of the screen (D)
+                ui.writeLetter(ui.cText[1]);
+            }
         }
-        else if (event.keyCode === _enums_keys__WEBPACK_IMPORTED_MODULE_1__["Keys"].YES) { //the subject has indicated the queried dot was a cued dot
-            mot.rt[mot.trial] = performance.now() - mot.startWait; //get response time
-            mot.response[mot.trial] = 1; //set response given by subject
+        //if there is already a response to the peripheral target, need to redraw the location they selected:
+        //draw a question mark if the location they selected was not a valid spot to select
+        if (ufov.pResp[ufov.curSC][ufov.scTrial[ufov.curSC]] == -2) {
+            ui.context.drawImage(ui.response[0], Math.round(ui.x - ui.respsz / 2), Math.round(ui.y - ui.respsz / 2), ui.respsz, ui.respsz);
         }
-        //check if the subject was correct or not, and record this
-        if (mot.response[mot.trial] === ui.probeTracked[mot.trial]) {
-            mot.correct[mot.trial] = 1;
+        //otherwise, draw a white X where the subject clicked for indicating where the peripheral target was
+        else if (ufov.pResp[ufov.curSC][ufov.scTrial[ufov.curSC]] != -1) {
+            ui.context.drawImage(ui.response[1], Math.round(ui.x - ui.respsz / 2), Math.round(ui.y - ui.respsz / 2), ui.respsz, ui.respsz);
         }
-        else {
-            mot.correct[mot.trial] = 0;
+        //if they pressed the start key at the beginning of a trial, then start the trial
+        if (event.keyCode === _enums_keys__WEBPACK_IMPORTED_MODULE_0__["Keys"].START && (ufov.state === _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].START || ufov.state === _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].FIX)) {
+            ufov.trialStart[ufov.curSC][ufov.scTrial[ufov.curSC]] = new Date().getTime() - ufov.startTime;
+            ufov.state = _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].DELAY;
+            ufov.stateChange = true;
         }
-        //keep track of number of trials correct for the current block
-        mot.blockCorrect = mot.blockCorrect + mot.correct[mot.trial];
+        if (event.keyCode === 27) {
+            Object(_utils_fullscreen__WEBPACK_IMPORTED_MODULE_5__["closeFullscreen"])();
+        }
     }
-    //if the trial start key was pressed and it's the start of a trial, then start the trial
-    if (event.keyCode === _enums_keys__WEBPACK_IMPORTED_MODULE_1__["Keys"].START && (mot.state === _enums_state__WEBPACK_IMPORTED_MODULE_2__["State"].START || mot.state === _enums_state__WEBPACK_IMPORTED_MODULE_2__["State"].FIX)) {
-        mot.trialStart[mot.trial] = performance.now() - mot.startTime;
-        mot.state = _enums_state__WEBPACK_IMPORTED_MODULE_2__["State"].CUE;
-        mot.stateChange = true;
-        console.log('Start');
-    }
-    //if the break end key was pressed and it's currently a break, then start the next block
-    if (event.keyCode === _enums_keys__WEBPACK_IMPORTED_MODULE_1__["Keys"].RESUME && mot.state === 'break') {
-        mot.blockCorrect = 0; //reset number of correct trials for this block
-        mot.state = _enums_state__WEBPACK_IMPORTED_MODULE_2__["State"].FIX; //change state to start a new trial
-        mot.stateChange = true;
-    }
-    if (event.keyCode === _enums_keys__WEBPACK_IMPORTED_MODULE_1__["Keys"].QUIT) {
-        Object(_utils_fullscreen__WEBPACK_IMPORTED_MODULE_7__["closeFullscreen"])();
-    }
-};
-// // *********************** INITIALIZATION ************************** //
-//
-// //wait until the HTML5 page is ready before setting up all the widgets
-// init();
+}
 
 
 /***/ }),
 
-/***/ "./src/mot.ts":
-/*!********************!*\
-  !*** ./src/mot.ts ***!
-  \********************/
-/*! exports provided: Mot */
+/***/ "./src/ufov.ts":
+/*!*********************!*\
+  !*** ./src/ufov.ts ***!
+  \*********************/
+/*! exports provided: Ufov */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Mot", function() { return Mot; });
-/* harmony import */ var _enums_state__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./enums/state */ "./src/enums/state.ts");
-/* harmony import */ var _trialorder_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./trialorder.json */ "./src/trialorder.json");
-var _trialorder_json__WEBPACK_IMPORTED_MODULE_1___namespace = /*#__PURE__*/__webpack_require__.t(/*! ./trialorder.json */ "./src/trialorder.json", 1);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Ufov", function() { return Ufov; });
+/* harmony import */ var _enums_mode__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./enums/mode */ "./src/enums/mode.ts");
+/* harmony import */ var _enums_state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./enums/state */ "./src/enums/state.ts");
+/* harmony import */ var _utils_create_empty_2d_array__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils/create-empty-2d-array */ "./src/utils/create-empty-2d-array.ts");
 
 
-var Mot = /** @class */ (function () {
-    function Mot(config, pxPerDeg, dots) {
+
+var Ufov = /** @class */ (function () {
+    function Ufov(pxPerDeg) {
+        //current trial tracker (staircase agnostic)
+        this.trial = 0;
         /**
          * Value from config
          */
         this.pxPerDeg = pxPerDeg;
-        this.numDots = config.numDots;
-        this.straightProb = config.straightProb;
-        this.angSD = config.angSD;
-        this.numAttendDots = dots || _trialorder_json__WEBPACK_IMPORTED_MODULE_1__; //number of dots to attend to per trial (obtained from MOT/code.php)
-        /**
-         * Trial variables
-         */
-        this.targetSeed = new Date().getTime(); //stores seed used for the randon number generator used for initial dot setup
-        // @ts-ignore
-        this.targetRandomizer = new Math.seedrandom(this.targetSeed); //set RNG with seed
-        this.trialSeed = []; //stores what seed was used for each trial
-        this.drawCounter = []; //stores how many frames were drawn per trial
-        this.numTrials = this.numAttendDots.length; // total number of trials
-        /**
-         * Timing variables
-         */
-        this.speed = 16; //length of time for each frame (ms/frame)
-        this.tCue = 2000; //duration of presentation of cue (ms)
-        this.tMove = 4000; //duration of dots moving (after the cue period) before asking about probed dot (ms)
-        this.dotVel = 5; //velocity of dots in degrees/sec
-        this.vel = Math.ceil(this.dotVel * pxPerDeg / (1 / (this.speed / 1000))); //velocity of dots in pixels/frame
-        this.startWait = 0; //keeps track of timer start
-        /**
-         * Image config
-         */
-        this.dotRad = Math.round(0.4 * pxPerDeg); //dot radius (deg*ppd)
-        this.imageSize = this.dotRad * 2; //dot size (diameter, in pixels)
-        /**
-         *  Stimuli movement Limits
-         */
-        this.minSep = Math.round(1.5 * pxPerDeg); //minimum distance allowed between dots (deg*ppd)
-        this.minFix = Math.round(3 * pxPerDeg); //minimum distance allowed from fixation (deg*ppd)
-        this.maxFix = Math.round(10 * pxPerDeg); //maximum distance allowed from fixation (deg*ppd)
-        this.minEdge = Math.ceil(2 * Math.sqrt(2) * (this.vel + 1)) + this.dotRad + 4; //minimum distance from edge
-        /**
-         * Counters and data arrays
-         */
-        this.trial = 0; //current trial
-        this.trialStart = []; //stores start time of each trial
-        this.response = []; //stores subject's responses per trial
-        this.correct = []; //stores if subject was correct per trial
-        this.rt = []; //response time per trial
-        /**
-         * Initial first trial values
-         */
-        this.response[0] = -1;
-        this.correct[0] = -1;
-        this.rt[0] = -1;
-        /**
-         * State control
-         */
-        this.state = _enums_state__WEBPACK_IMPORTED_MODULE_0__["State"].START;
-        this.done = false;
-        this.stateChange = false; //keeps track if the state changed during the trial
-        this.dialogOpen = false; //keeps track of whether dialog window is open or not
-        this.initState = false; //keeps track if the current trial needs to be initialized
-        /**
-         * Trial config
-         */
-        this.numBlocks = 3; //total number of blocks
-        this.blockCorrect = 0; //stores number of correct trials in a block
-        this.trialsPerBlock = Math.round(this.numTrials / this.numBlocks); //number of trials per block, should be equal for all blocks
-    }
-    // ***************** TRIAL UPDATE ********************* //
-    /**
-     * this function prepares the state of the next trial
-     */
-    Mot.prototype.updateTrial = function () {
-        this.trial++;
-        if (this.trial >= this.numTrials) {
-            this.done = true;
+        this.outerOnly = true;
+        this.mode = _enums_mode__WEBPACK_IMPORTED_MODULE_0__["Mode"].BOTH;
+        this.maxTrials = 72;
+        this.correctDec = 3;
+        this.incorrectInc = 1;
+        this.initStep = 2;
+        this.finalStep = 1;
+        this.speed = 16;
+        this.initDur = [9, 15];
+        this.minFrames = 1;
+        this.maxFrames = 99;
+        this.curDelay = 0;
+        this.minDelay = 200;
+        this.maxDelay = 1000;
+        this.maskDur = 320;
+        this.feedbackDelay = 350;
+        this.feedbackTime = 400;
+        this.startWait = 0;
+        this.promptTime = 5000;
+        this.thetaPos = [45, 90, 135, 180, 225, 270, 315, 360];
+        //acceptable distances for peripheral mouse click responses
+        this.respDegLim = 120 / this.thetaPos.length; //acceptable angular distance from spokes
+        this.respDegMin = 1 * this.pxPerDeg;
+        //trial and staircase variables ------------------------------------------------------
+        this.step = [this.initStep, this.initStep]; //this keeps track of the current step multiplier for the inner and outer staircase
+        //(currently defaults to only using outer staircase)
+        this.switchReversals = 3; //how many reversals are needed in the staircase before the step multiplier changes from initStep to finalStep
+        this.stopReversals = 8; //how many reversals are needed in the staircase before the task can end
+        this.maxCeilTrials = 10; //the maximum number of consecutive trials that can have the same duration (only applies for the ceiling value or floor value)
+        if (this.outerOnly) {
+            this.nTrials = this.maxTrials;
         }
         else {
-            this.response[this.trial] = -1;
+            this.nTrials = this.maxTrials * 2;
+        }
+        this.delays = [];
+        for (var i = 0; i < this.nTrials; i++) {
+            this.delays[i] = Math.floor((this.maxDelay - this.minDelay + 1) * Math.random()) + this.minDelay;
+        }
+        this.initOutput();
+        this.initCounters();
+        this.trialSetup();
+    }
+    /**
+     * Initialize output
+     */
+    Ufov.prototype.initOutput = function () {
+        this.cResp = Object(_utils_create_empty_2d_array__WEBPACK_IMPORTED_MODULE_2__["createEmpty2dArray"])(this.maxTrials);
+        this.pResp = Object(_utils_create_empty_2d_array__WEBPACK_IMPORTED_MODULE_2__["createEmpty2dArray"])(this.maxTrials);
+        this.cRT = Object(_utils_create_empty_2d_array__WEBPACK_IMPORTED_MODULE_2__["createEmpty2dArray"])(this.maxTrials);
+        this.pRT = Object(_utils_create_empty_2d_array__WEBPACK_IMPORTED_MODULE_2__["createEmpty2dArray"])(this.maxTrials);
+        this.cCorrect = Object(_utils_create_empty_2d_array__WEBPACK_IMPORTED_MODULE_2__["createEmpty2dArray"])(this.maxTrials);
+        this.pCorrect = Object(_utils_create_empty_2d_array__WEBPACK_IMPORTED_MODULE_2__["createEmpty2dArray"])(this.maxTrials);
+        this.pX = Object(_utils_create_empty_2d_array__WEBPACK_IMPORTED_MODULE_2__["createEmpty2dArray"])(this.maxTrials);
+        this.pY = Object(_utils_create_empty_2d_array__WEBPACK_IMPORTED_MODULE_2__["createEmpty2dArray"])(this.maxTrials);
+        this.pTargetX = Object(_utils_create_empty_2d_array__WEBPACK_IMPORTED_MODULE_2__["createEmpty2dArray"])(this.maxTrials);
+        this.pTargetY = Object(_utils_create_empty_2d_array__WEBPACK_IMPORTED_MODULE_2__["createEmpty2dArray"])(this.maxTrials);
+        this.trialStart = Object(_utils_create_empty_2d_array__WEBPACK_IMPORTED_MODULE_2__["createEmpty2dArray"])(this.maxTrials);
+        this.reversals = Object(_utils_create_empty_2d_array__WEBPACK_IMPORTED_MODULE_2__["createEmpty2dArray"])(this.maxTrials);
+    };
+    /**
+     * Initialize all counters
+     */
+    Ufov.prototype.initCounters = function () {
+        this.floorCount = [0, 0]; //number of trials that have occurred with the stimulus presentation duration at the floor value (kept track for the inner and outer staircase)
+        this.ceilCount = [0, 0]; //number of trials that have occurred with the stimulus presentation duration at the ceiling value (kept track for the inner and outer staircase)
+        this.scTrial = [0, 0]; //current trial number within a staircase
+        this.nRevs = [0, 0]; //current number of reversals for each staircase
+        this.stepRising = [0, 0]; //state tracker for if the last step taken was an increase (used for determining when a reversal occurs); tracked for each staircase
+        this.stepFalling = [0, 0]; //state tracker for if the last step taken was a decrease (used for determining when a reversal occurs); tracked for each staircase
+        this.correctStreak = [0, 0]; //current number of trials that the subject has gotten correct consecutively per staircase
+        this.incorrectStreak = [0, 0]; //current number of trials that the subject has gotten incorrect consecutively per staircase
+        this.trial = 0; //current trial tracker (staircase agnostic)
+    };
+    Ufov.prototype.trialSetup = function () {
+        //setup starting stimulus presentation duration for both the inner and outer staircase
+        this.duration = Object(_utils_create_empty_2d_array__WEBPACK_IMPORTED_MODULE_2__["createEmpty2dArray"])(this.maxTrials);
+        this.frames = Object(_utils_create_empty_2d_array__WEBPACK_IMPORTED_MODULE_2__["createEmpty2dArray"])(this.maxTrials);
+        this.frames[0][0] = this.initDur[0];
+        this.frames[1][0] = this.initDur[1];
+        this.duration[0][0] = this.frames[0][0] * this.speed;
+        this.duration[1][0] = this.frames[1][0] * this.speed;
+        //create array with equal peripheral target location appearances across all trials
+        //for both the inner and outer circles
+        var tmpInner = [];
+        var tmpOuter = [];
+        for (var i = 0; i < Math.ceil(this.maxTrials / this.thetaPos.length); i++) {
+            for (var j = 0; j < this.thetaPos.length; j++) {
+                tmpInner.push(j);
+                tmpOuter.push(j);
+            }
+        }
+        //now randomize the order of the arrays setup above so that they are presented in a random order
+        var shuffleInner = tmpInner;
+        var shuffleOuter = tmpOuter;
+        this.pPos = Object(_utils_create_empty_2d_array__WEBPACK_IMPORTED_MODULE_2__["createEmpty2dArray"])(this.maxTrials);
+        for (var i = 0; i < this.maxTrials; i++) {
+            var indInner = Math.floor(Math.random() * shuffleInner.length);
+            var indOuter = Math.floor(Math.random() * shuffleOuter.length);
+            this.pPos[0][i] = shuffleInner[indInner];
+            this.pPos[1][i] = shuffleOuter[indOuter];
+            shuffleInner.splice(indInner, 1);
+            shuffleOuter.splice(indOuter, 1);
+        }
+        //randomize the stimulus type for the center target
+        //(need two separate arrays for the two different staircases, if both are being used)
+        this.cStim = Object(_utils_create_empty_2d_array__WEBPACK_IMPORTED_MODULE_2__["createEmpty2dArray"])(this.maxTrials);
+        for (var i = 0; i < this.maxTrials; i++) {
+            this.cStim[0][i] = Math.floor(Math.random() * 2);
+            this.cStim[1][i] = Math.floor(Math.random() * 2);
+        }
+        //randomize order of staircase presentation (this only applies if more than one staircase is being used)
+        //if only one being used, it's only the staircase with the peripheral target at the outer circle
+        this.sc = [];
+        if (this.outerOnly) {
+            for (var i = 0; i < this.nTrials; i++) {
+                this.sc[i] = 1; //fill array with 1's
+            }
+        }
+        else {
+            var tmp2 = [];
+            for (var i = 0; i < this.maxTrials; i++) {
+                for (var j = 0; j < 2; j++) {
+                    tmp2.push(j); //fill array with both 0's and 1's equally
+                }
+            }
+            //randomize order
+            for (var i = 0; i < this.nTrials; i++) {
+                var ind = Math.floor(Math.random() * tmp2.length);
+                this.sc[i] = tmp2[ind];
+                tmp2.splice(ind, 1);
+            }
+        }
+        //state control --------------------------------------------------------
+        this.state = _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].START; //which state the trial is in; state order: start/fix, delay, stim, mask, response, feedback-delay, feedback
+        this.stateChange = false; //keeps track if the state changed during the trial
+        this.isScaled = false; //this scales what is drawn on the HTML5 canvas; only implemented when drawing the mask before the response period
+        this.curSC = this.sc[this.trial]; //this keeps track of which staircase is currently being used (either inner or outer staircase)
+        this.done = false; //keeps track if subject is done with the task
+        this.dialogOpen = false; //keeps track of whether dialog window is open or not
+        this.displayPrompt = false; //keeps track of whether subject should be prompted to respond (after taking too long to response to both targets)
+        //time tracker variables --------------------------
+        this.startTimes = []; //stores start time of stimulus presentation (for calculating total stimulus presentation duration)
+        this.endTimes = []; //stores end time of stimulus presentation (for calculating total stimulus presentation duration)
+    };
+    /**
+     * this function determines the next trial's stimulus presentation duration as it
+     * updates the staircase based on trial performance
+     */
+    Ufov.prototype.updateStaircase = function () {
+        //check if the response is correct:
+        //for the peripheral target
+        if (this.mode != _enums_mode__WEBPACK_IMPORTED_MODULE_0__["Mode"].CENTER) {
+            if (this.pResp[this.curSC][this.scTrial[this.curSC]] == this.pPos[this.curSC][this.scTrial[this.curSC]]) {
+                this.pCorrect[this.curSC][this.scTrial[this.curSC]] = 1; //correct
+            }
+            else {
+                this.pCorrect[this.curSC][this.scTrial[this.curSC]] = 0; //incorrect
+            }
+        }
+        //for the center target
+        if (this.mode != _enums_mode__WEBPACK_IMPORTED_MODULE_0__["Mode"].PERIPHERAL) {
+            if (this.cResp[this.curSC][this.scTrial[this.curSC]] == this.cStim[this.curSC][this.scTrial[this.curSC]]) {
+                this.cCorrect[this.curSC][this.scTrial[this.curSC]] = 1; //correct
+            }
+            else {
+                this.cCorrect[this.curSC][this.scTrial[this.curSC]] = 0; //incorrect
+            }
+        }
+        //check if the response given was correct
+        //(for trials with both peripheral and center targets, the subject needs to get both correct in order for the trial to be considered correct)
+        if ((this.mode == 1 && this.cCorrect[this.curSC][this.scTrial[this.curSC]]) ||
+            (this.mode == 2 && this.pCorrect[this.curSC][this.scTrial[this.curSC]]) ||
+            (this.mode == 3 && this.cCorrect[this.curSC][this.scTrial[this.curSC]] && this.pCorrect[this.curSC][this.scTrial[this.curSC]])) {
+            this.correctStreak[this.curSC]++; //increase the number of consecutively correct trials
+            this.incorrectStreak[this.curSC] = 0; //reset the number of consecutively incorrect trials to 0
+        }
+        else {
+            this.correctStreak[this.curSC] = 0; //reset the number of consecutively correct trials to 0
+            this.incorrectStreak[this.curSC]++; //increase the number of consecutively incorrect trials
+        }
+        //if the maxmimum number of trials hasn't been reached yet, then check if the staircase needs to be updated
+        if (this.scTrial[this.curSC] < this.maxTrials - 1) {
+            //first check if the staircase needs to be decreased; that is, the number of correct trials required to decrease the staircase
+            //has been reached, and there is still room to decrease the staircase (the minimum hasn't been hit yet)
+            if (this.correctStreak[this.curSC] >= this.correctDec && this.frames[this.curSC][this.scTrial[this.curSC]] > this.minFrames) {
+                var stepSize = Math.round(this.frames[this.curSC][this.scTrial[this.curSC]] - this.step[this.curSC]); //decrease the simulus presentation duration (in frames)
+                //if the new duration is less than the minimum allowed, change the value to the mimumum
+                this.frames[this.curSC][this.scTrial[this.curSC] + 1] = Math.max(stepSize, this.minFrames);
+                //record the new duration to be used for the next trial
+                this.duration[this.curSC][this.scTrial[this.curSC] + 1] = this.frames[this.curSC][this.scTrial[this.curSC] + 1] * this.speed;
+                this.correctStreak[this.curSC] = 0; //reset the correct streak to 0 in order to start counting for the next step
+                this.stepFalling[this.curSC] = 1; //note that the subject is now falling in the staircase (to keep track of reversals)
+                if (this.stepRising[this.curSC]) { //if the subject's last step was a rising step, then record that there was a reversal
+                    this.stepRising[this.curSC] = 0; //now the subject is no longer taking a rising step
+                    this.nRevs[this.curSC]++; //increase reversal count
+                }
+            }
+            //if not a decrease, then check if the staircase needs to be increased instead; the number of incorrect trials to decrease the staircase
+            //has been reached and there is still room to increase the staircase (the maximum hasn't been reached yet)
+            else if (this.incorrectStreak[this.curSC] >= this.incorrectInc && this.frames[this.curSC][this.scTrial[this.curSC]] < this.maxFrames) {
+                var stepSize = Math.round(this.frames[this.curSC][this.scTrial[this.curSC]] + this.step[this.curSC]); //increase the simulus presentation duration (in frames)
+                //if the new duration is more than the maximum allowed, change the value to the maximum
+                this.frames[this.curSC][this.scTrial[this.curSC] + 1] = Math.min(stepSize, this.maxFrames);
+                //record the new duration to be used for the next trial
+                this.duration[this.curSC][this.scTrial[this.curSC] + 1] = this.frames[this.curSC][this.scTrial[this.curSC] + 1] * this.speed;
+                this.incorrectStreak[this.curSC] = 0; //reset the incorrect streak to 0 in order to start counting for the next step
+                this.stepRising[this.curSC] = 1; //note that the subject is now rising in the staircase (to keep track of reversals)
+                if (this.stepFalling[this.curSC]) { //if the subject's last step was a falling step, then record that there was a reversal
+                    this.stepFalling[this.curSC] = 0; //now the subject is no longer taking a falling step
+                    this.nRevs[this.curSC]++; //increase reversal count
+                }
+            }
+            //no need to make any changes to the staircase, so keep the current frame number for the stimulus presentation duration
+            else {
+                this.frames[this.curSC][this.scTrial[this.curSC] + 1] = this.frames[this.curSC][this.scTrial[this.curSC]];
+                this.duration[this.curSC][this.scTrial[this.curSC] + 1] = this.frames[this.curSC][this.scTrial[this.curSC] + 1] * this.speed;
+            }
+        }
+        //otherwise, end the task
+        else {
+            this.done = true;
+        }
+        //record number of current reversals at this point in the task
+        this.reversals[this.curSC][this.scTrial[this.curSC]] = this.nRevs[this.curSC];
+        //update the counter for how many consecutive trials have had the floor stimulus presentation duration
+        if (this.frames[this.curSC][this.scTrial[this.curSC]] == this.minFrames) {
+            this.floorCount[this.curSC]++;
+        }
+        else {
+            this.floorCount[this.curSC] = 0;
+        }
+        //do the same for the ceiling counter
+        if (this.frames[this.curSC][this.scTrial[this.curSC]] == this.maxFrames) {
+            this.ceilCount[this.curSC]++;
+        }
+        else {
+            this.ceilCount[this.curSC] = 0;
+        }
+        //if either of the counters have reached the maximum number of trials allowed at the extremes, then end the task
+        if (this.floorCount[this.curSC] == this.maxCeilTrials || this.ceilCount[this.curSC] == this.maxCeilTrials) {
+            this.done = true;
+        }
+        //otherwise, if the subject has reached the number of reversals in the staircase needed, then end the task
+        else if ((!this.outerOnly && this.nRevs[0] >= this.stopReversals && this.nRevs[1] >= this.stopReversals)
+            || this.outerOnly && this.nRevs[1] >= this.stopReversals) {
+            this.done = true;
+        }
+        //check if the step size needs to be updated based on the current number of reversals
+        if (!this.done) {
+            //continue to the next trial and get the next staircase
+            this.trial++;
+            this.scTrial[this.curSC]++;
+            this.curSC = this.sc[this.trial];
+            if (this.nRevs[this.curSC] >= this.switchReversals) {
+                this.step[this.curSC] = this.finalStep;
+            }
+            else {
+                this.step[this.curSC] = this.initStep;
+            }
         }
     };
-    return Mot;
+    return Ufov;
 }());
 
 
-
-/***/ }),
-
-/***/ "./src/style.css":
-/*!***********************!*\
-  !*** ./src/style.css ***!
-  \***********************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var api = __webpack_require__(/*! ../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
-            var content = __webpack_require__(/*! !../node_modules/css-loader/dist/cjs.js!./style.css */ "./node_modules/css-loader/dist/cjs.js!./src/style.css");
-
-            content = content.__esModule ? content.default : content;
-
-            if (typeof content === 'string') {
-              content = [[module.i, content, '']];
-            }
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = api(content, options);
-
-var exported = content.locals ? content.locals : {};
-
-
-
-module.exports = exported;
-
-/***/ }),
-
-/***/ "./src/trialorder.json":
-/*!*****************************!*\
-  !*** ./src/trialorder.json ***!
-  \*****************************/
-/*! exports provided: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, default */
-/***/ (function(module) {
-
-module.exports = JSON.parse("[3,5,4,2,1,2,4,5,3,3,1,2,4,5,4,3,2,5,2,5,1,4,3,3,4,2,5,3,4,5,2,1,3,4,5,2,4,5,3,1,2,4,2,5,3]");
 
 /***/ }),
 
@@ -2972,214 +2733,449 @@ module.exports = JSON.parse("[3,5,4,2,1,2,4,5,3,3,1,2,4,5,4,3,2,5,2,5,1,4,3,3,4,
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Ui", function() { return Ui; });
-/* harmony import */ var _enums_state__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./enums/state */ "./src/enums/state.ts");
-/* harmony import */ var _utils_create_empty_dot_array__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/create-empty-dot-array */ "./src/utils/create-empty-dot-array.ts");
-// import $ from 'jquery';
+/* harmony import */ var _enums_mode__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./enums/mode */ "./src/enums/mode.ts");
+/* harmony import */ var _enums_state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./enums/state */ "./src/enums/state.ts");
 
 
 var Ui = /** @class */ (function () {
-    function Ui(mot) {
-        this.mot = mot;
+    function Ui(ufov) {
+        this.cText = ['S', 'D'];
+        this.ufov = ufov;
         this.canvas = document.querySelector('#exptCanvas');
-        this.context = this.canvas.getContext("2d");
-        this.dotPosX = Object(_utils_create_empty_dot_array__WEBPACK_IMPORTED_MODULE_1__["createEmptyDotArray"])(mot.numTrials, mot.numDots); //stores X position of each dot per trial (updated at each frame)
-        this.dotPosY = Object(_utils_create_empty_dot_array__WEBPACK_IMPORTED_MODULE_1__["createEmptyDotArray"])(mot.numTrials, mot.numDots); //stores Y position of each dot per trial (updated at each frame)
-        this.dotMovAng = []; //stores current angle of motion for each dot (updated at each frame)
-        this.probeTracked = []; //store whether the trial asked if a dot that needed to be attended to (blue) was the dot that was queried about at the end of a trial
-        this.probedDot = []; //store the identity of the probed dot (the one asked about at the end of the trial)
+        this.context = this.canvas.getContext('2d');
+        this.dialogOpen = false;
+        this.ecc = [3, 7];
+        this.distEcc = [3, 5, 7];
+        this.maskDensity = 2;
     }
     Ui.prototype.init = function () {
-        $("#preexpt").hide();
-        this.canvas.height = window.innerHeight; //set canvas height to full browser window size for content
-        this.canvas.width = window.innerWidth; //make the canvas square
-        this.context.fillStyle = "rgb(0, 0, 0)"; //set the canvas color to black
-        this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        //hide fullscreen message
+        $('#preexpt').hide();
+        //initialize canvas
+        this.canvas.height = window.innerHeight; //set canvas to take up the full width of the browser
+        this.canvas.width = window.innerWidth; //set canvas to take up the full height of the browser
         this.cx = Math.round(this.canvas.width / 2); //get center x coordinate of canvas
         this.cy = Math.round(this.canvas.height / 2); //get center y coordinate of canvas
-        //setting up the stimuli images
-        var baseUrl = '/public';
-        var images = [
-            './dist/assets/images/happy_face.png',
-            './dist/assets/images/sad_face.png',
-            './dist/assets/images/query.png'
-        ];
-        this.sprites = images.map(function (src) {
-            var image = new Image();
-            image.src = src;
-            return image;
-        });
-        this.mot.maxFix = Math.min(this.mot.maxFix, this.cy);
-        this.mot.stateChange = true; //update the content to the current state
-        this.mot.startTime = performance.now(); //get the task start time
+        // Init stimuli size
+        this.pimgsz = this.ufov.pxPerDeg;
+        this.cimgsz = this.ufov.pxPerDeg;
+        this.respsz = this.ufov.pxPerDeg;
+        this.convertDeg2Px(); //figure out peripheral stimuli position
+        this.createMask(); //create mask
+        this.context.fillStyle = 'rgb(0, 0, 0)'; //fill canvas with black ba// ckground
+        this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.canvas.addEventListener('click', this.mouseUpdate.bind(this)); //set up mouse listener for the canvas
+        this.canvas.addEventListener('click', this.mouseUpdate.bind(this)); //set up mouse listener for the canvas
+        this.canvas.addEventListener('mousemove', this.mouseHover.bind(this)); //add mouse listener for hovering over the canvas
+        this.ufov.stateChange = true; //keeps track of when the state changed during a trial
+        this.ufov.startTime = new Date().getTime(); //get the start time of the task
+        this.initAssets();
+    };
+    Ui.prototype.initAssets = function () {
+        //set up stimuli images
+        var imgDir = './dist/assets/images/'; //image directory
+        this.cimg = [new Image(), new Image()];
+        this.cimg[0].src = imgDir + 'shorthair.jpg'; //short hair center target
+        this.cimg[1].src = imgDir + 'longhair.jpg'; //long hair center target
+        this.ptarget = new Image();
+        this.pdistract = new Image();
+        this.ptarget.src = imgDir + 'target.jpg'; //peripheral target
+        this.pdistract.src = imgDir + 'distractor.jpg'; //peripheral distractor
+        //setup feedback images
+        this.response = [new Image(), new Image()];
+        this.feedback = [new Image(), new Image()];
+        this.response[0].src = imgDir + 'query.png'; //image to display when no center response has been given, or an invalid peripheral location was selected
+        this.response[1].src = imgDir + 'whitex.png'; //marker for where the subject indicated there was a peripheral target
+        this.feedback[0].src = imgDir + 'redx.png'; //feedback for getting the center or peripheral response incorrect
+        this.feedback[1].src = imgDir + 'greencheck.png'; //feedback for getting the center or peripheral response correct
     };
     Ui.prototype.drawContent = function () {
-        //set the background to black
-        this.context.fillStyle = "rgb(0, 0, 0)";
-        this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        //create the gray circle that the dots move within
-        //(size is the extent of the canvas)
-        this.context.fillStyle = "rgb(128, 128, 128)";
-        this.context.beginPath();
-        this.context.arc(this.cx, this.cy, Math.floor(this.mot.maxFix - 15), 0, 2 * Math.PI);
-        this.context.fill();
-        //draw on canvas based on state
-        if (this.mot.state === _enums_state__WEBPACK_IMPORTED_MODULE_0__["State"].START || this.mot.state === _enums_state__WEBPACK_IMPORTED_MODULE_0__["State"].FIX) {
-            this.mot.drawCounter[this.mot.trial] = 0; //reset counter for keeping track of number of frames drawn during a trial
-            this.drawFix(); //draw fixation point
-            //set font parameters
-            this.context.fillStyle = "black";
-            this.context.font = "12pt Arial";
-            this.context.textAlign = "center";
-            //set text displayed to subject
-            this.context.fillText("Press the space bar to start the trial.", this.cx, this.cy + 25);
+        //check if the canvas is currently scaling (i.e., increasing the size) of what is drawn
+        if (this.isScaled) {
+            //set scaling back to original value
+            this.context.scale(1 / this.maskDensity, 1 / this.maskDensity);
+            //turn off scaling
+            this.isScaled = false;
+            //reset background to black
+            this.context.fillStyle = 'rgb(0, 0, 0)';
+            this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
         }
-        else if (this.mot.state === _enums_state__WEBPACK_IMPORTED_MODULE_0__["State"].BREAK) {
-            //set font parameters
-            this.context.fillStyle = "black";
-            this.context.font = "12pt Arial";
-            this.context.textAlign = "center";
-            //calculate percent correct for the block
-            var percentCorrect = Math.round(this.mot.blockCorrect / this.mot.trialsPerBlock * 100);
-            //set feedback text displayed
-            var breakText1 = "You got " + percentCorrect + "% correct for this block. Time to take a break!";
-            var breakText2 = "When you are ready to resume the task, press Enter.";
-            this.context.fillText(breakText1, this.cx, this.cy + 25);
-            this.context.fillText(breakText2, this.cx, this.cy + 50);
-        }
-        else if (this.mot.state === _enums_state__WEBPACK_IMPORTED_MODULE_0__["State"].CUE || this.mot.state === _enums_state__WEBPACK_IMPORTED_MODULE_0__["State"].MOVE) {
-            this.mot.drawCounter[this.mot.trial]++; //increment frame counter
-            this.drawFix(); //draw fixation point
-            console.log('Init State');
-            if (this.mot.initState) {
-                //it's the initialization state, so set up all the dots
-                $("#exptCanvas").css({ cursor: 'none' }); //hide the cursor
-                //Now draw target and distractor dots moving:
-                //choose initial positions and velocities
-                for (var i = 0; i < this.mot.numDots; i++) {
-                    var restart = 1; //keeps track if the initial dot position need to be recalculated
-                    while (restart) {
-                        restart = 0;
-                        //choose the initial x and y position for this dot (a valid position within the boundaries)
-                        this.dotPosX[this.mot.trial][i] = Math.random() * 2 * (this.mot.maxFix - this.mot.minEdge) + this.mot.minEdge + this.cx - this.mot.maxFix;
-                        this.dotPosY[this.mot.trial][i] = Math.random() * 2 * (this.mot.maxFix - this.mot.minEdge) + this.mot.minEdge + this.cy - this.mot.maxFix;
-                        // if the dot ended up outside of the boundaries, then refind a position for this dot
-                        var r2 = Math.pow(this.dotPosX[this.mot.trial][i] - this.cx, 2) + Math.pow(this.dotPosY[this.mot.trial][i] - this.cy, 2);
-                        if (r2 < Math.pow(this.mot.minFix, 2) || r2 > Math.pow(this.mot.maxFix - this.mot.minEdge, 2)) {
-                            restart = 1;
-                            console.log('This one');
-                            continue;
-                        }
-                        //then check the distances between this dot and all previously positioned dots
-                        if (!restart && i >= 1) {
-                            for (var j = 0; j < i; j++) {
-                                //if it starts too close to another dot, then find a new position for this current dot
-                                if (Math.pow(this.dotPosX[this.mot.trial][i] - this.dotPosX[this.mot.trial][j], 2) + Math.pow(this.dotPosY[this.mot.trial][i] - this.dotPosY[this.mot.trial][j], 2) < Math.pow(this.mot.minSep, 2)) {
-                                    restart = 1;
-                                    break;
-                                }
-                            }
-                        }
-                    }
+        // clear canvas
+        this.drawBlank();
+        switch (this.ufov.state) {
+            case _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].START:
+                this.drawFix();
+                this.drawOrder();
+                break;
+            case _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].FIX:
+                this.drawFix();
+                this.drawOrder();
+                break;
+            // delay period before stimulus presentation
+            case _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].DELAY:
+                //hide the mouse cursor before stimulus presentation
+                $('#exptCanvas').css({ cursor: 'none' });
+                break;
+            // stimulus presentation
+            case _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].STIM:
+                //if it's a mode with the center target, then draw it
+                if (this.ufov.mode !== _enums_mode__WEBPACK_IMPORTED_MODULE_0__["Mode"].PERIPHERAL) {
+                    this.drawFace();
                 }
-                for (var i = 0; i < this.mot.numDots; i++) {
-                    //now randomly assign a starting angle of motion for each dot
-                    this.dotMovAng[i] = Math.random() * 2 * Math.PI;
-                    var faceType = void 0;
-                    //the first X dots in the array start as the cued dots (X = total number of dots to attend to during that trial)
-                    if (i < this.mot.numAttendDots[this.mot.trial]) {
-                        faceType = this.sprites[1];
-                    }
-                    else { //the rest are normal dots
-                        faceType = this.sprites[0];
-                    }
-                    //now draw the dot
-                    this.context.drawImage(faceType, this.dotPosX[this.mot.trial][i] - this.mot.dotRad, this.dotPosY[this.mot.trial][i] - this.mot.dotRad, this.mot.imageSize, this.mot.imageSize);
+                //if it's a mode with the peripheral target, then draw it
+                if (this.ufov.mode !== _enums_mode__WEBPACK_IMPORTED_MODULE_0__["Mode"].CENTER) {
+                    this.drawPeriph();
                 }
-                this.mot.initState = false; //turn off initialization state
-            }
-            else { //no longer the initialization state, so just keep the dots moving
-                var posXNew = [];
-                var posYNew = [];
-                var randomize = [];
-                //assign a random number to each dot
-                for (var i = 0; i < this.mot.numDots; i++) {
-                    randomize[i] = Math.random();
+                break;
+            // Mask presentation
+            case _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].MASK:
+                this.drawMask();
+                break;
+            // response period
+            case _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].RESPONSE:
+                //show the mouse cursor again so that the subject can use it
+                $('#exptCanvas').css({ cursor: 'default' });
+                //if it's a practice mode with the peripheral target,
+                //draw lines to represent the possible locations of the target
+                if (this.ufov.mode > 1) {
+                    this.drawSpokes();
                 }
-                for (var i = 0; i < this.mot.numDots; i++) {
-                    //if the dot's number is greater than the straight probability, then the dot's
-                    //current trajectory will change to a randomly selected angle within the maximum deviation
-                    if (randomize[i] > this.mot.straightProb) {
-                        var randomness = Math.random() * this.mot.angSD;
-                        if (Math.random() > 0.5) {
-                            randomness = -randomness;
-                        }
-                        this.dotMovAng[i] = this.dotMovAng[i] + randomness;
-                    }
-                    //predicted position change (calculated based on current position plus the calculated distance and direction based on angle and dot speed)
-                    posXNew[i] = this.dotPosX[this.mot.trial][i] + Math.cos(this.dotMovAng[i]) * this.mot.vel;
-                    posYNew[i] = this.dotPosY[this.mot.trial][i] - Math.sin(this.dotMovAng[i]) * this.mot.vel;
-                    //if the dot is past the inner or outer boundaries, then reflect the motion of the dot
-                    // (this makes it looks like it bounces off the boundary walls)
-                    var r2 = Math.pow(posXNew[i] - this.cx, 2) + Math.pow(posYNew[i] - this.cy, 2);
-                    if (r2 < Math.pow(this.mot.minFix, 2) || r2 > Math.pow(this.mot.maxFix - this.mot.minEdge, 2)) {
-                        var temp = this.dotMovAng[i];
-                        this.dotMovAng[i] =
-                            2 * Math.atan2(-(this.dotPosY[this.mot.trial][i] - this.cy), this.dotPosX[this.mot.trial][i] - this.cx) -
-                                this.dotMovAng[i] - Math.PI;
-                    }
+                //draw a question mark in the middle of the screen if the subject hasn't given a response
+                //to the center target yet
+                if (this.ufov.mode != 2 && this.ufov.cResp[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]] == -1) {
+                    this.context.drawImage(this.response[0], Math.round(this.cx - this.respsz / 2), Math.round(this.cy - this.respsz / 2), this.respsz, this.respsz);
                 }
-                // check if any of the dots collide with each other; if they do, then reflect their motion
-                //(similar to billiard balls hitting each other)
-                for (var i = 0; i < this.mot.numDots - 1; i++) {
-                    for (var j = i + 1; j < this.mot.numDots; j++) {
-                        if (Math.pow(posXNew[i] - posXNew[j], 2) + Math.pow(posYNew[i] - posYNew[j], 2) < Math.pow(this.mot.minSep, 2)) {
-                            var tempAngle = this.dotMovAng[i];
-                            this.dotMovAng[i] = this.dotMovAng[j];
-                            this.dotMovAng[j] = tempAngle;
-                        }
-                    }
+                this.displayPrompt(); //check if the subject needs to be prompted to respond
+                break;
+            // give subject feedback about their responses
+            case _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].FEEDBACK:
+                //keep lines for peripheral locations on the screen
+                if (this.ufov.mode > 1) {
+                    this.drawSpokes();
                 }
-                //with these new positions, now update and draw the dots
-                for (var i = 0; i < this.mot.numDots; i++) {
-                    this.dotPosX[this.mot.trial][i] = this.dotPosX[this.mot.trial][i] + Math.cos(this.dotMovAng[i]) * this.mot.vel;
-                    this.dotPosY[this.mot.trial][i] = this.dotPosY[this.mot.trial][i] - Math.sin(this.dotMovAng[i]) * this.mot.vel;
-                    //if we're in the cue state, then make sure the dots that need to be cued dots are displayed properly
-                    var faceType = void 0;
-                    if (this.mot.state === _enums_state__WEBPACK_IMPORTED_MODULE_0__["State"].CUE && i < this.mot.numAttendDots[this.mot.trial]) {
-                        faceType = this.sprites[1];
+                //give feedback for the peripheral response
+                if (this.ufov.mode != 1) {
+                    //if they gave the correct answer
+                    if (this.ufov.pResp[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]] == (this.ufov.pPos[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]] % this.ufov.thetaPos.length)) {
+                        this.context.drawImage(this.feedback[1], Math.round(this.x - this.respsz / 2), Math.round(this.y - this.respsz / 2), this.respsz, this.respsz); //display checkmark
                     }
+                    //if they gave an incorrect answer
                     else {
-                        faceType = this.sprites[0];
+                        this.context.drawImage(this.feedback[0], Math.round(this.x - this.respsz / 2), Math.round(this.y - this.respsz / 2), this.respsz, this.respsz); //display red X
                     }
-                    //draw the dot
-                    this.context.drawImage(faceType, this.dotPosX[this.mot.trial][i] - this.mot.dotRad, this.dotPosY[this.mot.trial][i] - this.mot.dotRad, this.mot.imageSize, this.mot.imageSize);
                 }
-            }
-        }
-        else if (this.mot.state === _enums_state__WEBPACK_IMPORTED_MODULE_0__["State"].RESPONSE) {
-            this.drawFix(); //draw the fixation point
-            //now update and draw the dots (no longer moving)
-            for (var i = 0; i < this.mot.numDots; i++) {
-                var faceType = void 0;
-                //if current dot is the dot to be queried, then change it to the queried dot stimulus
-                if (i === this.probedDot[this.mot.trial]) {
-                    faceType = this.sprites[2];
+                //give feedback for the center response
+                if (this.ufov.mode != 2) {
+                    //if they gave the correct answer
+                    if (this.ufov.cResp[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]] == this.ufov.cStim[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]]) {
+                        this.context.drawImage(this.feedback[1], Math.round(this.cx - this.respsz / 2), Math.round(this.cy - this.respsz / 2), this.respsz, this.respsz); //display checkmark
+                    }
+                    //if they gave an incorrect answer
+                    else {
+                        this.context.drawImage(this.feedback[0], Math.round(this.cx - this.respsz / 2), Math.round(this.cy - this.respsz / 2), this.respsz, this.respsz); //display red X
+                    }
                 }
-                else { //set all the other dots to the normal stimulus image
-                    faceType = this.sprites[0];
-                }
-                //draw the dot
-                this.context.drawImage(faceType, this.dotPosX[this.mot.trial][i] - this.mot.dotRad, this.dotPosY[this.mot.trial][i] - this.mot.dotRad, this.mot.imageSize, this.mot.imageSize);
-            }
-            $("#exptCanvas").css({ cursor: 'default' }); //reset the cursor to be visible
+                break;
         }
     };
-    //draw fixation point
-    Ui.prototype.drawFix = function () {
+    /**
+     * At each frame, the frame is redrawn based on the current state
+     */
+    Ui.prototype.updateFrame = function () {
+        //check if dialog window for instructions is open
+        // @ts-ignore
+        this.ufov.dialogOpen = $('#reminder').dialog('isOpen');
+        if (this.ufov.state === _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].START) { //first trial of the task
+            if (this.ufov.stateChange) {
+                this.ufov.stateChange = false;
+                this.drawContent(); //update content displayed
+            }
+        }
+        else if (this.ufov.state === _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].FIX) { //start of a trial (that's not the first one)
+            if (this.ufov.stateChange) {
+                this.ufov.stateChange = false;
+                this.drawContent(); //update content displayed
+            }
+            //wait for space bar
+        }
+    };
+    /**
+     * prepare the canvas for new stimuli by clearing it out and drawing a new gray circle at the center
+     */
+    Ui.prototype.drawBlank = function () {
+        this.context.fillStyle = 'rgb(0, 0, 0)';
+        this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.context.fillStyle = 'rgb(128,128,128)';
+        this.context.beginPath();
+        this.context.arc(this.cx, this.cy, Math.floor(this.canvas.height / 2), 0, 2 * Math.PI);
+        this.context.fill();
+    };
+    /**
+     * Draw order to start trial
+     */
+    Ui.prototype.drawOrder = function () {
+        this.writeText('Press the space bar to start.', this.cx, this.cy + 25);
+    };
+    /**
+     * Write a text
+     */
+    Ui.prototype.writeText = function (text, x, y) {
+        this.context.fillStyle = 'black';
+        this.context.font = 'bold 14pt Arial';
+        this.context.textAlign = 'center';
+        this.context.fillText(text, x, y);
+    };
+    /**
+     * Write a letter at the center
+     */
+    Ui.prototype.writeLetter = function (letter) {
         this.context.fillStyle = "white";
+        this.context.font = "bold 30pt Arial";
+        this.context.textBaseline = "middle";
+        this.context.textAlign = "center";
+        this.context.fillText(letter, this.cx, this.cy);
+    };
+    /**
+     * draw fixation point
+     */
+    Ui.prototype.drawFix = function () {
+        this.context.fillStyle = 'white';
         this.context.fillRect(this.cx - 2, this.cy - 2, 5, 5);
-        this.context.fillStyle = "black";
+        this.context.fillStyle = 'black';
         this.context.fillRect(this.cx - 1, this.cy - 1, 3, 3);
+    };
+    //draw the center target, based on what the trial calls for
+    Ui.prototype.drawFace = function () {
+        this.context.drawImage(this.cimg[this.ufov.cStim[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]]], Math.round(this.cx - this.cimgsz / 2), Math.round(this.cy - this.cimgsz / 2), this.cimgsz, this.cimgsz);
+    };
+    /**
+     * Draw the mask after stimulus presentation
+     */
+    Ui.prototype.drawMask = function () {
+        this.context.scale(this.maskDensity, this.maskDensity); //scale the canvas density so the mask image appears correctly
+        this.context.drawImage(this.mask, 0, 0);
+        this.isScaled = true; //note that we scaled the canvas
+    };
+    /**
+     * Draw the peripheral target and distractors if needed
+     */
+    Ui.prototype.drawPeriph = function () {
+        //peripheral target location holders
+        var px;
+        var py;
+        //if it's staircase 1, then place the peripheral target at the outer circle
+        if (this.ufov.curSC == 1) {
+            px = this.pxxPos[this.ufov.pPos[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]] + this.ufov.thetaPos.length * 2];
+            py = this.pxyPos[this.ufov.pPos[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]] + this.ufov.thetaPos.length * 2];
+        }
+        //otherwise if it's staircase 0, place the peripheral target at the inner circle
+        else {
+            px = this.pxxPos[this.ufov.pPos[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]]];
+            py = this.pxyPos[this.ufov.pPos[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]]];
+        }
+        //now draw the peripheral target
+        this.context.drawImage(this.ptarget, px - Math.round(this.pimgsz / 2), py - Math.round(this.pimgsz / 2), this.pimgsz, this.pimgsz);
+        //record where it was drawn on the canvas
+        this.ufov.pTargetX[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]] = px - this.cx;
+        this.ufov.pTargetY[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]] = -(py - this.cy);
+        //now draw all the distractors where the peripheral target is not
+        for (var i = 0; i < this.pxxPos.length; i++) {
+            if ((this.ufov.curSC == 0 && i != this.ufov.pPos[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]]) ||
+                (this.ufov.curSC == 1 && i != this.ufov.pPos[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]] + this.ufov.thetaPos.length * 2)) {
+                this.context.drawImage(this.pdistract, Math.round(this.pxxPos[i] - this.pimgsz / 2), Math.round(this.pxyPos[i] - this.pimgsz / 2), this.pimgsz, this.pimgsz);
+            }
+        }
+    };
+    /**
+     * draw spoke lines that represent the locations where the peripheral target can appear
+     */
+    Ui.prototype.drawSpokes = function () {
+        this.context.strokeStyle = 'rgb(255,255,255)';
+        this.context.beginPath();
+        for (var i = 0; i < this.ufov.thetaPos.length; i++) {
+            this.context.moveTo(this.cx + 0.5, this.cy + 0.5);
+            //draws spoke edge to the edge of the circle
+            this.context.lineTo(0.5 + this.pxxSpoke[i], 0.5 + this.pxySpoke[i]);
+        }
+        this.context.stroke();
+    };
+    /**
+     * if the subject hasn't responded to the targets in a set amount of time,
+     * prompt the subject to respond with a message displayed at the center of the screen
+     */
+    Ui.prototype.displayPrompt = function () {
+        //first check if the prompt should be showm
+        if (this.displayPrompt) {
+            if (this.ufov.mode === _enums_mode__WEBPACK_IMPORTED_MODULE_0__["Mode"].CENTER || this.ufov.mode === _enums_mode__WEBPACK_IMPORTED_MODULE_0__["Mode"].PERIPHERAL) {
+                //if only one response is needed, note that
+                this.writeText('Please give a response.', this.cx, this.cy - 50);
+            }
+            else { //otherwise, let them know they need to respond to both the center and peripheral targets
+                this.writeText('Please give both required responses.', this.cx, this.cy - 50);
+            }
+        }
+    };
+    Ui.prototype.createMask = function () {
+        //create blank image of the dimensions of the canvas with the set mask density
+        var mask = this.context.createImageData(Math.ceil(this.canvas.width / this.maskDensity), Math.ceil(this.canvas.height / this.maskDensity));
+        var color;
+        //randomly choose a grayscale color for each point in the image
+        for (var i = 0; i < mask.width * mask.height * 4; i += 4) {
+            color = Math.floor(Math.random() * 2) * 255;
+            mask.data[i] = color;
+            mask.data[i + 1] = color;
+            mask.data[i + 2] = color;
+            mask.data[i + 3] = 255;
+        }
+        //fill canvas with the mask image
+        this.mask = document.createElement('canvas');
+        this.mask.width = this.canvas.width;
+        this.mask.height = this.canvas.height;
+        this.mask.getContext('2d').putImageData(mask, 0, 0);
+    };
+    Ui.prototype.convertDeg2Px = function () {
+        this.pxxPos = [];
+        this.pxyPos = [];
+        var posCount = 0;
+        //determine position of peripheral stimuli
+        for (var d = 0; d < this.distEcc.length; d++) { //calculate for each of the eccentricities listed (inner and outer circles)
+            for (var i = 0; i < this.ufov.thetaPos.length; i++) {
+                this.pxxPos[posCount] = this.cx + Math.round(this.ufov.pxPerDeg * this.distEcc[d] * Math.cos(Math.PI * this.ufov.thetaPos[i] / 180)); //x-coordinate
+                this.pxyPos[posCount] = this.cy - Math.round(this.ufov.pxPerDeg * this.distEcc[d] * Math.sin(Math.PI * this.ufov.thetaPos[i] / 180)); //y-coordinate
+                posCount++;
+            }
+        }
+        //determine spoke outer point positions so that the lines extend all the way to the edge of the circle
+        this.pxxSpoke = [];
+        this.pxySpoke = [];
+        for (var i = 0; i < this.ufov.thetaPos.length; i++) {
+            this.pxxSpoke[i] = this.cx + Math.floor(this.canvas.height / 2 * Math.cos(Math.PI * this.ufov.thetaPos[i] / 180));
+            this.pxySpoke[i] = this.cy - Math.floor(this.canvas.height / 2 * Math.sin(Math.PI * this.ufov.thetaPos[i] / 180));
+        }
+    };
+    /**
+     * this function detects when the mouse pointer is hovering over a peripheral line during the
+     * response period, in order to give them feedback about which line they will be selecting when
+     * they click
+     */
+    Ui.prototype.mouseHover = function (event) {
+        //check first that the help dialog is not open
+        if (!this.dialogOpen) {
+            //only react to the pointer hovering when a peripheral response is needed
+            if (this.ufov.state === _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].RESPONSE && this.ufov.mode > 1 &&
+                this.ufov.pResp[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]] < 0) {
+                var mouseX = event.pageX; // - event.offsetX;
+                var mouseY = event.pageY; // - event.offsetY;
+                //determine which line the subject was attempting to select
+                //(based on which is closest to the point they clicked on)
+                var r = Math.sqrt(Math.pow(mouseX - this.cx, 2) + Math.pow(mouseY - this.cy, 2));
+                var theta = (90 - 180 * Math.atan2(mouseX - this.cx, this.cy - mouseY) / Math.PI) % 360;
+                var respDeg = 360;
+                var choice = -1;
+                for (var i = 0; i < this.ufov.thetaPos.length; i++) {
+                    var minDeg = Math.min(Math.abs(theta - this.ufov.thetaPos[i]), Math.abs(360 + theta - this.ufov.thetaPos[i]));
+                    if (minDeg < respDeg) {
+                        respDeg = minDeg;
+                        choice = i;
+                    }
+                }
+                var hoveredLine = -1;
+                //if they are within range of a nearby line, then mark it as the one they are hovering over
+                if (r >= this.ufov.respDegMin && r <= this.cy && respDeg <= this.ufov.respDegLim) {
+                    hoveredLine = choice;
+                }
+                this.drawBlank(); //clear canvas
+                //Highlight the line the subject is hovering over in a different color
+                this.context.strokeStyle = 'rgb(255,255,0)';
+                this.context.lineWidth = 3;
+                this.context.beginPath();
+                this.context.moveTo(this.cx + 0.5, this.cy + 0.5);
+                //draws highlighted spoke
+                this.context.lineTo(0.5 + this.pxxSpoke[hoveredLine], 0.5 + this.pxySpoke[hoveredLine]);
+                this.context.stroke();
+                //redraw all the other peripheral lines since they were cleared out
+                this.context.strokeStyle = 'rgb(255,255,255)';
+                this.context.lineWidth = 1;
+                this.context.beginPath();
+                for (var i = 0; i < this.ufov.thetaPos.length; i++) {
+                    if (i != hoveredLine) {
+                        this.context.moveTo(this.cx + 0.5, this.cy + 0.5);
+                        //draws spoke edge to the edge of the circle
+                        this.context.lineTo(0.5 + this.pxxSpoke[i], 0.5 + this.pxySpoke[i]);
+                    }
+                }
+                this.context.stroke();
+                this.context.fillStyle = 'white';
+                //add back any marker (letter) about what the subject responded for the center target
+                if (this.ufov.mode != 2 && this.ufov.cResp[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]] != -1) {
+                    this.context.font = 'bold 30pt Arial';
+                    this.context.textBaseline = 'middle';
+                    this.context.textAlign = 'center';
+                    this.context.fillText(this.cText[this.ufov.cResp[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]]], this.cx, this.cy);
+                }
+                //otherwise, add back a question mark to the center of the screen since the subject hasn't responded yet
+                else if (this.ufov.mode != 2 && this.ufov.cResp[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]] == -1) {
+                    this.context.drawImage(this.response[0], Math.round(this.cx - this.respsz / 2), Math.round(this.cy - this.respsz / 2), this.respsz, this.respsz);
+                }
+                //check if a question mark needs to be drawn if the subject clicked on an invalid spot for the peripheral target
+                if (this.ufov.mode != 1 && this.ufov.pResp[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]] == -2) {
+                    this.context.drawImage(this.response[0], Math.round(this.x - this.respsz / 2), Math.round(this.y - this.respsz / 2), this.respsz, this.respsz);
+                }
+                this.displayPrompt(); //check if the subject needs to be prompted to respond
+            }
+        }
+    };
+    Ui.prototype.mouseUpdate = function (event) {
+        //check first that the help dialog is not open
+        if (!this.dialogOpen) {
+            //only respond to a mouse click if when a peripheral response is needed
+            if (this.ufov.state === _enums_state__WEBPACK_IMPORTED_MODULE_1__["State"].RESPONSE && (this.ufov.mode == 2 || this.ufov.mode == 3)
+                && this.ufov.pResp[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]] < 0) {
+                //get mouse coordinates in relation to the canvas
+                this.x = event.pageX - this.canvas.offsetLeft;
+                this.y = event.pageY - this.canvas.offsetTop;
+                this.drawContent(); //update content displayed
+                //if the subject has already responded to the center target, redraw the marker (letter) for their response
+                if (this.ufov.mode > 2 && this.ufov.cResp[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]] != -1) {
+                    this.context.fillStyle = 'white';
+                    this.context.font = 'bold 30pt Arial';
+                    this.context.textBaseline = 'middle';
+                    this.context.textAlign = 'center';
+                    this.context.fillText(this.cText[this.ufov.cResp[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]]], this.cx, this.cy);
+                }
+                //determine which line the subject was attempting to select
+                //(based on which is closest to the point they clicked on)
+                var r = Math.sqrt(Math.pow(this.x - this.cx, 2) + Math.pow(this.y - this.cy, 2));
+                var theta = (90 - 180 * Math.atan2(this.x - this.cx, this.cy - this.y) / Math.PI) % 360;
+                var respDeg = 360;
+                var choice = -1;
+                for (var i = 0; i < this.ufov.thetaPos.length; i++) {
+                    var minDeg = Math.min(Math.abs(theta - this.ufov.thetaPos[i]), Math.abs(360 + theta - this.ufov.thetaPos[i]));
+                    if (minDeg < respDeg) {
+                        respDeg = minDeg;
+                        choice = i;
+                    }
+                }
+                //check if the subject's click was close enough to a line, based on the accepted range parameters
+                if (r >= this.ufov.respDegMin && r <= this.cy && respDeg <= this.ufov.respDegLim) {
+                    //check if the subject's click was close enough to a line, based on the accepted range parameters
+                    this.ufov.pRT[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]] = new Date().getTime() - this.ufov.startWait;
+                    this.ufov.pResp[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]] = choice;
+                    //record specifically where the subject clicked
+                    this.ufov.pX[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]] = this.x - this.cx;
+                    this.ufov.pY[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]] = -(this.y - this.cy);
+                    //draw an X where the subject clicked
+                    this.context.drawImage(this.response[1], Math.round(this.x - this.respsz / 2), Math.round(this.y - this.respsz / 2), this.respsz, this.respsz);
+                }
+                //otherwise, if the click point is outside of the accepted range, display a
+                //question mark and have the subject reselect a peripheral line
+                else {
+                    this.ufov.pResp[this.ufov.curSC][this.ufov.scTrial[this.ufov.curSC]] = -2; //this response means they need to give a new response to the peripheral target
+                    this.context.drawImage(this.response[0], Math.round(this.x - this.respsz / 2), Math.round(this.y - this.respsz / 2), this.respsz, this.respsz);
+                }
+                this.displayPrompt(); //check if the subject needs to be prompted to respond
+            }
+        }
     };
     return Ui;
 }());
@@ -3239,26 +3235,23 @@ var getCalibration = function (screenSize) {
 
 /***/ }),
 
-/***/ "./src/utils/create-empty-dot-array.ts":
-/*!*********************************************!*\
-  !*** ./src/utils/create-empty-dot-array.ts ***!
-  \*********************************************/
-/*! exports provided: createEmptyDotArray */
+/***/ "./src/utils/create-empty-2d-array.ts":
+/*!********************************************!*\
+  !*** ./src/utils/create-empty-2d-array.ts ***!
+  \********************************************/
+/*! exports provided: createEmpty2dArray */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createEmptyDotArray", function() { return createEmptyDotArray; });
-//create empty template for 2D array (2 x numTrials)
-var createEmptyDotArray = function (trials, dots) {
-    var emptyDotArray = [];
-    for (var i = 0; i < trials; i++) {
-        emptyDotArray[i] = [];
-        for (var j = 0; j < dots; j++) {
-            emptyDotArray[i][j] = -1;
-        }
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createEmpty2dArray", function() { return createEmpty2dArray; });
+var createEmpty2dArray = function (size) {
+    var empty2DArray = [[], []];
+    for (var i = 0; i < size; i++) {
+        empty2DArray[0][i] = -1;
+        empty2DArray[1][i] = -1;
     }
-    return emptyDotArray;
+    return empty2DArray;
 };
 
 
@@ -3322,27 +3315,74 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
-//Once the subject is done with all the trials, send all the data at once to the database
-//via the MOT/save.php script; data is passed with semicolons separating each trial's data
-var submitResults = function (mot, ui, pxPerDeg) {
-    //get the subject's current local time
-    var d = new Date();
-    var localsec = Math.round(d.getTime() / 1000) - d.getTimezoneOffset() * 60;
-    //send data asynchronously
+//send all of the trial data at once to the database via the ufov/save.php script;
+var submitResults = function (ufov) {
+    //keep track of trials per staircase
+    var scCount = [0, 0];
+    //condense all data from both staircases into one array for each variable
+    var frames = [];
+    var duration = [];
+    var actualDuration = [];
+    var cStim = [];
+    var cResp = [];
+    var cRT = [];
+    var cCorrect = [];
+    var pPos = [];
+    var pTargetX = [];
+    var pTargetY = [];
+    var pResp = [];
+    var pX = [];
+    var pY = [];
+    var pRT = [];
+    var pCorrect = [];
+    var trialStart = [];
+    var reversals = [];
+    //get subject's current local time
+    var date = new Date();
+    var localsec = Math.round(date.getTime() / 1000) - date.getTimezoneOffset() * 60;
+    //now combine both staircases data together
+    for (var i = 0; i <= ufov.trial; i++) {
+        var sc = ufov.sc[i];
+        var t = scCount[sc];
+        frames.push(ufov.frames[sc][t]);
+        duration.push(ufov.duration[sc][t]);
+        actualDuration.push(ufov.endTimes[i] - ufov.startTimes[i]); //calculate actual duration of stimulus presentation
+        cStim.push(ufov.cStim[sc][t]);
+        cResp.push(ufov.cResp[sc][t]);
+        cRT.push(ufov.cRT[sc][t]);
+        cCorrect.push(ufov.cCorrect[sc][t]);
+        pPos.push(ufov.pPos[sc][t]);
+        pTargetX.push(ufov.pTargetX[sc][t]);
+        pTargetY.push(ufov.pTargetY[sc][t]);
+        pResp.push(ufov.pResp[sc][t]);
+        pX.push(ufov.pX[sc][t]);
+        pY.push(ufov.pY[sc][t]);
+        pRT.push(ufov.pRT[sc][t]);
+        pCorrect.push(ufov.pCorrect[sc][t]);
+        trialStart.push(ufov.trialStart[sc][t]);
+        reversals.push(ufov.reversals[sc][t]);
+        scCount[sc]++;
+    }
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('save.php', {
-        trialStart: mot.trialStart.join(';'),
-        numAttendDots: mot.numAttendDots.join(';'),
-        probeTracked: ui.probeTracked.join(';'),
-        response: mot.response.join(';'),
-        correct: mot.correct.join(';'),
-        rt: mot.rt.join(';'),
-        targetSeed: mot.targetSeed,
-        trialSeed: mot.trialSeed.join(';'),
-        numDrawCalls: mot.drawCounter.join(';'),
-        canvasWidth: ui.canvas.width,
-        canvasHeight: ui.canvas.height,
-        pxperdeg: pxPerDeg,
-        localsec: localsec,
+        frames: frames.join(";"),
+        duration: duration.join(";"),
+        actualDuration: actualDuration.join(";"),
+        cStim: cStim.join(";"),
+        cResp: cResp.join(";"),
+        cRT: cRT.join(";"),
+        cCorrect: cCorrect.join(";"),
+        pPos: pPos.join(";"),
+        pTargetX: pTargetX.join(";"),
+        pTargetY: pTargetY.join(";"),
+        pResp: pResp.join(";"),
+        pX: pX.join(";"),
+        pY: pY.join(";"),
+        pRT: pRT.join(";"),
+        pCorrect: pCorrect.join(";"),
+        trialStart: trialStart.join(";"),
+        reversals: reversals.join(";"),
+        pxperdeg: ufov.pxPerDeg,
+        localsec: localsec //the subject's current local time
     }); //once the script is done, then go to the end of the task
 };
 

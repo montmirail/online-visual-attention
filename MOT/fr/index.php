@@ -35,7 +35,7 @@ if (isset($_SESSION["monitorsize"]) && isset($_SESSION["pxperdeg"])) {
 
 	<!-- CSS styling -->
 	<link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/black-tie/jquery-ui.css" type="text/css" rel="stylesheet" />
-	<link href="./exptstyle.css" type="text/css" rel="stylesheet" /> 
+	<link href="../exptstyle.css" type="text/css" rel="stylesheet" />
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 
@@ -45,7 +45,7 @@ if (isset($_SESSION["monitorsize"]) && isset($_SESSION["pxperdeg"])) {
 	<!-- Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 
-	<link href="../style.css" rel="stylesheet">
+	<link href="../../style.css" rel="stylesheet">
 
 	<!-- JS libraries -->
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -55,7 +55,7 @@ if (isset($_SESSION["monitorsize"]) && isset($_SESSION["pxperdeg"])) {
 	<?php if ($loggedin) { ?>
 
 	<!-- This is code that applies a seed to the random number generator -->
-	<script type="text/javascript" src="../js_utils/seedrandom.js"></script>
+	<script type="text/javascript" src="../../js_utils/seedrandom.js"></script>
 </head>
 
 <body>
@@ -81,7 +81,7 @@ if (isset($_SESSION["monitorsize"]) && isset($_SESSION["pxperdeg"])) {
 	<!-- This message appears before the subject starts the full task. It points them to the practice trials if they'd like to redo them, and also 
 	gives them a reminder to keep their browser fullscreened during the task. -->
 	<div id="preexpt">
-		<p>If you need to review the instructions, you can click on the icon in the bottom right corner or <a href=./practice.php>return to the tutorial</a>.</p>
+		<p>If you need to review the instructions, you can click on the icon in the bottom right corner or <a href=../practice.php>return to the tutorial</a>.</p>
 		<p>You will not receive feedback on whether your answer is correct on the main task.</p>
 		<p>The experiment is divided in 3 blocks of 15 trials with a small break between each block</p>
 		<br />
@@ -104,20 +104,19 @@ if (isset($_SESSION["monitorsize"]) && isset($_SESSION["pxperdeg"])) {
 		<p id="postexpt-result"></p>
 		<p>Thank you for participating – please call the experimenter</p>
 		<p>If you haven't completed the Useful Field of View task yet, you can start it by 
-			<a href="../UFOV/practice.php">clicking here.</a></p>
+			<a href="../../UFOV/practice.php">clicking here.</a></p>
 	</div>
 
 	<!-- if the subject hasn't logged in, then this message will appear -->
 	<?php } else if (!$loggedin) { ?>
-	<div> <a href="../index.php?task=mot">Please login first before starting the task.</a> </div>
+	<div> <a href="../../index.php?task=mot">Please login first before starting the task.</a> </div>
 	<!-- if the subject is logged in, but hasn't calibrated their screen, then this message will appear to redirect them to the calibration page -->
 	<?php }  ?>
 
 	<!-- PHP script connected to more JS code for controlling the page -->
-    	<!-- script type="text/javascript" src="./code.php"></script -->
-    		<script type="text/javascript" src="./dist/bundle.js"></script>
-
-    	<?php } ?>
+    <script type="text/javascript" src="../dist/bundle.js"></script>
+    <script type="text/javascript" src="../code.php"></script>
+    <?php } ?>
 </body>
 
 </html>

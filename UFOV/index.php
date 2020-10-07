@@ -41,13 +41,6 @@ if (isset($_SESSION["monitorsize"]) && isset($_SESSION["pxperdeg"])) {
 	<!-- JS libraries -->
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
-
-	<!-- only include the remaining code if the subject is logged in and has completed screen calibration -->
-	<?php if ($loggedin) { ?>
-
-	<!-- PHP script connected to more JS code for controlling the page -->
-	<script type="text/javascript" src="./code.php"></script>
-	<?php } ?>
 </head>
 
 <body>
@@ -106,6 +99,10 @@ if (isset($_SESSION["monitorsize"]) && isset($_SESSION["pxperdeg"])) {
 	<div> <a href="../index.php?task=ufov">Please login first before starting the task.</a> </div>
 	<!-- if the subject is logged in, but hasn't calibrated their screen, then this message will appear to redirect them to the calibration page -->
 	<?php }  ?>
+
+	<!-- PHP script connected to more JS code for controlling the page -->
+    <script type="text/javascript" src="./dist/bundle.js"></script>
+    <script type="text/javascript" src="./code.php"></script>
 </body>
 
 </html>

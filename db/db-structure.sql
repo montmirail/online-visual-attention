@@ -103,11 +103,11 @@ CREATE TABLE IF NOT EXISTS `motpractice` (
 --
 
 CREATE TABLE IF NOT EXISTS `subjects` (
-  `sid` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) DEFAULT NULL,
-  `creationTime` datetime DEFAULT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `sid` varchar(30) DEFAULT NULL,
+  `time` datetime DEFAULT NULL,
   `locTime` datetime DEFAULT NULL,
-  PRIMARY KEY (`sid`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
