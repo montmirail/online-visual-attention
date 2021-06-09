@@ -77,6 +77,7 @@ UFOV.outerOnly = true; //originally this experiment was setup to present the tar
 UFOV.distEcc = new Array(3, 5, 7); //distance of peripheral distractors from center of circle (visual angle in degrees); 3 circles in total
 UFOV.thetaPos = new Array(45, 90, 135, 180, 225, 270, 315, 360); //position around the center of the circle (in degrees)
 UFOV.mode = 3; //which stimuli to show (1 = center only, 2 = peripheral only, 3 = both)
+UFOV.circleRadiusDeg = 10; // in degrees, the radius of the background circle
 
 //set up stimuli images
 var imgDir = "./img/"; //image directory
@@ -791,7 +792,7 @@ function drawBlank() {
   UFOV.c.fillRect(0,0,UFOV.canvas.width,UFOV.canvas.height);
   UFOV.c.fillStyle="rgb(128,128,128)";
   UFOV.c.beginPath();
-  UFOV.c.arc(UFOV.cx, UFOV.cy, Math.floor(UFOV.canvas.height/2),0, 2*Math.PI);
+  UFOV.c.arc(UFOV.cx, UFOV.cy, Math.floor(UFOV.pxperdeg*UFOV.circleRadiusDeg),0, 2*Math.PI);
   UFOV.c.fill();
 }
 
