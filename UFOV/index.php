@@ -21,9 +21,10 @@ if (isset($_SESSION["sid"]) && $_SESSION["sid"] != -1) {
 
 //check that calibration has been completed (relevant values saved in the session)
 if (isset($_SESSION["monitorsize"]) && isset($_SESSION["pxperdeg"])) {
-	$calibrated = true;
+    $calibrated = true;
+} else {
+    header('Location: ../Calibration/index.php');
 }
-
 ?>
 
 

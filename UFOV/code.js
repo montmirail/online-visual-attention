@@ -40,8 +40,9 @@ const closeFullscreen = () => {
 };
 
 // *********************** CALIBRATION ************************** //
+const monitorSize = <?php echo $monitorsize; ?>;
 const distance = 57; //cm, chosen distance from screen as this approximates to an arm's length
-const screenSize = 24;
+const screenSize = monitorSize;
 const pxDiagonal = Math.sqrt(Math.pow(screen.width,2) + Math.pow(screen.height,2)); //get the screen's diagonal size in pixels
 
 //slider parameters for changing the displayed object's size
@@ -71,12 +72,24 @@ var UFOV = {}; //storage for all variables in this task
 
 //position of stimuli on screen
 UFOV.pxperdeg = pxPerDeg; //pixels per degree from screen calibration (via UFOV/code.php)
-UFOV.monitorsize = <?php echo $monitorsize; ?>; //monitor size from screen calibration (via UFOV/code.php)
 UFOV.ecc = new Array(3, 7); //distance of peripheral targets from center of circle (visual angle in degrees); inner and outer circles
 UFOV.outerOnly = true; //originally this experiment was setup to present the target at both the inner and outer circles; if this is set to true, then only use the outer circle
 UFOV.distEcc = new Array(3, 5, 7); //distance of peripheral distractors from center of circle (visual angle in degrees); 3 circles in total
 UFOV.thetaPos = new Array(45, 90, 135, 180, 225, 270, 315, 360); //position around the center of the circle (in degrees)
 UFOV.mode = 3; //which stimuli to show (1 = center only, 2 = peripheral only, 3 = both)
+UFOV.circleRadiusDeg = 10; // in degrees, the radius of the background circle
+
+const minimumScreenHeightInDegree = 8.5 * 2;
+const minimumScreenHeightInPixels = minimumScreenHeightInDegree * pixelPerDegree;
+const idealScreenHeightInDegree = 10 * 2;
+const idealScreenHeightInPixel = idealScreenHeightInDegree * pixelPerDegree;
+
+if (screen.height < minimumScreenHeightInPixels) {
+  alert('Your screen is too small, please restart the task on a computer with a screen larger than 13 inches.');
+} else if (screen.height < idealScreenHeightInPixel) {
+  UFOV.circleRadiusDeg = screen.height * 0.95 / 2 / pixelPerDegree;
+}
+
 
 //set up stimuli images
 var imgDir = "./img/"; //image directory
@@ -107,9 +120,9 @@ UFOV.maskDensity = 2;
 
 
 // keyboard and mouse control variables ---------------------------------
-UFOV.shortKey = 83; //s
-UFOV.longKey = 68; //d
-UFOV.cText = ["S", "D"]; //text to display in the center for center responses
+UFOV.shortKey = 71; //g (In amanda's version it is S, code 83)
+UFOV.longKey = 72; //h (In amanda's version it is D, code 68)
+UFOV.cText = ["G", "H"]; // Amanda version : ["S", "D"]; //text to display in the center for center responses
 UFOV.startKey = 32; //space bar
 
 //acceptable distances for peripheral mouse click responses
@@ -791,7 +804,7 @@ function drawBlank() {
   UFOV.c.fillRect(0,0,UFOV.canvas.width,UFOV.canvas.height);
   UFOV.c.fillStyle="rgb(128,128,128)";
   UFOV.c.beginPath();
-  UFOV.c.arc(UFOV.cx, UFOV.cy, Math.floor(UFOV.canvas.height/2),0, 2*Math.PI);
+  UFOV.c.arc(UFOV.cx, UFOV.cy, Math.floor(UFOV.pxperdeg*UFOV.circleRadiusDeg),0, 2*Math.PI);
   UFOV.c.fill();
 }
 
@@ -1041,7 +1054,7 @@ function updateStaircase() {
   }
   //otherwise, if the subject has reached the number of reversals in the staircase needed, then end the task
   else if ((!UFOV.outerOnly && UFOV.nRevs[0] >= UFOV.stopReversals && UFOV.nRevs[1] >= UFOV.stopReversals)
-    || UFOV.outerOnly && UFOV.nRevs[1] >= UFOV.stopReversals) {
+    || (UFOV.outerOnly && UFOV.nRevs[1] >= UFOV.stopReversals)) {
     UFOV.done = true;
   }
 

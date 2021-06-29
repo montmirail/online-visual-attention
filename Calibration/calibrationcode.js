@@ -26,7 +26,7 @@ var cdcm = 12; //cm, diameter of CD
 var cardcm = 8.6; //cm, width of credit card
 var cdinch = 4.7; //inches, diameter of CD
 var cardinch = 3.4; //inches, width of credit card
-var distance = 50; //cm, chosen distance from screen as this approximates to an arm's length
+var distance = 57; //cm, chosen distance from screen as this approximates to an arm's length
 var pxDiagonal = Math.sqrt(Math.pow(screen.width,2) + Math.pow(screen.height,2)); //get the screen's diagonal size in pixels
 
 //set up the calibratio object images
