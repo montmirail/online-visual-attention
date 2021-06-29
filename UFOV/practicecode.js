@@ -1,3 +1,4 @@
+
 /* UFOV/practicecode.js:
  * This code controls the display of instructions to the subject, sets up the practice trials, and then presents the practice trials to
  * the subject. After completing the designated number of practice trials (see the below variables for specifics), it will allow the user 
@@ -8,12 +9,28 @@
  * The final stage is attending to the center and peripheral targets, with peripheral distractors.
  */
 
+const UFOV = {};  //storage for all variables in this task
+
+
 // *********************** CALIBRATION ************************** //
 const pixelPerDegree = <?php echo $pxperdeg; ?>;
 const monitorSize = <?php echo $monitorsize; ?>;
 const distance = 57; //cm, chosen distance from screen as this approximates to an arm's length
 const screenSize = 15;
 const pxDiagonal = Math.sqrt(Math.pow(screen.width,2) + Math.pow(screen.height,2)); //get the screen's diagonal size in pixels
+
+
+const minimumScreenHeightInDegree = 8.5 * 2;
+const minimumScreenHeightInPixels = minimumScreenHeightInDegree * pixelPerDegree;
+const idealScreenHeightInDegree = 10 * 2;
+const idealScreenHeightInPixel = idealScreenHeightInDegree * pixelPerDegree;
+
+if (screen.height < minimumScreenHeightInPixels) {
+	alert('Your screen is too small, please restart the task on a computer with a screen larger than 13 inches.');
+} else if (screen.height < idealScreenHeightInPixel) {
+	UFOV.circleRadiusDeg = screen.height * 0.95 / 2 / pixelPerDegree;
+}
+
 
 //slider parameters for changing the displayed object's size
 //the units are inches * 10 (the * 10 helps to elongate the slider's appearances)
@@ -31,13 +48,11 @@ const angle = Math.atan(screen.height / screen.width);
 const diagCM = ((max - (max - screenSize*10 + min) + min) / 10) * 2.54;
 const screenWidthCM = diagCM * Math.cos(angle);
 const pxPerDeg = Math.PI / 180 * screen.width * distance / screenWidthCM;
-debugger;
 //get the subject's current local time
 const date = new Date();
 const localSec = Math.round(date.getTime() / 1000) - date.getTimezoneOffset() * 60;
 
 // *********************** VARIABLES ************************** //
-const UFOV = {};  //storage for all variables in this task
 
 UFOV.exptLink = "index.php"; //link to main page of full task
 

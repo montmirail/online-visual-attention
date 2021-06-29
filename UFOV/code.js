@@ -72,13 +72,24 @@ var UFOV = {}; //storage for all variables in this task
 
 //position of stimuli on screen
 UFOV.pxperdeg = pxPerDeg; //pixels per degree from screen calibration (via UFOV/code.php)
-UFOV.monitorsize = <?php echo $monitorsize; ?>; //monitor size from screen calibration (via UFOV/code.php)
 UFOV.ecc = new Array(3, 7); //distance of peripheral targets from center of circle (visual angle in degrees); inner and outer circles
 UFOV.outerOnly = true; //originally this experiment was setup to present the target at both the inner and outer circles; if this is set to true, then only use the outer circle
 UFOV.distEcc = new Array(3, 5, 7); //distance of peripheral distractors from center of circle (visual angle in degrees); 3 circles in total
 UFOV.thetaPos = new Array(45, 90, 135, 180, 225, 270, 315, 360); //position around the center of the circle (in degrees)
 UFOV.mode = 3; //which stimuli to show (1 = center only, 2 = peripheral only, 3 = both)
 UFOV.circleRadiusDeg = 10; // in degrees, the radius of the background circle
+
+const minimumScreenHeightInDegree = 8.5 * 2;
+const minimumScreenHeightInPixels = minimumScreenHeightInDegree * pixelPerDegree;
+const idealScreenHeightInDegree = 10 * 2;
+const idealScreenHeightInPixel = idealScreenHeightInDegree * pixelPerDegree;
+
+if (screen.height < minimumScreenHeightInPixels) {
+  alert('Your screen is too small, please restart the task on a computer with a screen larger than 13 inches.');
+} else if (screen.height < idealScreenHeightInPixel) {
+  UFOV.circleRadiusDeg = screen.height * 0.95 / 2 / pixelPerDegree;
+}
+
 
 //set up stimuli images
 var imgDir = "./img/"; //image directory
