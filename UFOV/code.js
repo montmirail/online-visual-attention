@@ -40,8 +40,9 @@ const closeFullscreen = () => {
 };
 
 // *********************** CALIBRATION ************************** //
+const monitorSize = <?php echo $monitorsize; ?>;
 const distance = 57; //cm, chosen distance from screen as this approximates to an arm's length
-const screenSize = 24;
+const screenSize = monitorSize;
 const pxDiagonal = Math.sqrt(Math.pow(screen.width,2) + Math.pow(screen.height,2)); //get the screen's diagonal size in pixels
 
 //slider parameters for changing the displayed object's size

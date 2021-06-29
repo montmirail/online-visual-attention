@@ -30,6 +30,8 @@ if (isset($_POST["monitorsize"]) && isset($_POST["pxperdeg"])) {
 //otherwise, check if there are already calibration values saved in the session
 else if (isset($_SESSION["monitorsize"]) && isset($_SESSION["pxperdeg"])) {
 	$calibrated = true;
+} else {
+    header('Location: ../Calibration/index.php');
 }
 
 ?>

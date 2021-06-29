@@ -9,8 +9,10 @@
  */
 
 // *********************** CALIBRATION ************************** //
+const pixelPerDegree = <?php echo $pxperdeg; ?>;
+const monitorSize = <?php echo $monitorsize; ?>;
 const distance = 57; //cm, chosen distance from screen as this approximates to an arm's length
-const screenSize = 24;
+const screenSize = 15;
 const pxDiagonal = Math.sqrt(Math.pow(screen.width,2) + Math.pow(screen.height,2)); //get the screen's diagonal size in pixels
 
 //slider parameters for changing the displayed object's size
@@ -29,6 +31,7 @@ const angle = Math.atan(screen.height / screen.width);
 const diagCM = ((max - (max - screenSize*10 + min) + min) / 10) * 2.54;
 const screenWidthCM = diagCM * Math.cos(angle);
 const pxPerDeg = Math.PI / 180 * screen.width * distance / screenWidthCM;
+debugger;
 //get the subject's current local time
 const date = new Date();
 const localSec = Math.round(date.getTime() / 1000) - date.getTimezoneOffset() * 60;
