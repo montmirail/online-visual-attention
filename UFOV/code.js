@@ -108,9 +108,9 @@ UFOV.maskDensity = 2;
 
 
 // keyboard and mouse control variables ---------------------------------
-UFOV.shortKey = 83; //s
-UFOV.longKey = 68; //d
-UFOV.cText = ["S", "D"]; //text to display in the center for center responses
+UFOV.shortKey = 71; //g (In amanda's version it is S, code 83)
+UFOV.longKey = 72; //h (In amanda's version it is D, code 68)
+UFOV.cText = ["G", "H"]; // Amanda version : ["S", "D"]; //text to display in the center for center responses
 UFOV.startKey = 32; //space bar
 
 //acceptable distances for peripheral mouse click responses
@@ -1042,7 +1042,7 @@ function updateStaircase() {
   }
   //otherwise, if the subject has reached the number of reversals in the staircase needed, then end the task
   else if ((!UFOV.outerOnly && UFOV.nRevs[0] >= UFOV.stopReversals && UFOV.nRevs[1] >= UFOV.stopReversals)
-    || UFOV.outerOnly && UFOV.nRevs[1] >= UFOV.stopReversals) {
+    || (UFOV.outerOnly && UFOV.nRevs[1] >= UFOV.stopReversals)) {
     UFOV.done = true;
   }
 
